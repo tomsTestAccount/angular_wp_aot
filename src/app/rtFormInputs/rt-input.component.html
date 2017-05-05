@@ -1,0 +1,230 @@
+
+
+<div [formGroup]="formgroup">
+
+    <div [ngSwitch]="formEntry.type">
+
+        <div class="form-group" [ngClass]="{ 'formFrame_invalid' : formgroup.controls[formEntry.key].invalid ,
+                                                    'formFrame_valid' : formgroup.controls[formEntry.key].valid,
+                                                    'formFrame_optional' : !formgroup.controls[formEntry.key].invalid && (isOpened==false)
+                                                    }">
+
+            <div  *ngSwitchCase="'text'">
+             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                </label>
+
+                <input  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                       type={{formEntry.type}}
+                       class="form-control"
+                       [id]="formEntry.key"
+                       formControlName={{formEntry.key}}
+                />
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+            </div>
+
+
+        <div *ngSwitchCase="'textarea'">
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                </label>
+
+                <textarea   autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                        rows="2"
+                       class="form-control"
+                       [id]="formEntry.key"
+                       formControlName={{formEntry.key}}
+                        >
+                </textarea>
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+        </div>
+
+
+        <div  *ngSwitchCase="'date'">
+
+                <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                </label>
+                <div >
+                    <p-calendar
+                            [id]="formEntry.key"
+                            formControlName={{formEntry.key}}
+                            [dateFormat]= "formEntry.options.dateFormat"
+                            [dataType]= "formEntry.options.dataType "
+                            [yearRange]= "formEntry.options.yearRange"
+                            [minDate]="formEntry.options.minDate"
+                            [maxDate]="formEntry.options.maxDate"
+                            [placeholder]= "formEntry.options.placeholder"
+                            [monthNavigator]="true"
+                            [yearNavigator]="true"
+                            [defaultDate]="valueAsDate"
+                    >
+                    </p-calendar>
+
+
+                    <!--<input *ngIf="formEntry.required == true" class="notvisibleInput" formControlName={{formEntry.key}} value={{formgroup.controls[formEntry.key].value}} required>-->
+                    <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                            *ngIf="formEntry.required == undefined || formEntry.required == false" class="notvisibleInput" formControlName={{formEntry.key}} value={{formgroup.controls[formEntry.key].value}}>
+                    <div class="invalidInfo" *ngIf="entryErrorString">
+                        {{entryErrorString}}
+                    </div>
+                </div>
+
+
+
+        </div>
+
+        <div  *ngSwitchCase="'select'">
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                </label>
+                <select autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                        class="form-control"
+                        [id]="formEntry.key"
+                        formControlName={{formEntry.key}}
+                        >
+                    <option selected="selected" disabled="disabled" value="">Please Select</option>
+                    <option *ngFor="let option of formEntry.options" [value]="option.name">{{option.name}}</option>
+                </select>
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+
+        </div>
+
+        <div    *ngSwitchCase="'number'">
+             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                </label>
+
+                <input  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                       type={{formEntry.type}}
+                       class="form-control"
+                       [id]="formEntry.key"
+                       formControlName={{formEntry.key}}
+                        pattern="[0-9]+([\.,][0-9]+)?"
+                        step="0.01"
+                />
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+
+
+        </div>
+
+        <div    *ngSwitchCase="'email'">
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+
+
+                <input  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                        type={{formEntry.type}}
+                       class="form-control"
+                       [id]="formEntry.key"
+                       formControlName={{formEntry.key}}
+                />
+
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+
+        </div>
+        <div *ngSwitchCase="'grid-box-add'">
+           <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+                <br />
+                <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
+                </label>
+
+                <rt-grid-box-add
+                        [formgroup]=formgroup
+                        [formEntry]= formEntry>
+                </rt-grid-box-add>
+
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+
+
+        </div>
+
+        <div *ngSwitchCase="'fileUpload'">
+            <md-checkbox *ngIf='formEntry.collapsible_box_title !== undefined'  [(ngModel)]="isOpened" [ngModelOptions]="{standalone: true}" (click)="toggle_isOpened(this)" align="start">
+                    <label class="lbl-form_main"> {{formEntry.collapsible_box_title}} </label>
+                </md-checkbox>
+
+                <i class="mdi mdi-information-outline mdi-24px" *ngIf="formEntry.collapsible_info_text !== undefined"
+                   [ngClass]="{'isInfoActive' : showTooltip1}"
+                   (click)="toggleInfo($event)"
+                   (mouseover)="showTooltip1=true"
+                   (mouseleave)="showTooltip1=false"
+                   [style.color]="'#4b797c'"></i>
+
+                <div *ngIf="showTooltip1" class="container-fluid">
+                    <div class="row">
+                        <label class="infoText"> {{formEntry.collapsible_info_text}}</label>
+                    </div>
+                </div>
+
+                <rt-file-uploader *ngIf='isOpened==true'
+                                                [formgroup]=formgroup
+                                                [formEntry] = formEntry>
+                </rt-file-uploader>
+                <div class="invalidInfo" *ngIf="entryErrorString">
+                    {{entryErrorString}}
+                </div>
+
+
+        </div>
+        <div *ngSwitchCase="'checkBox'">
+            <div [style.color]="'#4b797c'">
+                    <md-checkbox formControlName={{formEntry.key}} align="start">
+                        <label class="lbl-form_main" [attr.for]="formEntry.key"> {{formEntry.title}} </label>
+                    </md-checkbox>
+                    <div class="invalidInfo" *ngIf="entryErrorString">
+                        {{entryErrorString}}
+                    </div>
+                        <!--
+
+                        <md-icon *ngIf="formEntry.infoText != invalid"
+                                 class="infoIcon"
+                                 [ngClass]="{'isInfoActive' : showTooltip}"
+                                 (click)="toggleInfo($event)"
+                                 (mouseover)="showTooltip=true"
+                                 (mouseleave)="showTooltip=false" >
+                            info_outline
+                        </md-icon>
+
+                        -->
+                        <i *ngIf="formEntry.infoText != invalid"
+                           class="mdi mdi-information-outline mdi-24px"
+                       [ngClass]="{'isInfoActive' : showTooltip}"
+                       (click)="toggleInfo($event)"
+                       (mouseover)="showTooltip=true"
+                       (mouseleave)="showTooltip=false"
+                           [style.color]="'inherit'"></i>
+
+                        <div *ngIf="showTooltip" class="container-fluid">
+                            <div class="row">
+                                <label class="infoText"> {{formEntry.infoText}} </label>
+                            </div>
+                        </div>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
+</div>

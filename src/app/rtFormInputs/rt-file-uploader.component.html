@@ -1,0 +1,181 @@
+<!--
+    <div
+            id={{compId}}
+
+
+            ngFileDrop
+            [options]=options
+            (onUpload)="handleUpload($event)"
+            [ngClass]="{'file-over': hasBaseDropZoneOver}"
+            (onFileOver)="fileOverBase($event)"
+            (change)="beforeUpload($event)"
+            >
+            -->
+    <div>
+        <div class="flexContainer_row">
+            <div class="flexContainer_col">
+                <div>
+                    <label class="lbl-form_main">{{title}}</label>
+                </div>
+                <div>
+                    <label class="secParagraph" *ngFor="let text of secParagraphArray" > {{text}}
+                    </label>
+                    <label class="secParagraph">Browse for file</label>
+                </div>
+            </div>
+
+        </div>
+        <div class="form-control"
+             [formGroup]=currentForm
+
+             [ngClass]="{   'file-over-bg': hasBaseDropZoneOver ,
+                                    'ng-invalid' : localFileArray.length == 0 && currentFormEntry.required ==true,
+                                    'ng-valid' : localFileArray.length != 0,
+                                    'optional' : currentFormEntry.required == false && localFileArray.length == 0
+                                    ,'formList':true}"
+             required>
+
+            <md-grid-list cols="4"
+                          rowHeight="42px">
+
+
+                <md-grid-tile *ngIf="localFileArray.length==0"
+                              [colspan]="3" [rowspan]="1">
+                    <md-list [style.padding]="'0'">
+                        <md-list-item class="myMdlist-item" [style.color]="'darkgrey'">
+                            <!--<md-icon md-list-avatar class="material-icons">warning</md-icon>-->
+                            <i class="mdi mdi-alert-box mdi-24px" > </i>
+                            <input *ngIf="currentFormEntry.required != true"
+                                    type="text"
+                                   class="notvisibleInput"
+                                   formControlName={{currentFormEntry.key}}
+                                   />
+                            <input *ngIf="currentFormEntry.required == true"
+                                   type="text"
+                                   class="notvisibleInput"
+                                   formControlName={{currentFormEntry.key}}
+                                   required/>
+                            <div class="mat-list-text">
+                                <h4> ... No file has been uploaded yet  !</h4>
+                            </div>
+                        </md-list-item>
+
+                    </md-list>
+                </md-grid-tile>
+                <md-grid-tile *ngIf="localFileArray.length!=0"
+                              class="my-grid-list-text-align-left"
+                              [colspan]="3" [rowspan]="1"
+                              [style.background]="'lightgrey'"
+                              [style.justify-content]="'flex-start'"
+                              [style.border-top-left-radius]="' 0.25rem'">
+                    <md-list [style.padding]="'0'"  layout="row" layout-align="center center">
+                        <md-list-item>
+                            <p  md-line class="form_gridList_mdList_mainParagraph" [style.margin-bottom]="'0'">File Name</p>
+                            <p  md-line class="form_gridList_mdList_secParagraph" [style.margin-bottom]="'0'"> Size , Download Link </p>
+                        </md-list-item>
+                    </md-list>
+                </md-grid-tile>
+
+
+                <md-grid-tile
+                        [colspan]="1"
+                        [rowspan]="1"
+                        [style.background]="'snow'"
+                        [style.border-top-right-radius]="'0.25rem'"
+                >
+
+
+
+                    <div type="button" class="btn_lmu btn btn-sm"
+                         [ngClass]="{'btn_lmu_emptyFields' : localFileArray.length==0, 'btn_lmu' : localFileArray.length!=0 }"
+                    >
+                        <label class="formLabel_button">
+                            <span class="placeholder_button"></span>
+
+                            <i class="mdi mdi-file-find mdi-24px"></i>
+                            <span> Browse </span>
+                            <span class="placeholder_button"></span>
+                            <input type="file" class="upload"
+                                   ngFileSelect
+                                   [options]=options
+                                   (onUpload)="handleUpload($event)"
+                                   [events]="startUploadEvent"
+                                   (change)="beforeUpload($event)"
+                                   accept={{options.allowedExtensions}}
+                                   hidden="true"
+                            />
+                        </label>
+
+
+                    </div>
+
+
+                        <!--
+                         <div class="btn btn-sm"
+                         [ngClass]="{'btn_lmu_emptyFields' : localFileArray.length==0, 'btn_lmu' : localFileArray.length!=0 }"
+                         >
+                        <label class="formLabel_button">
+                            <span class="placeholder_button"></span>
+
+                            <i class="mdi mdi-file-find mdi-24px"></i>
+                                <span> Browse </span>
+                            <span class="placeholder_button"></span>
+                            <input type="file" class="upload"
+                                   ngFileSelect
+                                   [options]=options
+                                   (onUpload)="handleUpload($event)"
+                                   [events]="startUploadEvent"
+                                   (change)="beforeUpload($event)"
+                                   hidden="true"
+                            />
+                        </label>
+
+
+                        </div>
+                        -->
+
+                </md-grid-tile>
+
+            </md-grid-list>
+
+            <md-grid-list cols="4"
+                          rowHeight="38px"
+
+                          *ngFor="let file of localFileArray"
+                          [style.border-top]="'thin solid lightgrey'"
+                          [style.border-radius]="'0'">
+
+                <md-grid-tile
+                        [colspan]="3"
+                        [rowspan]="1"
+
+                        class="my-grid-list-text-align-left">
+                    <md-list [style.padding]="'0'" [style.justify-content]="'flex-start'">
+                        <md-list-item >
+                            <p  md-line class="form_gridList_mdList_mainParagraph_sm" [style.margin-bottom]="'0'">{{file.filename}}</p>
+                            <p  *ngIf="(file.download != undefined) && (file.size > 0)"  md-line class="form_gridList_mdList_secParagraph_sm" [style.margin-bottom]="'0'">
+
+                                {{getFileSize(file.size)}} ,
+                                <a href="{{file.download + '/' + file.filename}}"> Download </a>
+                                <!--<a (click)="downloadFile_envDev(file)"> Download</a>-->
+                            </p>
+                            <!-- {{file.created | date:'yyyy-MM-dd HH:mm:ss'}} , -->
+                        </md-list-item>
+                    </md-list>
+                </md-grid-tile>
+
+                <md-grid-tile [colspan]="1" [rowspan]="1"
+                              [style.border-left]="'thin solid lightgrey'"
+                              [style.border-bottom]="'thin solid lightgrey'">
+                    <button  md-button type="button"
+                             class="mat-primary"
+                             (click)="deleteFile(file)">
+                        <i class="mdi mdi-delete mdi-24px"></i>
+                    </button>
+
+                </md-grid-tile>
+
+            </md-grid-list>
+       </div>
+
+    </div>

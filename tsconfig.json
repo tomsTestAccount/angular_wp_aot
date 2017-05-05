@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "commonJs",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": ["dom", "es6", "es2015", "es2016", "es2017"],
+    "noEmitHelpers": true,
+    "skipDefaultLibCheck": true,
+    "pretty": true,
+    "sourceMap": true,
+    "strictNullChecks": false,
+    "typeRoots" : [
+		
+		"node_modules/@types"
+	]
+  },
+  "files": [
+	"config/types/webpack.d.ts",
+	"config/webpack.prod.aot.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true,
+    "forkChecker": true,
+    "useCache": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": true }
+}
+
+
+/*
+is neccessary here because of start webpack with config.ts-file  in folder 'config'
+*/
