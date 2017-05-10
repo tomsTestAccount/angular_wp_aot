@@ -98,10 +98,81 @@
                 <div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+        </div>
 
+          <div  *ngSwitchCase="'multi-select-slider'">
+            <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+            <br />
+            <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
+            </label>
+
+            <input  *ngIf="checkIfRequired()" class="notvisibleInput"
+                    type="text"
+                    formControlName={{formEntry.key}}
+                    required
+            />
+            <input  *ngIf="!checkIfRequired()" class="notvisibleInput"
+                    type="text"
+                    formControlName={{formEntry.key}}
+            />
+
+            <rt-mselect-prio-grid [usePrio]=false
+              [formgroup]=formgroup
+              [formEntry]= formEntry>
+            </rt-mselect-prio-grid>
+
+            <div class="invalidInfo" *ngIf="entryErrorString">
+              {{entryErrorString}}
+            </div>
+          </div>
+
+        <div  *ngSwitchCase="'mselect-prio-grid'">
+          <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+          <br />
+          <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
+          </label>
+
+          <input  *ngIf="checkIfRequired()" class="notvisibleInput"
+                 type="text"
+                 formControlName={{formEntry.key}}
+                 required
+          />
+          <input  *ngIf="!checkIfRequired()" class="notvisibleInput"
+                  type="text"
+                  formControlName={{formEntry.key}}
+          />
+
+          <rt-mselect-prio-grid [usePrio]=true
+            [formgroup]=formgroup
+            [formEntry]= formEntry>
+          </rt-mselect-prio-grid>
+
+          <div class="invalidInfo" *ngIf="entryErrorString">
+            {{entryErrorString}}
+          </div>
 
         </div>
 
+          <!--
+          <div  *ngSwitchCase="'bool'">
+            <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+            <br />
+            <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+            </label>
+            <select autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
+                    class="form-control"
+                    [id]="formEntry.key"
+                    formControlName={{formEntry.key}}
+            >
+              <option selected="selected" disabled="disabled" value="">Please Select</option>
+              <option *ngFor="let option of formEntry.options" [value]="option.name">{{option.name}}</option>
+            </select>
+            <div class="invalidInfo" *ngIf="entryErrorString">
+              {{entryErrorString}}
+            </div>
+          </div>
+
+        -->
         <div    *ngSwitchCase="'number'">
              <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
                 <br />
@@ -119,9 +190,6 @@
                 <div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
-
-
-
         </div>
 
         <div    *ngSwitchCase="'email'">
@@ -138,14 +206,23 @@
                 <div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
-
-
         </div>
+
         <div *ngSwitchCase="'grid-box-add'">
            <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
                 </label>
+
+                <input  *ngIf="checkIfRequired()" class="notvisibleInput"
+                        type="text"
+                        formControlName={{formEntry.key}}
+                        required
+                />
+                <input  *ngIf="!checkIfRequired()" class="notvisibleInput"
+                        type="text"
+                        formControlName={{formEntry.key}}
+                />
 
                 <rt-grid-box-add
                         [formgroup]=formgroup
@@ -155,13 +232,10 @@
                 <div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
-
-
-
         </div>
 
         <div *ngSwitchCase="'fileUpload'">
-            <md-checkbox *ngIf='formEntry.collapsible_box_title !== undefined'  [(ngModel)]="isOpened" [ngModelOptions]="{standalone: true}" (click)="toggle_isOpened(this)" align="start">
+                <md-checkbox *ngIf='formEntry.collapsible_box_title !== undefined'  [(ngModel)]="isOpened" [ngModelOptions]="{standalone: true}" (click)="toggle_isOpened(this)" align="start">
                     <label class="lbl-form_main"> {{formEntry.collapsible_box_title}} </label>
                 </md-checkbox>
 
@@ -178,6 +252,18 @@
                     </div>
                 </div>
 
+                <!--
+                <input  *ngIf="checkIfRequired()" class="notvisibleInput"
+                        type="text"
+                        formControlName={{formEntry.key}}
+                        required
+                />
+                <input  *ngIf="!checkIfRequired()" class="notvisibleInput"
+                        type="text"
+                        formControlName={{formEntry.key}}
+                />
+                -->
+
                 <rt-file-uploader *ngIf='isOpened==true'
                                                 [formgroup]=formgroup
                                                 [formEntry] = formEntry>
@@ -190,6 +276,10 @@
         </div>
         <div *ngSwitchCase="'checkBox'">
             <div [style.color]="'#4b797c'">
+
+                    <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
+                    </label>
+                    <br />
                     <md-checkbox formControlName={{formEntry.key}} align="start">
                         <label class="lbl-form_main" [attr.for]="formEntry.key"> {{formEntry.title}} </label>
                     </md-checkbox>

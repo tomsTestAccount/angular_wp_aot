@@ -24,8 +24,7 @@
     "src/**/*.spec.ts",
     "src/server.ts",
     "src/server.aot.ts",
-    "src/main.browser.aot.ts",
-	"src_OLD"
+    "src/main.browser.aot.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true,
@@ -40,5 +39,3 @@
    "skipMetadataEmit" : true
  }
 }
-
-

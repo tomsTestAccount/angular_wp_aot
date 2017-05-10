@@ -27,29 +27,7 @@ export class rtFormValidators {
 
     }
 
-    validateFileUpload(c: FormControl) {
 
-        let retValue = null; // {notValid: true};
-
-        //TODO:   just a workaround here -> we have to wait for Max Jakob to implement  setting of 'null'-value to file-entries to plone-serialization
-
-        if (c.value != null) {
-
-            if ((c.value.size !== 'undefined') && (c.value.size <= 10))
-            {
-                retValue = {notValid: {File: 'was not added'}};
-                //console.log("In validateFileUpload c=",c, ', c.value=', c.value);
-            }
-            //if (dbgPrint_Validation) console.log("In validateArray, c=",c, ',c.value[0].filename =', c.value.filename);
-        }
-
-
-        //if (dbgPrint_Validation)  console.log("In validateFileUpload c=",c, ', c.value=', c.value);
-
-
-        return retValue
-
-    }
 
     validateCourseList(c: FormControl) {
 
@@ -143,6 +121,94 @@ export class rtFormValidators {
         }
         return retValue;
     }
+
+    validateURI(c: FormControl)
+    {
+      let retValue = null;
+
+      let required = c.parent; //validator;
+
+      if ( (c.value != null) && (c.value != '') ) {
+
+        var re = /@^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$@iS/;
+        retValue = re.test(c.value) ? null : {notValid:{uri: ' wrong uri address notation'}} ;
+
+      }
+
+      if (dbgPrint_Validation) console.log("In validateURI, c=",c, ', retValue=', retValue, required);
+
+      return retValue
+    }
+
+    validateDate(c: FormControl)
+    {
+      let retValue = null;
+
+      let required = c.parent; //validator;
+
+      if ( (c.value != null) && (c.value != '') ) {
+
+        //yyyy-mm-dd, but 0000-00-00
+        //var re = /^\d{4}-\d{2}-\d{2}$/;
+        //retValue = re.test(c.value) ? null : {notValid:{uri: ' wrong date format'}} ;
+
+        var d = new Date(c.value);
+        if (d) {
+          //return false; // Invalid date (or this could be epoch)
+          retValue = (d.toISOString().slice(0, 10) == c.value ? null : {notValid: {date: ' wrong date format'}});
+        }
+        else retValue = {notValid: {date: ' wrong date format'}};
+
+      }
+        if (dbgPrint_Validation) console.log("In validateDate, c=",c, ', retValue=', retValue, required);
+
+      return retValue
+    }
+
+    validateFileUpload(c: FormControl) {
+
+      let retValue = null; // {notValid: true};
+
+      //TODO:   just a workaround here -> we have to wait for Max Jakob to implement  setting of 'null'-value to file-entries to plone-serialization
+
+      if (c.value != null) {
+
+        if ((c.value.size !== 'undefined') && (c.value.size <= 10))
+        {
+          retValue = {notValid: {File: 'was not added'}};
+          //console.log("In validateFileUpload c=",c, ', c.value=', c.value);
+        }
+        //if (dbgPrint_Validation) console.log("In validateArray, c=",c, ',c.value[0].filename =', c.value.filename);
+      }
+
+
+      //if (dbgPrint_Validation)  console.log("In validateFileUpload c=",c, ', c.value=', c.value);
+
+
+      return retValue
+
+    }
+
+    validateFileUpload_lmu(c: FormControl)
+    {
+      let retValue = null;
+
+      let required = c.parent; //validator;
+
+      if ( (c.value != null) && (c.value.filename !== undefined ) && (c.value.filename !== null )  ) {
+
+        //todo: more specififc tests and info
+        if (c.value.size <= 0) retValue = {notValid: {File: ' is required'}};
+
+      }
+      else retValue = {notValid: {File: ' is required'}};
+
+
+      if (dbgPrint_Validation) console.log("In validateFileUpload_lmu, c=",c, ', retValue=', retValue, required);
+
+      return retValue
+    }
+
 
     validateGroup_CheckboxEnabled(group: FormGroup) {
         /*

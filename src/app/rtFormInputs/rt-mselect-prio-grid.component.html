@@ -1,0 +1,49 @@
+
+<div class="form-group" [formGroup]=formgroup lang="en-US">
+  <div class="form-control"
+       [ngClass]="{'ng-invalid' : !isValValid ,
+                      'ng-valid' : isValValid ,
+                      'formList':true}"
+  >
+
+
+    <md-grid-list *ngIf="usePrio==true" cols={{gridOptions.allCols+4}} rowHeight={{gridOptions.rowHeight}}>
+      <div   *ngFor="let item of optionsMap | objValuesPipe | orderBy: ['pos']" >
+          <md-grid-tile [colspan]="1" [rowspan]="1">
+           <!-- <md-slide-toggle [(ngModel)]="item.isSelected" [ngModelOptions]="{standalone: true}"></md-slide-toggle>-->
+            <md-slide-toggle (change)="toogleSlider(item)" [checked]="item.isSelected" ></md-slide-toggle>
+          </md-grid-tile>
+          <md-grid-tile [colspan]="gridOptions.allCols+1" [rowspan]="1">
+              <div class="mat-list-text">
+                <label [style.color]="item.isSelected ? '#4b797c' : 'lightgrey'">{{item.isSelected ? item.pos+1 : 'x'}} . {{item.name }}</label>
+              </div>
+          </md-grid-tile>
+          <md-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'snow'">
+            <button [disabled]="!item.isSelected || item.pos<=0" class="btn_lmu btn btn-sm" (click)="prioUp(item)">
+              <i class="material-icons">arrow_drop_up</i>
+            </button>
+          </md-grid-tile>
+          <md-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'snow'">
+            <button  [disabled]="!item.isSelected || item.pos == this.lastSelectedPos"  class="btn_lmu btn btn-sm" (click)="prioDown(item)">
+              <i class="material-icons">arrow_drop_down</i>
+            </button>
+          </md-grid-tile>
+      </div>
+    </md-grid-list>
+    <md-grid-list *ngIf="usePrio==false" cols="5" rowHeight="42px">
+      <div   *ngFor="let item of optionsMap">
+        <md-grid-tile [colspan]="1" [rowspan]="1">
+          <md-slide-toggle [(ngModel)]="item.isSelected" [ngModelOptions]="{standalone: true}"></md-slide-toggle>
+        </md-grid-tile>
+        <md-grid-tile [colspan]="4" [rowspan]="1">
+          <div class="mat-list-text">
+            <label [style.color]="item.isSelected ? '#4b797c' : 'lightgrey'">{{item.name }}</label>
+          </div>
+        </md-grid-tile>
+      </div>
+    </md-grid-list>
+
+
+
+  </div>
+</div>

@@ -25,6 +25,7 @@
             </div>
 
         </div>
+
         <div class="form-control"
              [formGroup]=currentForm
 
@@ -33,7 +34,9 @@
                                     'ng-valid' : localFileArray.length != 0,
                                     'optional' : currentFormEntry.required == false && localFileArray.length == 0
                                     ,'formList':true}"
-             required>
+             >
+
+
 
             <md-grid-list cols="4"
                           rowHeight="42px">
@@ -45,16 +48,18 @@
                         <md-list-item class="myMdlist-item" [style.color]="'darkgrey'">
                             <!--<md-icon md-list-avatar class="material-icons">warning</md-icon>-->
                             <i class="mdi mdi-alert-box mdi-24px" > </i>
-                            <input *ngIf="currentFormEntry.required != true"
-                                    type="text"
-                                   class="notvisibleInput"
-                                   formControlName={{currentFormEntry.key}}
-                                   />
-                            <input *ngIf="currentFormEntry.required == true"
-                                   type="text"
-                                   class="notvisibleInput"
-                                   formControlName={{currentFormEntry.key}}
-                                   required/>
+                          <input *ngIf="!checkIfRequired_fU()"
+                                 type="text"
+                                 class="notvisibleInput"
+                                 formControlName={{currentFormEntry.key}}
+                          />
+                          <input *ngIf="checkIfRequired_fU()"
+                                 type="text"
+                                 class="notvisibleInput"
+                                 formControlName={{currentFormEntry.key}}
+                                 required/>
+
+
                             <div class="mat-list-text">
                                 <h4> ... No file has been uploaded yet  !</h4>
                             </div>

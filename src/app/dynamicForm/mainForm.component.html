@@ -10,8 +10,10 @@
 
                 (click)="select_subFormTab(subFormEntry.key)"
                 id="uaTab_+{{subFormEntry.key}}">
-					<ng-template md-tab-label>{{subFormEntry.title}}
+					<ng-template md-tab-label class="my-mat-tab-label">
+            <p class="my_md_tab_title">{{subFormEntry.title}}</p>
 
+            <!--{{subFormEntry.title}}-->
 					</ng-template>
 
 					<form *ngIf="isFormDataLoaded==true" [formGroup]="main_FormGroup" >

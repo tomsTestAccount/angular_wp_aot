@@ -12,6 +12,11 @@ import { NgUploaderModule }        from 'ngx-uploader';
 
 import  'hammerjs';
 
+
+
+
+//import {RtRegisterCompletion} from './register/rt-register-completion.component';
+
 import {getKeyValuePair}        from './_pipes/key-value.pipe';
 import {objValuesPipe}          from '../app/_pipes/key-value.pipe';
 import {rtFileUploaderComponent} from './rtFormInputs/rt-file-uploader.component';
@@ -28,11 +33,10 @@ import {ServerConfigs} from './_models/configFile';
 
 import {DialogsService}                 from './_services/dialogs.services'
 import {DialogComponent}         from './modal/DialogModal.component';
+
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
-import {RtRegisterCompletion} from './register/rt-register-completion.component';
-
-import { AppComponent} 			from './app.component';
+//import { AppComponent} 			from './app.component';
 import {StartPageComponent} from './home/start-page.component';
 import { AppLoginComponent} 			from './appLogin.component';
 import { AppRoutingModule }             from './app-routing';
@@ -45,10 +49,8 @@ import {LoginComponent} from './login/rt-login.component';
         ReactiveFormsModule,
         MaterialModule,
         HttpModule,
-        
-		AppRoutingModule,
-        
-		BrowserAnimationsModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
 
         CalendarModule,
         NgUploaderModule
@@ -56,18 +58,20 @@ import {LoginComponent} from './login/rt-login.component';
         ];
 
     var declarationList = [
-
-        AppComponent,
+        //AppComponent,
 
         AppLoginComponent,
         StartPageComponent,
         LoginComponent,
 
-        RtRegisterCompletion,
-
+        //RtRegisterCompletion,
         DialogComponent,
         MainFormComponent,
+        //LmuUserApdComponent,
+        //LmuUserPeComponent,
         DynamicSubFormComponent,
+        //LmuUserOpeComponent,
+        //LmuUserOiComponent,
         rtFileUploaderComponent,
         rtInputComponent,
         rtGridBoxAddComponent,
@@ -78,10 +82,19 @@ import {LoginComponent} from './login/rt-login.component';
         RestService,
         AuthenticationService,
         ServerConfigs,
-        
+        //lmu_ua_formList,
         RtFormService,
         DialogsService,
-        
+        //MdDialogRef
+        // providers used to create fake backend
+        //fakeBackendProviderArray,
+
+        //fakeBackendProvider,
+        //MockBackend,
+        //BaseRequestOptions
+        //Window
+        //{provide: Window, useValue: window}
+        //WindowRef
         ];
 
         /********* Note that DialogComponent has been added to the entryComponents array. ********************************

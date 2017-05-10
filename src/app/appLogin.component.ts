@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../app/_services/rt-authentication.service';
 import { Subscription }   from 'rxjs/Subscription';
 import {Location} from '@angular/common';
-
+import { MOBILE } from '../app/_services/constants';
 
  @Component({
  selector: 'my-app',

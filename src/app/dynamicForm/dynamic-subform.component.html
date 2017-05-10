@@ -23,7 +23,8 @@
 
         <div  *ngFor="let childFormObj of subFormChildren"  [ngClass]="{'formFrame_optional' : true}">
 
-            <md-checkbox align="start" [(ngModel)]="childFormObj.isShown" [ngModelOptions]="{standalone: true}" [checked]="childFormObj.isShown" (click)="toogle_subForm_isOpened(childFormObj.isShown)">
+          <div *ngIf="childFormObj.isCollapsible">
+            <md-checkbox  align="start" [(ngModel)]="childFormObj.isShown" [ngModelOptions]="{standalone: true}" [checked]="childFormObj.isShown" (click)="toogle_subForm_isOpened(childFormObj.isShown)">
                 <label class="lbl-form_main"> {{childFormObj.title}} </label>
             </md-checkbox>
 
@@ -46,7 +47,30 @@
 
                 </div>
             </form>
+          </div>
+          <div *ngIf="!childFormObj.isCollapsible">
 
+            <label class="lbl-subform_title"> {{childFormObj.title}} </label>
+            <form [formGroup]="childFormObj.formGroup"  novalidate>
+
+              <div *ngFor="let formEntry of childFormObj.formEntries">
+
+                <div [ngSwitch]="formEntry.key" >
+
+                  <div *ngSwitchDefault>
+                    <rt-input id="{{'rtInput_'+ formEntry.key}}"
+                              [dbgPrint] = false
+                              [formgroup]=currentMainForm.controls[childFormObj.key]
+                              [formEntry]=formEntry>
+                    </rt-input>
+                  </div>
+
+                </div>
+
+              </div>
+            </form>
+
+          </div>
         </div>
 
     </div>

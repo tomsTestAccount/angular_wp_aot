@@ -12,12 +12,13 @@ import { NgUploaderModule }        from 'ngx-uploader';
 
 import  'hammerjs';
 
-import {getKeyValuePair}        from './_pipes/key-value.pipe';
-import {objValuesPipe}          from '../app/_pipes/key-value.pipe';
+//import {getKeyValuePair}        from './_pipes/key-value.pipe';
+import {objValuesPipe,orderByPipe}          from '../app/_pipes/key-value.pipe';
 import {rtFileUploaderComponent} from './rtFormInputs/rt-file-uploader.component';
 
 import {rtInputComponent}       from './rtFormInputs/rt-input.component';
 import {rtGridBoxAddComponent}     from './rtFormInputs/rt-grid-box-add.component';
+import {rtMSelectPrioGridComponent} from './rtFormInputs/rt-mselect-prio-grid.component';
 
 import {DynamicSubFormComponent} from'./dynamicForm/dynamic-subform.component'
 
@@ -45,9 +46,9 @@ import {LoginComponent} from './login/rt-login.component';
         ReactiveFormsModule,
         MaterialModule,
         HttpModule,
-        
+
 		AppRoutingModule,
-        
+
 		BrowserAnimationsModule,
 
         CalendarModule,
@@ -71,17 +72,19 @@ import {LoginComponent} from './login/rt-login.component';
         rtFileUploaderComponent,
         rtInputComponent,
         rtGridBoxAddComponent,
+        rtMSelectPrioGridComponent,
         objValuesPipe,
-        getKeyValuePair];
+        orderByPipe];
+        //getKeyValuePair];
 
     var providersList = [//UserDataService,
         RestService,
         AuthenticationService,
         ServerConfigs,
-        
+
         RtFormService,
         DialogsService,
-        
+
         ];
 
         /********* Note that DialogComponent has been added to the entryComponents array. ********************************

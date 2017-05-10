@@ -281,16 +281,35 @@ export class rtFileUploaderComponent implements AfterViewInit,OnInit
                 "size": 0
             };
 
-            //var delObj2 = {};  //TODO: ask Max, because set formObject-value = null from type 'file' isn't accepted by plone-server at the moment ??
+            //delObj = null;  //TODO: ask Max, because set formObject-value = null from type 'file' isn't accepted by plone-server at the moment ??
 
             (<FormControl>this.currentForm.controls[this.currentFormEntry.key]).patchValue(delObj);  //only one fileObject used at the moment
 
         }
 
+        console.log("this.localFileArray=",this.localFileArray);
         if (dbgPrint) console.log("formgroup.controls[",this.currentFormEntry.key,"]=", this.currentForm.controls[this.currentFormEntry.key]);
 
 
     }
+
+  checkIfRequired_fU():boolean
+  {
+    if (this.currentFormEntry.validators)
+    {
+      //this.formEntry.validators.forEach((e,i)=> {
+      for (let i=0;i<this.currentFormEntry.validators.length;i++) {
+        let e = this.currentFormEntry.validators[i];
+        if (e === 'required') {
+          //console.log("formEntry=", this.formEntry);
+          return true;
+        }
+      }
+      //});
+    }
+    //console.log("formEntry=", this.currentFormEntry);
+    return false;
+  }
 
 
     downloadFile_envDev(fileObj:any)

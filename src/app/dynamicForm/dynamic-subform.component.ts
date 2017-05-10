@@ -57,6 +57,8 @@ export class DynamicSubFormComponent implements OnInit, AfterViewInit{
         this.subFormChildren = this.currentFormInfo.childrenFormsArray || [];
 
 
+
+
         for (let i= 0;i<this.subFormChildren.length;i++) {
 
             for (let y in this.subFormChildren[i].formEntries) {
@@ -68,6 +70,11 @@ export class DynamicSubFormComponent implements OnInit, AfterViewInit{
                         this.subFormChildren[i]['isShown'] = true;
                     },10);
                     break;
+                }
+
+                if (this.subFormChildren[i].isCollapsible === undefined)
+                {
+                  this.subFormChildren[i].isCollapsible = true;
                 }
             }
         }

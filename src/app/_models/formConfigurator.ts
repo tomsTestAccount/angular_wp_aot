@@ -1,513 +1,801 @@
-import { CountryList} from '../_models/countries';
+
+import { CountryList_de,CountryList}  from '../_models/countries';
+
+import { FormSettings}  from '../_models/configFile';
+
+/* definition
+{
+   key: "Id",
+   type: type,
+   options: "Auswahl",
+   title: title,
+   secParagraphArray: "Description",
+   defaultValue: "Defaultwert",
+   required: "Required?",
+   section: "Fieldset"
+ },
+*/
+
+var countryList;
+if (FormSettings.lang == 'german')  countryList = CountryList_de;
+else countryList = CountryList;
 
 
-const formEntries_apd = [
-    {
-        key: 'lastname',
-        title: 'Surname / Family Name *',
-        type: 'text',
-        validators: ['required','minLength=5'],
-        //required:  true
-    },
-    {
-        key: 'firstname',
-        title: 'First Name(s) / Given Name(s) *',
-        type: 'text',
-        validators: ['required','minLength=3'],
-        //required:  true
-    },
-    {
-        key: 'gender',
-        title: 'Gender *',
-        type: 'select',
-        validators: ['required','minLength=3'],
-        options: [
-            {
-                name: 'male'
-            },
-            {
-                name: 'female'
-            }
-        ],
-        //required:  true
-    },{
-
-        key: 'dateofbirth',
-        title: 'Date of Birth *',
-        type: 'date',
-        validators: ['required','minLength=8'],
-        options: {
-            dateFormat: "yy-mm-dd",
-            dataType: "string",
-            yearRange: "1965:1999",
-            placeholder: "yyyy-mm-dd"
-        },
-        //required:  true
-    },
-    {
-
-        key: 'nationality',
-        title: 'Country of Nationality *',
-        type: 'select',
-        validators: ['required','minLength=3'],
-        options: CountryList,
-        //required:  true
-    },
-    {
-
-        key: 'street',
-        title: 'Street Name and House Number *',
-        type: 'text',
-        validators: ['required','minLength=3'],
-        //required:  true
-    },
-    {
-
-        key: 'postalcode',
-        title: 'Postcode / ZIP Code *',
-        type: 'text',
-        validators: ['required','minLength=3'],
-        //required:  true
-    },
-    {
-
-        key: 'residence',
-        title: 'Place of Residence  *',
-        type: 'text',
-        validators: ['required','minLength=3'],
-        //required:  true
-    },
-    {
-
-        key: 'country',
-        title: 'Country of Residence *',
-        type: 'select',
-        validators: ['required','minLength=3'],
-        options: CountryList,
-        //required:  true
-    },
-    {
-
-        key: 'phone',
-        title: 'Phonenumber  *',
-        type: 'number',
-        validators: ['required','minLength=3'],
-        //required:  true
-    },
-    {
-
-        key: 'phone2',
-        title: 'other Phonenumber  (optional)',
-        type: 'number',
-        validators: ['minLength=3'],
-        //required:  false
-    },
-    {
-
-        key: 'email',
-        title: 'Email Address *',
-        type: 'email',
-        validators: ['required','validateEmail'],
-        //required:  true
-    },
-    {
-
-        key: 'email2',
-        title: 'Other Email Address (optional)',
-        type: 'email',
-        validators: ['validateEmail'],
-        //required:  false
-    },
-    {
-
-        key: 'homepage',
-        title: 'Homepage (optional)',
-        type: 'text',
-        validators: ['minLength=5'],
-        //required:  false
-    }
-];
-
-const formEntries_ac2 = [
-    {
-
-        key: 'ac_education2',
-        title: 'Academic Education *',
-        type: 'textarea',
-        validators: ['minLength=3'],
-        //required:  false
-    },
-    {
-
-        key: 'ac_level2',
-        title: 'Academic Level *',
-        type: 'textarea',
-        validators: ['minLength=3'],
-        //required:  false
-    },
-    {
-
-        key: 'ac_institution2',
-        title: 'Academic Institution *',
-        type: 'textarea',
-        validators: ['minLength=3'],
-        //required:  false
-    },
-    {
-
-        key: 'degree_conferral_date2',
-        title: 'Degree Conferral Date *',
-        type: 'date',
-        options: {
-            dateFormat: "yy-mm-dd",
-            dataType: "string",
-            yearRange: "2001:2017",
-            placeholder: "yyyy-mm-dd"
-        },
-        validators: ['minLength=8'],
-        //required:  false
-    },
-    {
-
-        key: 'copy_of_certificate2',
-        title: 'Copy of Degree Certificate *',
-        type: 'fileUpload',
-        //validators: ['validateFileUpload'],  //TODO:   just a workaround here -> we have to wait for max for implementing to setting null to file-entries to plone-serialization
-        options: {
-            url: "",// fileUploadURL,
-            allowedExtensions: ['application/pdf'],
-            calculateSpeed: true,
-        },
-        //required:  false
-    }
-];
-
-const formEntries_ac = [
-    {
-        key: 'ac_education',
-        title: 'Academic Education *',
-        type: 'textarea',
-        validators: ['required','minLength=3'],
-        secParagraphArray: ['Please enter your previous or your current study program:'],
-        //required:  true
-    },
-    {
-        key: 'ac_level',
-        title: 'Academic Level *',
-        type: 'textarea',
-        validators: ['required','minLength=3'],
-        secParagraphArray: ['Please enter the name of the academic degree you already',
-            'hold or you will receive once you have finished your current studies'],
-        //required:  true
-    },
-    {
-        key: 'ac_institution',
-        title: 'Academic Institution *',
-        type: 'textarea',
-        validators: ['required','minLength=3'],
-        secParagraphArray: ['Please give the exact name, location and country of the \
-                               academic institution where you have received or will \
-                        receive your academic degree:'],
-        //required:  true
-    }, {
-
-        key: 'degree_conferral_date',
-        title: 'Degree Conferral Date *',
-        type: 'date',
-        validators: ['required','minLength=8'],
-        options: {
-            dateFormat: "yy-mm-dd",
-            dataType: "string",
-            yearRange: "2001:2017",
-            placeholder: "yyyy-mm-dd"
-        },
-        secParagraphArray: ['Please indicate the date (year-month-day) in which you \
-                        received or expect to receive the degree mentioned above:'],
-        //required:  true
-    },
-    /*
-     {
-
-     ignored4Server:true, //will not be used for formObject send to server --> only to enable/disable ''copy_of_certificate'-validation  //TODO: create an more general mechanism (formarray/formgroup,etc..)
-     key: 'copy_of_certificate_availableCheckbox',
-     title: '',
-     type: 'checkbox',
-     //validators: ['required'],
-     //required:  false
+const sel_master_formEntries = [
+	 {
+	   key: "degreeprogram",
+	   type: "mselect-prio-grid",
+     options : [
+      {
+       name: 'Informatik'
+      },
+      {
+        name: 'Medieninformatik ohne Anwendungsfach'
+      },
+      {
+         name: 'Medieninformatik mit Anwendungsfach Kommunikationswissenschaft'
+      },
+      {
+         name: 'Medieninformatik mit Anwendungsfach Mediengestaltung'
+      },
+      {
+         name: 'Medieninformatik mit Anwendungsfach Medienwirtschaft'
+      },
+      {
+         name: 'Mensch-Computer-Interaktion'
+      }
+     ],
+     gridOptions :  {
+     whatToAdd: 'Studiengang', // string for the element to add
+     allCols: 6,   // realAllCols - allCols = reservedCols e.g.  9-7 = 2; 2 cols are reserved for the add-button, see the number of cols of the gridCells below
+     rowHeight: '42px',
+     gridCells: [
+       {
+         rows: 1,
+         cols: 6,
+         title: 'Studiengang',
+         //secParagraph: 'E.g.: Database Systems',
+         id: 'course', //need for iteration in *.component.ts, has to be distinct for that entry
+         type: 'text'
+       }],
      },
-     */
-    {
+	   title: "Masterprogramm",
+	   secParagraphArray: ["Bitte beachten Sie:","Markieren Sie den gewünschten Studiengang. Sie können mehrere der angebotenen Studiengänge auswählen, müssen aber Prioritäten festlegen.",
+                          "Falls Sie für ein Masterstudium akzeptiert werden, erhalten Sie einen Zulassungsbescheid für den Studiengang, den Sie mit der höchsten Priotität gekennzeichnet haben und für den die Kommission Sie als geeignet begutachtet hat.",
+                            "Die Reihenfolge der Prioritäten ergibt sich von oben nach unten bei den ausgewählten Studiengängen (d.h. der oberste hat die höchste Priorität). Priorisieren Sie die Einträge mit den Pfeiltasten rechts"],
+	   defaultValue: "False",
+	   required: "True",
+     validators: ['required'],
+	   section: "Auswahl Masterprogramm"
+	 },
+	 {
+	   key: "reapplication",
+	   type: "checkBox",
+	   options: "",
+	   title: "Wiederbewerbung",
+	   secParagraphArray: ["Bitte anklicken, falls Sie sich schon einmal bei einem Eignungsfeststellungsverfahren für ein Masterstudium in Informatik/Medieninformatik an der LMU beworben haben"],
+	   defaultValue: "False",
+	   required: "False",
+     validators: ['required'],
+	   section: "Auswahl Masterprogramm"
+	 }
+ ];
 
-        key: 'copy_of_certificate',
-        title: 'Copy of Degree Certificate (e.g. Bachelor) *',
-        type: 'fileUpload',
-        validators: ['required','validateFileUpload'],
-        secParagraphArray: ['Please upload a PDF copy of your degree certificate'],
-        options: {
-            url: "",//fileUploadURL,
+ const pers_data_formEntries = [
+	 {
+	   key: "title",
+	   type: "text",
+	   options: "",
+	   title: "Name",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "firstname",
+	   type: "text",
+	   options: "",
+	   title: "Vorname",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "lastname",
+	   type: "text",
+	   options: "",
+	   title: "Nachname",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "gender",
+	   type: "select",
+	   options: [
+				{
+					name: 'male'
+				},
+				{
+					name: 'female'
+				}
+			],
+	   title: "Geschlecht",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "dateofbirth",
+	   type: "date",
+	   validators: ['required','validateDate'],
+		 options: {
+				dateFormat: "yy-mm-dd",
+				dataType: "string",
+				yearRange: "1965:1999",
+				placeholder: "yyyy-mm-dd"
+			},
+	   title: "Geburtsdatum",
+	   secParagraphArray: ["Bitte geben Sie Ihr Geburtsdatum ein"],
+	   required: "True",
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "nationality",
+	   type: "select",
+	   title: "Staatsangehörigkeit (Land)",
+	   secParagraphArray: "",
+     options: countryList,
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "street",
+	   type: "text",
+	   options: "",
+	   title: "Straße und Hausnummer",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=6'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "postalcode",
+	   type: "text",
+	   options: "",
+	   title: "Postleitzahl",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=4'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "residence",
+	   type: "text",
+	   options: "",
+	   title: "Wohnort",
+     defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "country",
+	   type: "select",
+	   title: "Land",
+     secParagraphArray: ["Bitte wählen Sie das Land aus, indem Sie aktuell Ihren Wohnsitz haben"],
+     options: countryList,
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "phone",
+	   type: "number",
+	   options: "",
+	   title: "Telefon",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "phone2",
+	   type: "number",
+	   options: "",
+	   title: "Telefon (alternativ)",
+	   secParagraphArray: ["Weitere Telefonnummer, z.B. Handy"],
+	   defaultValue: "",
+	   required: "False",
+     validators: ['minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "fax",
+	   type: "number",
+	   options: "",
+	   title: "Faxnummer",
+	   secParagraphArray: ["Ihre Faxnummer (falls Verfügbar)"],
+	   defaultValue: "",
+	   required: "",
+     validators: ['minLength=3'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "email",
+	   type: "text",
+	   options: "",
+	   title: "Email",
+	   secParagraphArray: "",
+	   defaultValue: "",
+	   required: "True",
+     validators: ['required','validateEmail'],
+	   section: "Stammdaten"
+	 },
+	 {
+	   key: "homepage",
+	   type: "text",
+	   options: "",
+	   title: "Homepage",
+	   secParagraphArray: ["Ihre Homepage (falls verfügbar)"],
+	   defaultValue: "",
+	   required: "False",
+     validators:  ['minLength=5'],
+	   section: "Stammdaten"
+	 }
+ ];
+ const prev_education_formEntries = [
+ {
+   key: "education",
+   type: "textarea",
+   options: "",
+   title: "Ausbildung",
+   secParagraphArray: ["Bitte geben Sie alle besuchten Schulen bis zur Erlangung der Hochschulreife ein"],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','minLength=10'],
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "currentstudies",
+   type: "textarea",
+   options: "",
+   title: "Gegenwärtiges Studium",
+   secParagraphArray: ["Bitte geben Sie Ihre bisherigen Studiengänge an"],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','minLength=5'],
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "currentgraduation",
+   type: "textarea",
+   options: "",
+   title: "Gegenwärtiger Abschluss",
+   secParagraphArray: ["Bitte geben Sie an, welchen Studienabschluss Sie bisher erworben haben, der Sie zum Masterstudium berechtigt (z.B. Bachelor)",
+                          "Falls noch nicht vorhanden, bitte den im jetzigen Studium angestrebten Abschluss "],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','minLength=5'],
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "university",
+   type: "textarea",
+   options: "",
+   title: "Bezeichnung und Ort der Hochschule",
+   secParagraphArray: ["Bitte geben Sie die genaue Bezeichnung der Hochschule ein"],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','minLength=5'],
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "graduation_date",
+   type: "date",
+   options: {
+     dateFormat: "yy-mm-dd",
+     dataType: "string",
+     yearRange: "2001:2017",
+     placeholder: "yyyy-mm-dd"
+   },
+   title: "Datum der Zeugniserteilung ",
+   secParagraphArray: "",
+   defaultValue: "",
+   validators: ['required','validateDate'],
+   required: "False",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "copy_of_certificate",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf'],
+     calculateSpeed: true,
+   },
+   title: "Kopie des Abschlusszeugnisses (z.B. Bachelor) ",
+   secParagraphArray: ["Bitte hochladen: Kopie des Abschlusszeugnisses, z.B. Bachelor (PDF format)"],
+   defaultValue: "",
+   required: "False",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "late_certificate",
+   type: "checkBox",
+   options: "",
+   title: "Abschlusszeugnis nicht verfügbar",
+   secParagraphArray: ["Bitte anwählen, falls Sie das Abschlusszeugnis (z.B. Bachelor) nicht rechtzeitig innerhalb der Bewerbungsfrist einreichen können, weil es erst danach von Ihrer Hochschule ausgestellt wird"],
+   defaultValue: "",
+   required: "False",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "copy_of_tor",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf'],
+     calculateSpeed: true,
+   },
+   title: "Transcript of Records oder Notennachweis",
+   secParagraphArray: ["Bitte hochladen: Transcript of Records oder anderer Notennachweis (PDF format)"],
+   defaultValue: "",
+   validators: ['required','validateFileUpload_lmu'],
+   required: "True",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "ov_av_grade",
+   type: "number",
+   options: "",
+   title: "Notendurchschnitt",
+   secParagraphArray: ["Bitte geben Sie hier die Durchschnittsnote Ihres Abschlusses oder des vorläufigen Notenspiegels ein"],
+   defaultValue: "",
+   validators: ['required','validateNumberNotZero'],
+   required: "True",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "prev_obligations",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf'],
+     calculateSpeed: true,
+   },
+   title: "Nachweis zu Auflagen aus vorausgegangenen Master-EFV ",
+   secParagraphArray: ["Sollten Sie aus einem vorausgegangenen Master-EFV als Zulassungsvoraussetzung Auflagen erhalten haben, laden Sie bitte den Nachweis über deren Erfüllung hier hoch (als PDF)"],
+   defaultValue: "",
+   required: "False",
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "src_bachelor",
+   type: "select",
+   options: [
+     {
+       name: 'LMU'
+     },
+     {
+       name: 'other University'
+     },
+     {
+       name: 'University of Applied Sciences'
+     },
+     {
+       name: 'Other kind of Institution'
+     }
+   ],
+   title: "Hochschulart, bei welcher der Bachelor erworben wurde",
+   secParagraphArray: ["Bitte wählen Sie den Typ der Hochschule aus, bei der Sie den Bachelorgrad erworben haben"],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','minLength=3'],
+   section: "Bisheriger Bildungsgang"
+ },
+ {
+   key: "lang_cert",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf'],
+     calculateSpeed: true,
+   },
+   title: "Sprachnachweis Deutsch oder Englisch",
+   secParagraphArray: ["Gilt nur für ausländische Bewerber, die sich für den Masterstudiengang \"Mensch-Computer-Interaktion\" bewerben:",
+                        "Bitte uploaden Sie hier einen Nachweis über Deutschkenntnisse (mindestens Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen) und/oder einen Englisch-Test."],
+   defaultValue: "",
+   required: "False",
+   section: "Bisheriger Bildungsgang"
+ }
+ ];
 
-            allowedExtensions: ['application/pdf'],
-            calculateSpeed: true,
-        },
-        collapsible_box_title:'Copy of Degree Certificate (e.g. Bachelor) already available ?',
-        collapsible_info_text:"Please uncheck this box if you are unable to provide your degree certificate (e.g. bachelor's)  \
-                                by the application deadline because it will be issued by your academic institution only after the deadline",
-        //required:  true
-
-    },
-    {
-        key: 'copy_of_tor',
-        title: 'Transcript of Records or Other Proof of Grades *',
-        type: 'fileUpload',
-        validators: ['required','validateFileUpload'],
-        secParagraphArray: ['Please upload your Transcript of Records (or other proof of grades) in PDF format. \
-                        The transcript must include at least 30 ECTS in Computational Methods \
-                        and 30 ECTS in Data-Based Modelling (see below)'],
-        options: {
-            url: "",// fileUploadURL,
-
-            allowedExtensions: ['application/pdf', 'image/jpeg', 'image/png'],
-            calculateSpeed: true,
-        },
-        ////required:  true
-    },
-    {
-        key: 'av_grade1',
-        title: 'Average Grade of the Best Performance = AvGr1 *',
-        type: 'number',
-        validators: ['required','validateNumberNotZero'],
-        secParagraphArray: [`Please calculate the average grade from the best performance (equivalent to 150 ECTS) and enter this in the field below.`,
-            `Note: Applicants whose Transcript of Records does not include ECTS: A 6-semester study program equals a workload of 180 ECTS.`,
-            `Divide this workload between the different courses you took during your study program and upload your calculation at the end of this online application in the field Other documents`],
-        //required:  true
-    },
-    {
-        key: 'av_grade2',
-        title: 'Computational Methods = AvGr2 *',
-        validators: ['required','validateCourseList'],
-        secParagraphArray: ['Please enter the courses you attended in Computational Methods', '(this includes, for example, informatics, database-orientated methods, computational statistics, optimisation)'],
-        type: 'grid-box-add',
-        averageId:'average', //need for iteration in component.ts, has to be distinct for that entry //TODO: not using at the moment. average-objectmember in rest-object and component is named "average"
-        showAverage: true,
-        options: {
-            whatToAdd: 'Course', // string for the element to add
-            allCols: 7,   // realAllCols - allCols = reservedCols e.g.  9-7 = 2; 2 cols are reserved for the add-button, see the number of cols of the gridCells below
-            rowHeight: '42px',
-            gridCells: [
-                {
-                    rows: 1,
-                    cols: 3,
-                    title: 'Course Name',
-                    //secParagraph: 'E.g.: Database Systems',
-                    id: 'course', //need for iteration in component.ts, has to be distinct for that entry
-                    type: 'text',
-                    placeHolder: 'E.g.: Database Systems'
-
-                },
-                {
-                    rows: 1,
-                    cols: 2,
-                    title: 'ECTS',
-                    //secParagraph:  'E.g.: 6 or 4.5',
-                    id: 'ects', //need for iteration in component.ts, has to be distinct for that entry
-                    type: 'number',
-                    placeHolder: 'E.g.: 6 or 4.5'
-                },
-                {
-                    rows: 1,
-                    cols: 2,
-                    title: 'Grade',
-                    //secParagraph:  'E.g.: 1.5',
-                    id: 'grade', //need for iteration in component.ts, has to be distinct for that entry
-                    type: 'number',
-                    placeHolder: 'E.g.: 1.5'
-                }],
-        },
-        //required:  true
-    },
-    {
-        key: 'av_grade3',
-        title: 'Data-Based Modelling = AvGr 3 *',
-        secParagraphArray: ['Please enter the courses you attended in Data-Based Modelling', ' (this includes, for example, statistics, data mining, probability theory, machine learning)'],
-        type: 'grid-box-add',
-        validators: ['required','validateCourseList'],
-        averageId:'average', //need for iteration in component.ts, has to be distinct for that entry
-        showAverage: true,
-        options: {
-            whatToAdd: 'Course', // string for the element to add
-            allCols: 7,   //9-7 = 2; 2 cols are reserved for the add-button, see the number of cols of the gridCells below
-            rowHeight: '42px',
-            gridCells: [{
-                rows: 1,
-                cols: 3,
-                title: 'Course Name',
-                //secParagraph: 'E.g.: Database Systems',
-                id: 'course', //need for iteration in component.ts, has to be distinct for that entry
-                type: 'text',
-                placeHolder: 'E.g.: Database Systems'
-
-            },
-                {
-                    rows: 1,
-                    cols: 2,
-                    title: 'ECTS',
-                    //secParagraph:  'E.g.: 6 or 4.5',
-                    id: 'ects', //need for iteration in component.ts, has to be distinct for that entry
-                    type: 'number',
-                    placeHolder: 'E.g.: 6 or 4.5'
-                },
-                {
-                    rows: 1,
-                    cols: 2,
-                    title: 'Grade',
-                    //secParagraph:  'E.g.: 1.5',
-                    id: 'grade', //need for iteration in component.ts, has to be distinct for that entry
-                    type: 'number',
-                    placeHolder: 'E.g.: 1.5'
-                }],
-        },
-        //required:  true
-    },
-
-    {
-        key: 'src_bachelor',
-        title: "Institution at which Bachelor's Degree was Received *",
-        type: 'select',
-        validators: ['required'],
-        options: [
-            {
-                name: 'LMU'
-            },
-            {
-                name: 'other University'
-            },
-            {
-                name: 'University of Applied Sciences'
-            },
-            {
-                name: 'Other kind of Institution'
-            }
-        ],
-        //required:  true
-    },
-    {
-        key: 'lang_cert',
-        title: 'Proof of English Language Proficiency *',
-        type: 'fileUpload',
-        validators: ['required','validateFileUpload'],
-        options: {
-            url: "",// fileUploadURL,
-            allowedExtensions: ['application/pdf', 'image/jpeg', 'image/png'],
-            calculateSpeed: true,
-        },
-        //required:  true
-    }
+ // ----------------------------------------------------------------------------------
+ const pers_interests_formEntries = [
+ {
+   key: "vita",
+   type: "fileUpload",
+   title: "Lebenslauf",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf','.txt','.docx','.doc'],
+     calculateSpeed: true,
+   },
+   secParagraphArray: ["Bitte uploaden Sie Ihren Lebenslauf (Dateiformat: MS-Word, PDF oder reiner Text)"],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','validateFileUpload_lmu'],
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "motivation",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf','.txt','.docx','.doc'],
+     calculateSpeed: true,
+   },
+   title: "Bewerbungsschreiben",
+   secParagraphArray: ["Bitte laden Sie hier einen Aufsatz (von max. 1000-2000 Zeichen Länge) als PDF- oder WORD-Dokument oder auch als reine Textdatei hoch. ",
+                        "In diesem Aufsatz sollten Sie das Interesse und die Fähigkeiten für ein Studium im Masterstudiengang unter ausführlicher Darstellung der bisherigen Leistungen im Erststudium erläutern."],
+   defaultValue: "",
+   required: "True",
+   validators: ['required','validateFileUpload_lmu'],
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "reference",
+   type: "textarea",
+   options: "",
+   title: "Empfehlung kann von folgender Professorin oder folgendem Professor des Instituts für Informatik erfragt werden ",
+   secParagraphArray: ["Referenzen (optional)"],
+   defaultValue: "",
+   required: "False",
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "stay_abroad",
+   type: "textarea",
+   options: "",
+   title: "Auslandsaufenthalte ",
+   secParagraphArray: ["Falls zutreffend: Bitte machen Sie Angaben zu Auslandsaufenthalten"],
+   defaultValue: "",
+   required: "False",
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "skills",
+   type: "textarea",
+   options: "",
+   title: "Besondere Fähigkeiten ",
+   secParagraphArray: ["Angabe besonderer Fachkenntnisse und Fertigkeiten"],
+   defaultValue: "",
+   required: "False",
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "other_certificates",
+   type: "fileUpload",
+   options: {
+     url: "",
+     allowedExtensions: ['application/pdf'],
+     calculateSpeed: true,
+   },
+   title: "Weitere Bescheinigungen",
+   secParagraphArray: ["Falls vorhanden: Uploaden Sie bitte hier weitere Bescheinigungen über Praktika, Berufsausbildung, absolvierte Kurse aus dem IT-Bereich, Arbeitszeugnisse, etc. zusammengefasst in einer PDF-Datei."],
+   defaultValue: "",
+   required: "False",
+   section: "Neigungen und Interessen"
+ },
+ {
+   key: "notification_emailed",
+   type: "checkBox",
+   options: "",
+   title: " Bescheid per Email zustellen ",
+   secParagraphArray: ["Die Bescheinigung des Eignungsfeststellungsverfahren werden standardmässig per Email verschickt. Wünschen Sie hingegen eine Zusendung per Briefpost, dann heben Sie die Auswahl dieses Feldes bitte auf."],
+   defaultValue: "True",
+   required: "False",
+   section: "Neigungen und Interessen"
+ }
 ];
 
-const formEntries_oi = [
-    {
+// ----------------------------------------------------------------------------------
+// ----------------------------------------------------------------------------------
 
-        key: 'essay',
-        title: 'Essay "Data Science * ',
-        type: 'fileUpload',
-        validators: ['required','validateFileUpload'],
-        secParagraphArray: ['Please submit a PDF file with an essay on Data Science in which you should look at the developments and perspectives of Data Science as well as your planned area of specialisation, and your previous experience.',
-            'The essay musst not exceed 1,000 words'],
-        options: {
-            url: "",// fileUploadURL,
+const selfEval_programming_formEntries = [
+   {
+    key: "pl_basics",
+    type: "textarea",
+    options: "",
+    title: "In welchen Programmiersprachen haben Sie schon einmal programmiert?",
+    secParagraphArray: "",
+    required: "False",
+    section: "Programmierung"
+  },
+  {
+    key: "pl_experienced",
+    type: "textarea",
+    options: "",
+    title: "In welchen Programmiersprachen haben Sie schon mehr praktische Erfahrung, als in den ueblichen Grundlagenvorlesungen gelehrt wird?",
+    secParagraphArray: "",
+    required: "False",
+    section: "Programmierung"
+  },
+  {
+    key: "design_patterns",
+    type: "textarea",
+    options: "",
+    title: "Welche Design Patterns haben Sie schon einmal praktisch eingesetzt?",
+    secParagraphArray: "",
+    required: "False",
+    section: "Programmierung"
+  },
+  {
+    key: "program_verification",
+    type: "textarea",
+    options: "",
+    title: "Welche Methoden zur Programmverifikation kennen Sie?",
+    secParagraphArray: "",
+    required: "False",
+    section: "Programmierung"
+  },
+  {
+    key: "client_server_prog",
+    type: "textarea",
+    options: "",
+    title: "Welche konkreten Erfahrungen haben Sie mit Client-Server Programmierung?",
+    secParagraphArray: "",
+    required: "False",
+    section: "Programmierung"
+  }
+ ];
 
-            allowedExtensions: ['application/pdf'],
-            calculateSpeed: true,
-        },
-        //required:  true
-    },
-    {
-        key: 'further_certificates',
-        title: 'Other documents *',
-        type: 'fileUpload',
-        validators: ['required','validateFileUpload'],
-        secParagraphArray: ['Please upload any other certificates regarding internships, vocational training, computer courses, past working experience, etc.,', ' as well as your ECTS calculation document within a single PDF file.'],
-        options: {
-            url: "",// fileUploadURL,
-
-            allowedExtensions: ['application/pdf'],
-            calculateSpeed: true,
-        },
-        //required:  true
-    },
-    {
-        key: 'other_info',
-        title: 'Any other information ',
-        validators: ['minLength=5'],
-        type: 'textarea',
-        //required:  false
-    },
-    {
-        key: 'spec_interview_prov',
-        title: 'Special provisions for the interview needed? (e.g. because of disability): ',
-        validators: ['minLength=5'],
-        type: 'textarea',
-        //required:  false
-    },
-    {
-        key: 'notification_emailed',
-        title: ' I want to receive email notifications ',
-        infoText: 'You will be notified of the outcome of the aptitude assessment procedure by email. If you wish to be notified by mail, please select this field.',
-        type: 'checkBox',
-        //validators: ['validateEmail'],
-        //required:  false
-    }
-
+const selfEval_others_formEntries = [
+{
+    key: "theoretical_informatics",
+    type: "multi-select-slider",
+    options: [
+      { name: "Chomsky Hierarchie"},
+      { name:"Automaten"},
+      {name:"Berechenbarkeit"},
+      {name:"Komplexität von Problemen"},
+      {name: "NP-Vollständigkeit"}
+	],
+	secParagraphArray: ["Zu welchen Themen der Theoretischen Informatik könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Theoretische Informatik"
+  },
+  {
+    key: "database_systems",
+    type: "multi-select-slider",
+	options: [
+      { name: "Relationale Datenbanken"},
+      { name:"NoSQL Datenbanken"},
+      {name:"SQL"},
+      {name:"Indexing in Datenbanken"}
+	],
+    secParagraphArray: ["Zu welchen Themen aus dem Bereich Datenbanken könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Datenbanken"
+  },
+  {
+    key: "math_logics",
+    type: "multi-select-slider",
+	  options: [
+		{ name: "Boolesche Algebra"},
+		{ name:"Aussagenlogik"},
+		{name:"Prädikatenlogik"}
+	],
+    secParagraphArray: ["Zu welchen mathematischen Strukturen und Logiken könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Logik"
+  },
+  {
+    key: "algorithms",
+    type: "multi-select-slider",
+	  options: [
+		{ name: "Sortieralgorithmen und deren Komplexität"},
+		{ name:"Suchbäume"},
+		{name:"Suchverfahren (A*, genetisch, evolutionär usw.)"},
+		{name:"Algorithmen für Graphen, Hashing"}
+	],
+    secParagraphArray: ["Zu welchem Thema aus dem Bereich Algorithmen könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Algorithmen"
+  },
+  {
+    key: "data_structures",
+    type: "multi-select-slider",
+	  options: [
+		{ name: "Arrays und Listen"},
+		{ name:"Bäume"},
+		{name:"Graphen"},
+		{name:"Indexstrukturen"},
+		{name:"Hashtabellen"},
+		{name:"Maps"}
+	],
+    secParagraphArray: ["Zu welchen Themen aus dem Bereich Datenstrukturen könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Datenstrukturen"
+  },
+  {
+    key: "comp_architecture",
+    type: "multi-select-slider",
+	options: [
+		{ name: "Gatter"},
+		{ name:"Schaltnetze"},
+		{name:"von Neumann Architektur"},
+		{name:"Maschinensprache"},
+		{name:"Assemblerprogrammierung"}
+	],
+    secParagraphArray: ["Zu welchen Themen aus dem Bereich Rechnerarchitektur könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Rechnerarchitektur"
+  },
+  {
+    key: "op_systems",
+    type: "multi-select-slider",
+	options: [
+		{ name: "Prozesse und Threads"},
+		{ name:"Deadlocks"},
+		{name:"Race Conditions"},
+		{name:"virtuelle Speicherverwaltung"},
+		{name:"Virtualisierung"}
+	],
+    secParagraphArray: ["Zu welchen Themen aus dem Bereich Betriebssysteme könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Betriebssysteme"
+  },
+  {
+    key: "comp_networks",
+    type: "multi-select-slider",
+	options: [
+		{ name: "OSI-Modell"},
+		{ name:"IP-Protokolle"},
+		{name:"TCP-Protokoll"},
+		{name:"Socket Programmierung"},
+		{name:"Grundlagen verteilter Systeme"},
+		{name:"Kommunikationsmiddleware"}
+	],
+    secParagraphArray: ["Zu welchen Themen aus dem Bereich Rechnernetze könnten Sie Detailfragen beantworten?"],
+    required: "False",
+    title: "Rechnernetze"
+  }
 ];
 
+const selfEval_others2_formEntries =
+[
+{
+    "key": "digital_media",
+    "type": "multi-select-slider",
+	options: [
+		{ name: "Darstellung von Zeichen und Schrift"},
+		{ name:"Audio"},
+		{name:"Video"},
+		{name:"Kompression"},
+		{name:"Skriptsprachen"}
+	],
+    "secParagraphArray": ["Zu welchen Themen aus dem Bereich Digitale Medien könnten Sie Detailfragen beantworten?"],
+    "required": "False",
+    "title": "Falls Sie Medieninformatik studieren möchten"
+  },
+  {
+    "key": "media_tech",
+    "type": "multi-select-slider",
+	options: [
+		{ name: "Bildgestaltung"},
+		{ name:"Videoproduktion"},
+		{name:"GUI-Programmierung"}
+	],
+    "secParagraphArray": ["Zu welchen Themen aus dem Bereich Medientechnik könnten Sie Detailfragen beantworten?"],
+    "required": "False",
+    "title": "Falls Sie Medieninformatik studieren möchten"
+  },
+  {
+    "key": "mmi",
+    "type": "multi-select-slider",
+	options: [
+		{ name: "Kognition/Motorik"},
+		{ name:"Mentale Modelle"},
+		{name:" UI-Gestaltung"},
+		{name:"Evaluation"}
+	],
+    "secParagraphArray": ["Zu welchen Themen aus dem Bereich Mensch-Computer-Interaktion könnten Sie Detailfragen beantworten?"],
+    "required": "False",
+    "title": "Falls Sie Mensch-Computer-Interaktion studieren möchten"
+  }
+];
+
+const selfEval_confirm_formEntries =
+  [
+    {
+      key: "selfEval_confirm",
+      type: "checkBox",
+      options: "",
+      title: "Wollen sie eine Selbsteinschätzung abgeben ?",
+      secParagraphArray: "",
+      defaultValue: "null",
+      validators: ['required']
+
+    }
+  ]
+
+
+/*__________________________________________________________________________________________________________________
+__________________________________________________________________________________________________________________
+*/
 
 export const formList = {
     mainForm : {
-        title: " MSc Data Science User Application",                        //not used at the moment
-        key: "mainForm_mscDSUa",                                            //not used at the moment
-        site: 'mainForm_mscDSUa',                                           //not used at the moment
+        title: "Eignungsfeststellungsverfahren für Masterstudium Informatik und Medieninformatik",                        //not used at the moment
+        key: "mainForm_efvmsinf17",                                            //not used at the moment
+        site: 'mainForm_efvmsinf17',                                           //not used at the moment
     },
     subForms : [
         {
-            title: " Applicant\'s Personal Details",
-            key: "subFormGroup_apd",
-            site: 'subFormGroup_apd',
-            //formObj: this.apd_formObj
-            formEntries: formEntries_apd
+            title: " Auswahl Masterprogramm",
+            key: "sel_master",
+            site: 'sel_master',
+            formEntries: sel_master_formEntries
         },
         {
-            title: "Previous Education",
-            key: "subFormGroup_ac",
-            site: "subFormGroup_ac",
-            //formObj: this.ac_formObj,
-            formEntries: formEntries_ac,
+            title: "Stammdaten",
+            key: "pers_data",
+            site: "pers_data",
+            formEntries: pers_data_formEntries
+        },
+        {
+            title: "Bisheriger Bildungsgang",
+            key: "prev_education",
+            site: "prev_education",
+            //formObj: this.oi_formObj
+            formEntries: prev_education_formEntries
+        },
+		{
+            title: "Neigungen und Interessen ",
+            key: "pers_interests",
+            site: "pers_interests",
+            formEntries: pers_interests_formEntries
+        }/*,
+		  {
+            title: "Selbsteinschätzung",
+            key: "self_eval",
+            site: "self_eval",
+            formEntries: selfEval_confirm_formEntries,
             childrenFormsArray:[
                 {
-                    title: "Other Previous Education (optional)",
-                    key: "subFormGroup_ac2",
-                    //formObj: this.ac2_formObj,
-                    formEntries: formEntries_ac2,
-                    site: "subFormGroup_ac",		//in which site is that form visible (parent), //has to be equal to a subForm key-value
-                    noneOwnTab: true				//indicates that this is a only-childView of an existing subForm-tab ( kind of sub-sub-form)
+                    title: "Programmierung",
+                    key: "subForm_selfEval_programming",
+                    formEntries: selfEval_programming_formEntries,
+                    site: "self_eval",		//in which site is that form visible (parent), //has to be equal to a subForm key-value
+                    noneOwnTab: true,				//indicates that this is a only-childView of an existing subForm-tab ( kind of sub-sub-form)
+                    isCollapsible : false
+                },
+				        {
+                    title: "Weitere Kenntnisse",
+                    key: "subForm_selfEval_others",
+                    formEntries: selfEval_others_formEntries,
+                    site: "self_eval",		//in which site is that form visible (parent), //has to be equal to a subForm key-value
+                    noneOwnTab: true,				//indicates that this is a only-childView of an existing subForm-tab ( kind of sub-sub-form)
+                    isCollapsible : false
                 }
             ]
-        },
-        /*
-         {
-         title: "Other Previous Education (optional)",
-         key: "subFormGroup_ac2",
-         formObj: this.ac2_formObj,
-         site: "subFormGroup_ac",		//in which site is that visible (parent), //has to be equal to a subForm key-value
-         noneOwnTab: true,				//indicates that this is a only-childView of an existing subForm-tab ( kind of sub-sub-form)
-         },
-         */
-        {
-            title: "Essay and other information",
-            key: "subFormGroup_oi",
-            site: "subFormGroup_oi",
-            //formObj: this.oi_formObj
-            formEntries: formEntries_oi
-        }
-    ]
 
+        }*/
+    ]
 }
