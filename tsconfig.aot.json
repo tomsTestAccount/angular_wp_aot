@@ -24,7 +24,14 @@
     "src/**/*.spec.ts",
     "src/server.ts",
     "src/server.aot.ts",
-    "src/main.browser.aot.ts"
+    "src/main.browser.aot.ts",
+
+    "src/app/appLogin.component.ts",
+    "src/app/server.app.module.ts",
+    "src/app/app-routing.ts",
+    "src/app/login/**/*.ts",
+    "src/app/home/**/*.ts",
+    "src/app/register/**/*.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true,

@@ -12,7 +12,6 @@ import { NgUploaderModule }        from 'ngx-uploader';
 
 import  'hammerjs';
 
-//import {getKeyValuePair}        from './_pipes/key-value.pipe';
 import {objValuesPipe,orderByPipe}          from '../app/_pipes/key-value.pipe';
 import {rtFileUploaderComponent} from './rtFormInputs/rt-file-uploader.component';
 
@@ -31,14 +30,16 @@ import {DialogsService}                 from './_services/dialogs.services'
 import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
-import {RtRegisterCompletion} from './register/rt-register-completion.component';
 
-//import { AppComponent} 			from './app.component';
+
+import { AppComponent} 			from './app.component';
+/*
 import {StartPageComponent} from './home/start-page.component';
 import { AppLoginComponent} 			from './appLogin.component';
 import { AppRoutingModule }             from './app-routing';
+import {RtRegisterCompletion} from './register/rt-register-completion.component';
 import {LoginComponent} from './login/rt-login.component';
-
+*/
 
     var importsList = [
         BrowserModule,
@@ -47,9 +48,9 @@ import {LoginComponent} from './login/rt-login.component';
         MaterialModule,
         HttpModule,
 
-		AppRoutingModule,
+		    //AppRoutingModule,
 
-		BrowserAnimationsModule,
+		    BrowserAnimationsModule,
 
         CalendarModule,
         NgUploaderModule
@@ -58,13 +59,15 @@ import {LoginComponent} from './login/rt-login.component';
 
     var declarationList = [
 
-        //AppComponent,
+        AppComponent,
 
+        /*
         AppLoginComponent,
         StartPageComponent,
         LoginComponent,
 
         RtRegisterCompletion,
+        */
 
         DialogComponent,
         MainFormComponent,
@@ -77,7 +80,8 @@ import {LoginComponent} from './login/rt-login.component';
         orderByPipe];
         //getKeyValuePair];
 
-    var providersList = [//UserDataService,
+    var providersList = [
+        //UserDataService,
         RestService,
         AuthenticationService,
         ServerConfigs,
@@ -94,8 +98,8 @@ import {LoginComponent} from './login/rt-login.component';
         DialogComponent
         ];
 
-    var bootstrapList = [AppLoginComponent];
-    //var bootstrapList = [AppComponent];
+    //var bootstrapList = [AppLoginComponent];
+    var bootstrapList = [AppComponent];
 
 
 

@@ -63,14 +63,14 @@ export class ServerConfigs {
         {
             //we're on production system (running within plone)
             this.onDevelopmentEnv  = false;
-            this.host= locUrl_location.host;
+            this.host= 'http://' + locUrl_location.host + '/Plone';
             //this.serverURL = locUrl_location.protocol + '//' + this.host + '/Plone';
 
             //todo:found userId in url
             if (locUrl_location.pathname.indexOf(this.applicationEntryPath) != -1)
             {
                 let splitPathname = locUrl_location.pathname.split("/");
-                console.log("splitPathname =",splitPathname );
+                console.log("splitPathname =",splitPathname,"this.host=",this.host );
                 if (splitPathname.length)
                 {
                     this.userId = splitPathname[splitPathname.length-2];

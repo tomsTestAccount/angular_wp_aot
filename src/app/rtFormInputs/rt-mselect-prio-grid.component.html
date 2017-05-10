@@ -20,12 +20,14 @@
           </md-grid-tile>
           <md-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'snow'">
             <button [disabled]="!item.isSelected || item.pos<=0" class="btn_lmu btn btn-sm" (click)="prioUp(item)">
-              <i class="material-icons">arrow_drop_up</i>
+              <!--<i class="material-icons">arrow_drop_up</i>-->
+              <i class="mdi mdi-chevron-up mdi-24px"></i>
             </button>
           </md-grid-tile>
           <md-grid-tile [colspan]="1" [rowspan]="1" [style.background]="'snow'">
             <button  [disabled]="!item.isSelected || item.pos == this.lastSelectedPos"  class="btn_lmu btn btn-sm" (click)="prioDown(item)">
-              <i class="material-icons">arrow_drop_down</i>
+              <!--<i class="material-icons">arrow_drop_down</i>-->
+              <i class="mdi mdi-chevron-down mdi-24px"></i>
             </button>
           </md-grid-tile>
       </div>
