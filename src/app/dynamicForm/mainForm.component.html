@@ -106,14 +106,16 @@
 								<button *ngIf="!mainFormValid"
 										class="btn bs_submit_button"
 										type="button" (click)="showMissingInput()">
-									Missing Inputs
+									 Show Misentry
 								</button>
-								<a *ngIf="mainFormValid && !changeDetected"
-								   class="btn bs_submit_button"
+
+								<!--<a *ngIf="mainFormValid && !changeDetected"-->
+								<a
+									class="btn bs_submit_button"
 								   id="blabla_notusedJsutTest"
 								   href="{{summaryPage_href}}"
 								   role="button">
-									Go to Submit
+									Back to Summary
 								</a>
 
 								<!--
