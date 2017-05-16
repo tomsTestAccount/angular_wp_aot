@@ -29,7 +29,7 @@ export class RestService {
         this.runningConfs = serverConfs;
         let serverConfigs = this.runningConfs.get_serverConfigs();
         //this._currentUserId = 'mueller';
-        this.serverURL = serverConfigs.host; // + '/' + serverConfigs.applicationEntryPath;
+        this.serverURL = serverConfigs.serverURL; // + '/' + serverConfigs.applicationEntryPath;
         this.applicationEntryPath = serverConfigs.applicationEntryPath;
         this.userId = serverConfigs.userId;
 

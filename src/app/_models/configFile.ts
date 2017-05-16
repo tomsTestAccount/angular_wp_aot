@@ -40,16 +40,13 @@ export class ServerConfigs {
             //we're on developent system, so we need rest-login and authorization token
             this.onDevelopmentEnv = true;
 
-            let splitHref = locUrl_location.href.split("/");
-            this.host  = splitHref.slice(0, splitHref.length - 1).join("/") + "/";
-
 
             if (dbgPrint) console.log("we're on development");
             if (locUrl_location.pathname.indexOf('Plone') == -1)
             {
                 //we're on node-server
                 if (dbgPrint) console.log(".. on node-server");
-                this.host = 'http://192.168.159.130:8080/Plone'; //for vmWare with PLone-instance running
+                this.serverURL = 'http://192.168.159.130:8080/Plone'; //for vmWare with PLone-instance running
                 //locUrl.serverURL = this.host  + applicationPath ;
                 this.userId = '';
 
@@ -61,7 +58,7 @@ export class ServerConfigs {
             this.onDevelopmentEnv = false;
 
             let splitHref = locUrl_location.href.split("/");
-            this.host  = splitHref.slice(0, splitHref.length - 1).join("/") + "/";
+            this.serverURL  = splitHref.slice(0, splitHref.length - 1).join("/") + "/";
             if (dbgPrint) console.log("this.host=",this.host);
 
             //this.host = locUrl_location.protocol + '//' + this.host ;
@@ -96,6 +93,7 @@ export class ServerConfigs {
         */
 
       let srvObj = {
+        serverURL:this.serverURL,
         userId: this.userId,
         host: this.host,
         applicationEntryPath: this.applicationEntryPath,
