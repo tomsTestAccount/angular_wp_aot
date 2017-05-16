@@ -37,14 +37,20 @@
     "build:webpack:aot": "cd config && npm run clean:dist && webpack --config webpack.config.ts",
     "webpack": "webpack",
     "clean:compile": "rimraf -- \"compiled\" ",
-    "ngc": "./node_modules/.bin/ngc -p tsconfig.aot.json",
-    "compile": "npm run clean:compile && npm run ngc",
+    
+	"ngc:appLogin": "./node_modules/.bin/ngc -p tsconfig.aot.appLogin.json",
+    "compile:aot:appLogin": "npm run clean:compile && npm run ngc:appLogin ",
+	
+	"ngc:app": "./node_modules/.bin/ngc -p tsconfig.aot.app.json",
+    "compile:aot:app": "npm run clean:compile && npm run ngc:app ",
+	
 	"clean:dll": "npm run rimraf -- dll",
-	"build:dll": "cd config && npm run clean:dll && webpack --config webpack.config.ts ",
+	"build:dll:appLogin": "cd config && npm run clean:dll && webpack --config webpack.config.ts",
 	"sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
 	"build:aot:prod": "npm run clean:dist && cd config && webpack",
 	
-	"webdev": "cd config && webpack-dev-server --config webpack.config.ts",
+	"webdev:appLogin": "cd config && webpack-dev-server --config webpack.config.ts",
+	"webdev:app": "cd config && webpack-dev-server --config webpack.config.ts",
 	"start": "npm run server:dev",
 	"server:dev:orig": "npm-run-all -p -r webdev sass:watch",
 	"server:dev": "npm run webdev"

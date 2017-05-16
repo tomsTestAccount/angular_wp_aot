@@ -30,14 +30,16 @@ import {DialogsService}                 from './_services/dialogs.services'
 import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
-import { AppComponent} 			from './app.component';
 
-/*import {StartPageComponent} from './home/start-page.component';
+
+//import { AppComponent} 			from './app.component';
+
+import {StartPageComponent} from './home/start-page.component';
 import { AppLoginComponent} 			from './appLogin.component';
 import { AppRoutingModule }             from './app-routing';
 import {RtRegisterCompletion} from './register/rt-register-completion.component';
 import {LoginComponent} from './login/rt-login.component';
-*/
+
 
     var importsList = [
         BrowserModule,
@@ -47,7 +49,7 @@ import {LoginComponent} from './login/rt-login.component';
         HttpModule,
 		BrowserAnimationsModule,
 		
-		//AppRoutingModule,
+		AppRoutingModule,
 
         CalendarModule,
         NgUploaderModule
@@ -56,15 +58,15 @@ import {LoginComponent} from './login/rt-login.component';
 
     var declarationList = [
 
-        AppComponent,
+        //AppComponent,
 
-        /*
+        
         AppLoginComponent,
         StartPageComponent,
         LoginComponent,
 
         RtRegisterCompletion,
-        */
+        
 
         DialogComponent,
         MainFormComponent,
@@ -95,8 +97,8 @@ import {LoginComponent} from './login/rt-login.component';
         DialogComponent
         ];
 
-    //var bootstrapList = [AppLoginComponent];
-    var bootstrapList = [AppComponent];
+    var bootstrapList = [AppLoginComponent];
+    //var bootstrapList = [AppComponent];
 
 
 
@@ -111,5 +113,5 @@ import {LoginComponent} from './login/rt-login.component';
 
 
 
-    export class AppModule {
+    export class AppLoginModule {
     }

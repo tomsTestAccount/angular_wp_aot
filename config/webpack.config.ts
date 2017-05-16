@@ -44,6 +44,8 @@ const PROD = EVENT.includes('prod');
 const WATCH = hasProcessFlag('watch');
 const UNIVERSAL = EVENT.includes('universal');
 
+const APPLOGIN = EVENT.includes('appLogin');
+
 let port: number;
 if (!UNIVERSAL) {
   if (PROD) {
@@ -74,7 +76,8 @@ const CONSTANTS = {
   UNIVERSAL: UNIVERSAL,
   DLL:DLL,
   WATCH:WATCH,
-  DEV_SERVER:DEV_SERVER
+  DEV_SERVER:DEV_SERVER,
+  APPLOGIN:APPLOGIN
 };
 
 console.log("CONSTANTS = ",CONSTANTS);
@@ -237,37 +240,71 @@ const clientConfig = function webpackConfig(): WebpackConfig {
   }
 
   if (DLL) {
-    config.entry = {
-      app_assets: [root('src/main.browser')],
-      polyfill: [
-        'sockjs-client',
-        '@angularclass/hmr',
-        'ts-helpers',
-        'zone.js',
-        'core-js/client/shim.js',
-        'core-js/es6/reflect.js',
-        'core-js/es7/reflect.js',
-        'querystring-es3',
-        'strip-ansi',
-        'url',
-        'punycode',
-        'events',
-        'webpack-dev-server/client/socket.js',
-        'webpack/hot/emitter.js',
-        'zone.js/dist/long-stack-trace-zone.js',
-        ...MY_POLYFILL_DLLS
-      ],
-      vendor: [...DLL_VENDORS]
-    };
+	if (APPLOGIN)
+	{
+		config.entry = {
+			app_assets: [root('src/main.browser.appLogin')],
+			polyfill: [
+				'sockjs-client',
+				'@angularclass/hmr',
+				'ts-helpers',
+				'zone.js',
+				'core-js/client/shim.js',
+				'core-js/es6/reflect.js',
+				'core-js/es7/reflect.js',
+				'querystring-es3',
+				'strip-ansi',
+				'url',
+				'punycode',
+				'events',
+				'webpack-dev-server/client/socket.js',
+				'webpack/hot/emitter.js',
+				'zone.js/dist/long-stack-trace-zone.js',
+				...MY_POLYFILL_DLLS
+			  ],
+			  vendor: [...DLL_VENDORS]
+		};
+	}
+	else {
+		config.entry = {
+			app_assets: [root('src/main.browser.app')],
+			polyfill: [
+			'sockjs-client',
+			'@angularclass/hmr',
+			'ts-helpers',
+			'zone.js',
+			'core-js/client/shim.js',
+			'core-js/es6/reflect.js',
+			'core-js/es7/reflect.js',
+			'querystring-es3',
+			'strip-ansi',
+			'url',
+			'punycode',
+			'events',
+			'webpack-dev-server/client/socket.js',
+			'webpack/hot/emitter.js',
+			'zone.js/dist/long-stack-trace-zone.js',
+			...MY_POLYFILL_DLLS
+			],
+			vendor: [...DLL_VENDORS]
+		};
+	}
   } else {
     if (AOT) {
       config.entry = {
         main: root('src/main.browser.aot')
       };
     } else {
-      config.entry = {
-        main: root('src/main.browser')
-      };
+		if (APPLOGIN)
+		{
+		  config.entry = {
+			main: root('src/main.browser.appLogin')
+		  };
+		} else{
+		  config.entry = {
+			main: root('src/main.browser.app')
+		  };
+		}		  
     }
   }
 

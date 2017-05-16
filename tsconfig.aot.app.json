@@ -1,0 +1,57 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "module": "es2015",
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "noEmitHelpers": true,
+    "pretty": false,
+    "sourceMap": true,
+    "lib": ["dom", "es6", "es2015", "es2016", "es2017"],
+    "noEmit": true,
+    "strictNullChecks": false,
+    "skipDefaultLibCheck": true,
+	"allowJs" : true,
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "compiled",
+	"express-test-server",
+	"dist",
+	"dll",
+    "e2e/**/*.ts",
+    "src/**/*.e2e.ts",
+    "src/**/*.spec.ts",
+    "src/server.ts",
+    "src/server.aot.ts",
+    "src/main.browser.aot.ts",
+	
+	"src/main.browser.appLogin.ts",
+	"src/app/browser.appLogin.module.ts",
+	"src/app/appLogin.component.ts",
+	"src/app/app-routing.ts",
+	"src/app/appLogin.module.ts",
+	
+	"src/app/login/*.ts",
+	"src/app/home/*.ts",
+	"src/app/register/**/*.ts"
+  ],
+  "awesomeTypescriptLoaderOptions": {
+    "useWebpackText": true,
+    "forkChecker": true,
+    "useCache": true
+  },
+  "compileOnSave": false,
+  "buildOnSave": false,
+  "atom": { "rewriteTsconfig": false },
+  "angularCompilerOptions": {
+   "genDir": "compiled",
+   "skipMetadataEmit" : true
+ }
+}
+
+
