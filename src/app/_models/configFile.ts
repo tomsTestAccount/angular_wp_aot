@@ -40,6 +40,10 @@ export class ServerConfigs {
             //we're on developent system, so we need rest-login and authorization token
             this.onDevelopmentEnv = true;
 
+            let splitHref = locUrl_location.href.split("/");
+            this.host  = splitHref.slice(0, splitHref.length - 1).join("/") + "/";
+
+
             if (dbgPrint) console.log("we're on development");
             if (locUrl_location.pathname.indexOf('Plone') == -1)
             {
@@ -50,35 +54,17 @@ export class ServerConfigs {
                 this.userId = '';
 
             }
-            else
-            {
-
-                //we runing on plone-dev server (vmware)
-                if (dbgPrint) console.log(".. on plone-server");
-                this.onDevelopmentEnv = false;
-                //this.host= 'http://' + locUrl_location.host + '/Plone';
-                //this.serverURL = locUrl_location.protocol + '//' + this.host + '/Plone';
-
-                this.host = locUrl_location.protocol + '//' + this.host + '/Plone';
-
-
-                //todo:found userId in url
-                if (locUrl_location.pathname.indexOf(this.applicationEntryPath) != -1) {
-                    let splitPathname = locUrl_location.pathname.split("/");
-                    console.log("splitPathname =", splitPathname, "this.host=", this.host);
-                    if (splitPathname.length) {
-                        this.userId = splitPathname[splitPathname.length - 2];
-                    }
-
-                }
-            }
         }
         else {
             //we're on production system (running within plone)
             if (dbgPrint) console.log("we're on production");
             this.onDevelopmentEnv = false;
 
-            this.host = locUrl_location.protocol + '//' + this.host ;
+            let splitHref = locUrl_location.href.split("/");
+            this.host  = splitHref.slice(0, splitHref.length - 1).join("/") + "/";
+            if (dbgPrint) console.log("this.host=",this.host);
+
+            //this.host = locUrl_location.protocol + '//' + this.host ;
 
             //todo:found userId in url
             if (locUrl_location.pathname.indexOf(this.applicationEntryPath) != -1) {
