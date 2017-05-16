@@ -69,9 +69,9 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 				)
     {
 
-		let serverURL = serverConfs.get_serverConfigs().url;
+		let serverURL = serverConfs.get_serverConfigs().host;
 		let userId = serverConfs.get_serverConfigs().userId;
-		this.summaryPage_href = serverURL + '/applications/' + userId + '/' + userId ;
+		this.summaryPage_href = serverURL + '/' +  serverConfs.get_serverConfigs().applicationEntryPath +'/' + userId + '/' + userId ;
 
 		//this.formStruct = this.lmu_ua_form.get_formInfos();
 

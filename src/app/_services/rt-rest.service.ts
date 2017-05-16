@@ -20,15 +20,18 @@ export class RestService {
     public serverURL : string;
     public host : string;
     public userId:string;
+    public applicationEntryPath:string;
     public onDevEnv:boolean = false;
     private runningConfs:any;
 
     constructor(private http: Http, serverConfs: ServerConfigs)
     {
         this.runningConfs = serverConfs;
-        this.serverURL = this.runningConfs.get_serverConfigs().url;
+        let serverConfigs = this.runningConfs.get_serverConfigs();
         //this._currentUserId = 'mueller';
-        this.userId = this.runningConfs.get_serverConfigs().userId;
+        this.serverURL = serverConfigs.host; // + '/' + serverConfigs.applicationEntryPath;
+        this.applicationEntryPath = serverConfigs.applicationEntryPath;
+        this.userId = serverConfigs.userId;
 
         this.onDevEnv = this.runningConfs.onDevelopmentEnv;
 
@@ -167,7 +170,7 @@ export class RestService {
 
         if (dbgPrint_getUser) console.log("in restService,restGet_formObject: userId=",userId);
 
-        return this.http.get(this.serverURL + '/applications/'+ userId +'/'+userId              //url req-main
+        return this.http.get(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId              //url req-main
                                                                             //url req-sub
             ,{headers:headers}                                     //header
         )   .map((response: Response) => response.json())
@@ -190,7 +193,7 @@ export class RestService {
         let body = form;
 
         //console.log("in restService,auth_getFormObject: user=",user);
-        return this.http.patch(this.serverURL + '/applications/'+ userId +'/'+userId                                        //url req-main
+        return this.http.patch(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId                                        //url req-main
             ,body                                                                            //(userData)                                                                        //body
             ,{headers:headers} //,({headers: new Headers({'Authorization':token}) })                               //({'Authorization':'Bearer ' + token})                 //header
             //.retry(1)
@@ -202,6 +205,7 @@ export class RestService {
 
     }
 
+    //thta file-rest-api is not used for plone in the moment
     restDelete_File(userId: string,token:string,fileId:string)
     {
         let headers = new Headers();

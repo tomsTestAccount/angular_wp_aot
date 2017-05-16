@@ -11,14 +11,15 @@
     "pretty": true,
     "sourceMap": true,
     "strictNullChecks": false,
+	"allowJs" : true,
     "typeRoots" : [
-		
 		"node_modules/@types"
 	]
   },
   "files": [
 	"config/types/webpack.d.ts",
-	"config/webpack.prod.aot.ts"
+	"config/types/constants.d.ts",
+	"config/webpack.config.ts"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useWebpackText": true,
@@ -32,5 +33,5 @@
 
 
 /*
-is neccessary here because of start webpack with config.ts-file  in folder 'config'
+is neccessary here (in root-dir) because of start webpack with config.ts-file  in folder 'config'
 */

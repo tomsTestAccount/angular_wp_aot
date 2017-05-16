@@ -119,9 +119,21 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
              if (dbgPrint_dateEntry) console.log("this.formEntry.options=", this.formEntry.options);
         }
+        else if (this.formEntry.type == 'bool') {
+          this.formEntry.options = [
+            {
+              name: 'true'
+            },
+            {
+              name: 'false'
+            }
+          ];
+        }
+        /*
+        else if (this.formEntry.type == 'mselect-prio-grid') {
 
-
-
+        }
+        */
     }
 
 
@@ -190,6 +202,23 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
         return retValue;
     }
 
+    checkIfRequired():boolean
+    {
+      if (this.formEntry.validators)
+      {
+        //this.formEntry.validators.forEach((e,i)=> {
+        for (let i=0;i<this.formEntry.validators.length;i++) {
+          let e = this.formEntry.validators[i];
+          if (e === 'required') {
+            //console.log("formEntry=", this.formEntry);
+            return true;
+          }
+        }
+        //});
+      }
+      //console.log("formEntry=", this.formEntry);
+      return false;
+    }
 
     checkValidationErrorExists()
     {

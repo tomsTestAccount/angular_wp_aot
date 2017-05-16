@@ -12,12 +12,12 @@ import { NgUploaderModule }        from 'ngx-uploader';
 
 import  'hammerjs';
 
-import {getKeyValuePair}        from './_pipes/key-value.pipe';
-import {objValuesPipe}          from '../app/_pipes/key-value.pipe';
+import {objValuesPipe,orderByPipe}          from '../app/_pipes/key-value.pipe';
 import {rtFileUploaderComponent} from './rtFormInputs/rt-file-uploader.component';
 
 import {rtInputComponent}       from './rtFormInputs/rt-input.component';
 import {rtGridBoxAddComponent}     from './rtFormInputs/rt-grid-box-add.component';
+import {rtMSelectPrioGridComponent} from './rtFormInputs/rt-mselect-prio-grid.component';
 
 import {DynamicSubFormComponent} from'./dynamicForm/dynamic-subform.component'
 
@@ -30,12 +30,14 @@ import {DialogsService}                 from './_services/dialogs.services'
 import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
-import {RtRegisterCompletion} from './register/rt-register-completion.component';
+
 
 //import { AppComponent} 			from './app.component';
+
 import {StartPageComponent} from './home/start-page.component';
 import { AppLoginComponent} 			from './appLogin.component';
 import { AppRoutingModule }             from './app-routing';
+import {RtRegisterCompletion} from './register/rt-register-completion.component';
 import {LoginComponent} from './login/rt-login.component';
 
 
@@ -45,10 +47,9 @@ import {LoginComponent} from './login/rt-login.component';
         ReactiveFormsModule,
         MaterialModule,
         HttpModule,
-        
-		AppRoutingModule,
-        
 		BrowserAnimationsModule,
+		
+		AppRoutingModule,
 
         CalendarModule,
         NgUploaderModule
@@ -59,11 +60,13 @@ import {LoginComponent} from './login/rt-login.component';
 
         //AppComponent,
 
+        
         AppLoginComponent,
         StartPageComponent,
         LoginComponent,
 
         RtRegisterCompletion,
+        
 
         DialogComponent,
         MainFormComponent,
@@ -71,17 +74,20 @@ import {LoginComponent} from './login/rt-login.component';
         rtFileUploaderComponent,
         rtInputComponent,
         rtGridBoxAddComponent,
+        rtMSelectPrioGridComponent,
         objValuesPipe,
-        getKeyValuePair];
+        orderByPipe];
+        //getKeyValuePair];
 
-    var providersList = [//UserDataService,
+    var providersList = [
+        //UserDataService,
         RestService,
         AuthenticationService,
         ServerConfigs,
-        
+
         RtFormService,
         DialogsService,
-        
+
         ];
 
         /********* Note that DialogComponent has been added to the entryComponents array. ********************************

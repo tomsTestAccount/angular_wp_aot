@@ -5,7 +5,7 @@ import { BrowserModule } from '@angular/platform-browser';
 //import { AppComponent } from './app.component';
 import { AppLoginComponent } from './appLogin.component';
 import { AppModule } from './app.module';
-//import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
+import { BrowserTransferStateModule } from '../modules/transfer-state/browser-transfer-state.module';
 
 @NgModule({
   bootstrap: [AppLoginComponent],
@@ -14,7 +14,7 @@ import { AppModule } from './app.module';
     BrowserModule.withServerTransition({
       appId: 'my-app-id'
     }),
-    //BrowserTransferStateModule,
+    BrowserTransferStateModule,
 	AppModule
   ]
 })

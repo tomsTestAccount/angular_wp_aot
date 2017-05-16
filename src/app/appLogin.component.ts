@@ -1,10 +1,10 @@
 
-import { Component,OnDestroy,Input } from '@angular/core';
-import {Router} from '@angular/router';
-import {AuthenticationService} from '../app/_services/rt-authentication.service';
+import { Component, OnDestroy } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from '../app/_services/rt-authentication.service';
 import { Subscription }   from 'rxjs/Subscription';
-import {Location} from '@angular/common';
-
+import { Location} from '@angular/common';
+//import { MOBILE } from './_services/constants_ts';
 
  @Component({
  selector: 'my-app',

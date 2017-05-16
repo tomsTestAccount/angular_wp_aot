@@ -394,7 +394,9 @@ export class RtFormService {
         {
             //let subFormGroup :FormGroup;
 
-            this.wFO.subForms[i].formGroup =  this.toFormGroup(this.wFO.subForms[i].formEntries);
+            if (this.wFO.subForms[i].formEntries) this.wFO.subForms[i].formGroup =  this.toFormGroup(this.wFO.subForms[i].formEntries);
+            //else this.wFO.subForms[i].formGroup = new FormGroup(new FormControl('dummy'));
+
             if (this.wFO.subForms[i].childrenFormsArray)
             {
                 for (let y = 0;y<this.wFO.subForms[i].childrenFormsArray.length;y++)
@@ -529,9 +531,9 @@ export class RtFormService {
                validatorArray.push(Validators.minLength(found_Length));
                validatorArray.push(Validators.maxLength(found_Length));
            }
-           else if (stringArray[i].indexOf('validateFileUpload')!=-1)
+           else if (stringArray[i].indexOf('validateFileUpload_lmu')!=-1)
            {
-               validatorArray.push(this.rtValidators.validateFileUpload);
+               validatorArray.push(this.rtValidators.validateFileUpload_lmu);
            }
            else if (stringArray[i].indexOf('validateCourseList')!=-1)
            {
@@ -545,6 +547,15 @@ export class RtFormService {
            {
                validatorArray.push(this.rtValidators.validateNumberNotZero);
            }
+           else if (stringArray[i].indexOf('validateURI')!=-1)
+           {
+             validatorArray.push(this.rtValidators.validateURI);
+           }
+           else if (stringArray[i].indexOf('validateDate')!=-1)
+           {
+             validatorArray.push(this.rtValidators.validateDate);
+           }
+
 
 
        }
