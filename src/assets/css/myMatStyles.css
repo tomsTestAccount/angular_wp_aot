@@ -296,7 +296,11 @@
 
 .mat-card {
   background: white;
-  color: black; }
+  color: black;
+  padding-top: 0;
+  padding-left: 1px;
+  padding-right: 1px;
+}
 
 .mat-card-subtitle {
   color: rgba(0, 0, 0, 0.54); }
