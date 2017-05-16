@@ -291,9 +291,17 @@ const clientConfig = function webpackConfig(): WebpackConfig {
 	}
   } else {
     if (AOT) {
-      config.entry = {
-        main: root('src/main.browser.aot')
-      };
+		if (APPLOGIN)
+		{
+			config.entry = {
+				main: root('src/main.browser.aot.appLogin')
+			};
+		}
+		else {
+		config.entry = {
+				main: root('src/main.browser.aot')
+			};
+		}
     } else {
 		if (APPLOGIN)
 		{

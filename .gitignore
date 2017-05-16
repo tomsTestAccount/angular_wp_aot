@@ -2,3 +2,5 @@
 /compiled
 /dll
 /config/.awcache
+/dist
+/.idea

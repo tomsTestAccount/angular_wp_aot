@@ -28,7 +28,7 @@
     "src/**/*.spec.ts",
     "src/server.ts",
     "src/server.aot.ts",
-    "src/main.browser.aot.ts",
+    "src/main.browser.aot.appLogin.ts",
 	
 	"src/main.browser.appLogin.ts",
 	"src/app/browser.appLogin.module.ts",
