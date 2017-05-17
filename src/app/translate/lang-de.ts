@@ -18,7 +18,7 @@ export const LANG_DE_TRANS = {
     //fileUpload-component //TODO: put locale settings here
     'browse' : 'Datei',
     'fileName' : 'Dateiname',
-    'size' : 'Größe'
+    'size' : 'Größe',
 
     //main-form control-buttons
     'save' : 'Speichern',
