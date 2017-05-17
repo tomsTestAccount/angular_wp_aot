@@ -30,6 +30,7 @@ import {DialogsService}                 from './_services/dialogs.services'
 import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
+import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService }   from './translate';
 
 
 //import { AppComponent} 			from './app.component';
@@ -76,7 +77,8 @@ import {LoginComponent} from './login/rt-login.component';
         rtGridBoxAddComponent,
         rtMSelectPrioGridComponent,
         objValuesPipe,
-        orderByPipe];
+        orderByPipe,
+        TranslatePipe];
         //getKeyValuePair];
 
     var providersList = [
@@ -88,6 +90,8 @@ import {LoginComponent} from './login/rt-login.component';
         RtFormService,
         DialogsService,
 
+        TRANSLATION_PROVIDERS,
+        TranslateService
         ];
 
         /********* Note that DialogComponent has been added to the entryComponents array. ********************************

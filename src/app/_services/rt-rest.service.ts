@@ -121,7 +121,7 @@ export class RestService {
         let headers = new Headers();
         headers.append('Accept', 'application/json');
         //headers.append('Content-type', 'application/json');
-        headers.append('Authorization','Bearer ' + token);
+        if (token) headers.append('Authorization','Bearer ' + token);
 
         //console.log("in restService,auth_getFormObject: user=",user);
         return this.http.get(this.serverURL + '/@users/'              //url req-main

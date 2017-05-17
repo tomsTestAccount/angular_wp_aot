@@ -10,7 +10,7 @@
                                                     }">
 
             <div  *ngSwitchCase="'text'">
-             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
                 </label>
@@ -21,14 +21,15 @@
                        [id]="formEntry.key"
                        formControlName={{formEntry.key}}
                 />
-                <div class="invalidInfo" *ngIf="entryErrorString">
-                    {{entryErrorString}}
-                </div>
+                <!--<div class="invalidInfo" *ngIf="entryErrorString">
+                         {{entryErrorString}}
+                     </div>
+                     -->
             </div>
 
 
         <div *ngSwitchCase="'textarea'">
-           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
                 </label>
@@ -40,16 +41,17 @@
                        formControlName={{formEntry.key}}
                         >
                 </textarea>
-                <div class="invalidInfo" *ngIf="entryErrorString">
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+                -->
 
         </div>
 
 
         <div  *ngSwitchCase="'date'">
 
-                <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+                <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
                 </label>
@@ -66,6 +68,8 @@
                             [monthNavigator]="true"
                             [yearNavigator]="true"
                             [defaultDate]="valueAsDate"
+                            [locale]="calenderLanguage"
+
                     >
                     </p-calendar>
 
@@ -73,9 +77,10 @@
                     <!--<input *ngIf="formEntry.required == true" class="notvisibleInput" formControlName={{formEntry.key}} value={{formgroup.controls[formEntry.key].value}} required>-->
                     <input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
                             *ngIf="formEntry.required == undefined || formEntry.required == false" class="notvisibleInput" formControlName={{formEntry.key}} value={{formgroup.controls[formEntry.key].value}}>
-                    <div class="invalidInfo" *ngIf="entryErrorString">
+                    <!--<div class="invalidInfo" *ngIf="entryErrorString">
                         {{entryErrorString}}
                     </div>
+                    -->
                 </div>
 
 
@@ -83,7 +88,7 @@
         </div>
 
         <div  *ngSwitchCase="'select'">
-           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
                 </label>
@@ -95,13 +100,14 @@
                     <option selected="selected" disabled="disabled" value="">Please Select</option>
                     <option *ngFor="let option of formEntry.options" [value]="option.name">{{option.name}}</option>
                 </select>
-                <div class="invalidInfo" *ngIf="entryErrorString">
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+                -->
         </div>
 
           <div  *ngSwitchCase="'multi-select-slider'">
-            <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+            <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
             <br />
             <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
             </label>
@@ -121,13 +127,14 @@
               [formEntry]= formEntry>
             </rt-mselect-prio-grid>
 
-            <div class="invalidInfo" *ngIf="entryErrorString">
-              {{entryErrorString}}
-            </div>
+              <!--<div class="invalidInfo" *ngIf="entryErrorString">
+                          {{entryErrorString}}
+                      </div>
+                      -->
           </div>
 
         <div  *ngSwitchCase="'mselect-prio-grid'">
-          <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+          <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
           <br />
           <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
           </label>
@@ -147,9 +154,10 @@
             [formEntry]= formEntry>
           </rt-mselect-prio-grid>
 
-          <div class="invalidInfo" *ngIf="entryErrorString">
-            {{entryErrorString}}
-          </div>
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
+                           {{entryErrorString}}
+                       </div>
+                       -->
 
         </div>
 
@@ -174,7 +182,7 @@
 
         -->
         <div    *ngSwitchCase="'number'">
-             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+             <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
                 </label>
@@ -187,13 +195,14 @@
                         pattern="[0-9]+([\.,][0-9]+)?"
                         step="0.01"
                 />
-                <div class="invalidInfo" *ngIf="entryErrorString">
-                    {{entryErrorString}}
-                </div>
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
+                     {{entryErrorString}}
+                 </div>
+                 -->
         </div>
 
         <div    *ngSwitchCase="'email'">
-           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
+           <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
 
 
                 <input  autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
@@ -203,13 +212,14 @@
                        formControlName={{formEntry.key}}
                 />
 
-                <div class="invalidInfo" *ngIf="entryErrorString">
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+                -->
         </div>
 
         <div *ngSwitchCase="'grid-box-add'">
-           <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}}</label>
+           <label class="lbl-form_main" [attr.for]="formEntry.key">{{formEntry.title}} {{formEntry.required ? '*' : ''}}</label>
                 <br />
                 <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray"> {{text}}  <br />
                 </label>
@@ -229,14 +239,15 @@
                         [formEntry]= formEntry>
                 </rt-grid-box-add>
 
-                <div class="invalidInfo" *ngIf="entryErrorString">
-                    {{entryErrorString}}
-                </div>
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
+                     {{entryErrorString}}
+                 </div>
+                 -->
         </div>
 
         <div *ngSwitchCase="'fileUpload'">
                 <md-checkbox *ngIf='formEntry.collapsible_box_title !== undefined'  [(ngModel)]="isOpened" [ngModelOptions]="{standalone: true}" (click)="toggle_isOpened(this)" align="start">
-                    <label class="lbl-form_main"> {{formEntry.collapsible_box_title}} </label>
+                    <label class="lbl-form_main"> {{formEntry.collapsible_box_title}} {{formEntry.required ? '*' : ''}} </label>
                 </md-checkbox>
 
                 <i class="mdi mdi-information-outline mdi-24px" *ngIf="formEntry.collapsible_info_text !== undefined"
@@ -268,9 +279,10 @@
                                                 [formgroup]=formgroup
                                                 [formEntry] = formEntry>
                 </rt-file-uploader>
-                <div class="invalidInfo" *ngIf="entryErrorString">
+            <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+                -->
 
 
         </div>
@@ -281,11 +293,12 @@
                     </label>
                     <br />
                     <md-checkbox formControlName={{formEntry.key}} align="start">
-                        <label class="lbl-form_main" [attr.for]="formEntry.key"> {{formEntry.title}} </label>
+                        <label class="lbl-form_main" [attr.for]="formEntry.key"> {{formEntry.title}} {{formEntry.required ? '*' : ''}} </label>
                     </md-checkbox>
-                    <div class="invalidInfo" *ngIf="entryErrorString">
+                    <!--<div class="invalidInfo" *ngIf="entryErrorString">
                         {{entryErrorString}}
                     </div>
+                    -->
                         <!--
 
                         <md-icon *ngIf="formEntry.infoText != invalid"
@@ -314,7 +327,13 @@
 
             </div>
         </div>
-      </div>
+            <div class="invalidInfo" *ngIf="entryErrorString.length">
+                <label *ngFor="let errorEntry of entryErrorString">
+                    {{errorEntry | translate}}
+                </label>
+            </div>
+        </div>
+
     </div>
 
 </div>

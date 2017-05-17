@@ -1,7 +1,7 @@
 
 import { CountryList_de,CountryList}  from '../_models/countries';
 
-import { FormSettings}  from '../_models/configFile';
+import { formSettings}  from '../_models/configFile';
 
 /* definition
 {
@@ -17,7 +17,7 @@ import { FormSettings}  from '../_models/configFile';
 */
 
 var countryList;
-if (FormSettings.lang == 'german')  countryList = CountryList_de;
+if (formSettings.lang == 'de')  countryList = CountryList_de;
 else countryList = CountryList;
 
 
@@ -254,7 +254,7 @@ const sel_master_formEntries = [
 	   secParagraphArray: ["Ihre Homepage (falls verfügbar)"],
 	   defaultValue: "",
 	   required: "False",
-     validators:  ['minLength=5'],
+     validators:  ['minLength=5','validateURI'],
 	   section: "Stammdaten"
 	 }
  ];

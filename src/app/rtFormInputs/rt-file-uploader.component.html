@@ -15,12 +15,12 @@
         <div class="flexContainer_row">
             <div class="flexContainer_col">
                 <div>
-                    <label class="lbl-form_main">{{title}}</label>
+                    <label class="lbl-form_main">{{title}} {{currentFormEntry.required ? '*' : ''}}</label>
                 </div>
                 <div>
                     <label class="secParagraph" *ngFor="let text of secParagraphArray" > {{text}}
                     </label>
-                    <label class="secParagraph">Browse for file</label>
+                    <!--<p class="secParagraph">Browse for file</p>-->
                 </div>
             </div>
 
@@ -61,7 +61,7 @@
 
 
                             <div class="mat-list-text">
-                                <h4> ... No file has been uploaded yet  !</h4>
+                                <h4> {{'noFile' | translate }}</h4>
                             </div>
                         </md-list-item>
 
@@ -75,8 +75,8 @@
                               [style.border-top-left-radius]="' 0.25rem'">
                     <md-list [style.padding]="'0'"  layout="row" layout-align="center center">
                         <md-list-item>
-                            <p  md-line class="form_gridList_mdList_mainParagraph" [style.margin-bottom]="'0'">File Name</p>
-                            <p  md-line class="form_gridList_mdList_secParagraph" [style.margin-bottom]="'0'"> Size , Download Link </p>
+                            <p  md-line class="form_gridList_mdList_mainParagraph" [style.margin-bottom]="'0'"> {{'fileName' | translate}}</p>
+                            <p  md-line class="form_gridList_mdList_secParagraph" [style.margin-bottom]="'0'"> {{'size' | translate}} , Download Link </p>
                         </md-list-item>
                     </md-list>
                 </md-grid-tile>
@@ -98,7 +98,7 @@
                             <span class="placeholder_button"></span>
 
                             <i class="mdi mdi-file-find mdi-24px"></i>
-                            <span> Browse </span>
+                            <span> {{ 'browse' | translate }} </span>
                             <span class="placeholder_button"></span>
                             <input type="file" class="upload"
                                    ngFileSelect
@@ -145,7 +145,6 @@
 
             <md-grid-list cols="4"
                           rowHeight="38px"
-
                           *ngFor="let file of localFileArray"
                           [style.border-top]="'thin solid lightgrey'"
                           [style.border-radius]="'0'">

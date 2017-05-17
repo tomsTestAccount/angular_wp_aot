@@ -1,9 +1,10 @@
 
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../app/_services/rt-authentication.service';
 import { Subscription }   from 'rxjs/Subscription';
 import { Location} from '@angular/common';
+//import { TranslateService } from './translate';
 //import { MOBILE } from './_services/constants_ts';
 
  @Component({
@@ -96,7 +97,7 @@ import { Location} from '@angular/common';
  <i class="mdi mdi-account"></i>
  </div>
  <!--<div class="header_userInfo_item">{{authenticationService._currentUser.lastName}},{{authenticationService._currentUser.firstName}}</div>-->
- <div class="header_userInfo_item">{{displayname}}</div>
+ <div class="header_userInfo_item">{{displayname }}</div>
 
  <div class="header_userInfo_item" >|</div>
  <div class="header_userInfo_item_button">Logout</div>
@@ -172,7 +173,7 @@ import { Location} from '@angular/common';
 
 
 
- export class AppLoginComponent implements OnDestroy
+ export class AppLoginComponent implements OnDestroy,OnInit
  {
 
      progressBar_value:number=0;
@@ -184,7 +185,7 @@ import { Location} from '@angular/common';
      constructor(private _router: Router,
          public _authenticationService: AuthenticationService,
          private _location: Location
-         //,public modal: Modal
+         //,private _translate: TranslateService
      ){
      this.subscription = _authenticationService.userDisplayName$.subscribe(
      newDisplayName => {
@@ -194,6 +195,12 @@ import { Location} from '@angular/common';
      _authenticationService.getProgressValue().subscribe((value) => this.progressBar_value = value);
      _authenticationService.getProgressMode().subscribe((mode) => this.progressBar_mode = mode);
      }
+
+
+    ngOnInit()
+    {
+
+    }
 
      showLoginModal():void{
 

@@ -35,7 +35,6 @@ export class objValuesPipe implements PipeTransform {
 @Pipe({name: 'orderBy', pure: false})
 export class orderByPipe implements PipeTransform {
 
-
   static _orderByComparator(a: any, b: any): number {
 
     if ((typeof(a) === "boolean")) {

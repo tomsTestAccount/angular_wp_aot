@@ -1,7 +1,7 @@
 import {Component, Input, DoCheck, OnInit,AfterViewInit} from '@angular/core';
 import { FormGroup,FormControl,FormBuilder }        from '@angular/forms';
-//import { ChangeDetectorRef } from '@angular/core';
-
+//import { TranslateService } from '../translate';
+import {formSettings} from '../_models/configFile';
 //----------------------------------------------------------------------------------------------------------------------
 
 const dbgPrint_lifecyclehooks = false;
@@ -36,7 +36,9 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
     showTooltip =  false;
     isOpened=true;
-    entryErrorString : string;
+    entryErrorString : string[];
+
+    calenderLanguage : any;
 
     constructor()
     {
@@ -118,6 +120,31 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
              //this.formEntry.options.maxDate = null;
 
              if (dbgPrint_dateEntry) console.log("this.formEntry.options=", this.formEntry.options);
+
+
+            if (formSettings.lang == 'de') {
+                this.calenderLanguage = {
+                    firstDayOfWeek: 0,
+                    dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Dienstag", "Freitag", "Samstag"],
+                    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                    monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
+                    monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                };
+            }
+            else //default
+            {
+                this.calenderLanguage = {
+                    firstDayOfWeek: 0,
+                    dayNames: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                    dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                    monthNames: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+                    monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                };
+
+            }
+
         }
         else if (this.formEntry.type == 'bool') {
           this.formEntry.options = [
@@ -222,42 +249,31 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
     checkValidationErrorExists()
     {
-        let retValue =  "Not an valid input : ";
+        let retValue = ["notValid"];
         let errorInfos = "";
 
         if (this.formgroup.controls[this.formEntry.key].errors)
         {
             //setTimeout(()=> {                   //bugfix for angular.io changeDetection in Dev-Mode; see issue #6005 (EXCEPTION: Expression has changed after it was checked)
             let errRef = this.formgroup.controls[this.formEntry.key].errors;
+            let tmpErrArray = [];
 
-            //console.log("errType=",errRef);
 
             for (let errType in errRef) {
 
-                //retValue += errType.toString + '/n';
-
-                //if (errType.toString() === 'notValid')
-                {
-
-                    for (let errReason in errRef[errType]) {
-                        errorInfos += ' ,' + errReason.toString() + ":" + errRef[errType][errReason].toString();
-                    }
-                    break;
-                }
-
-                //this.cdr.detectChanges(); // detect changes           //bugfix for angular.io changeDetection in Dev-Mode; see issue #6005 (EXCEPTION: Expression has changed after it was checked)
+                tmpErrArray.push(errType);
+                break;
             }
-            // },1);
-            //console.log("errorInfos=",errorInfos);
-            if (errorInfos.length == 0) retValue = retValue + 'this field is required';
-            else {
-                errorInfos = errorInfos.slice(2, errorInfos.length);
-                retValue = retValue + errorInfos;
-            }
+
+            if (tmpErrArray.length == 0) tmpErrArray.push('required');
+
+            retValue = retValue.concat(tmpErrArray);
+
+
             this.entryErrorString = retValue;
 
         }
-        else this.entryErrorString  =  null;
+        else this.entryErrorString  =  [];
     }
 
 }

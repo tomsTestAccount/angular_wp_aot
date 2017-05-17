@@ -4,11 +4,11 @@
 const dbgPrint = true;
 
 
-//Todo: put these settings with formConfigurator in one big config-file ... hmm , think about it??
+ // Todo: put these settings with formConfigurator in one big config-file ... !?  hmm , think twice about it??
 
-export const FormSettings = {
-  //lang : 'english'
-  lang : "german", 
+export const formSettings = {
+  //lang : "de" //'en'
+    lang : 'de'
 }
 
 
@@ -70,7 +70,6 @@ export class ServerConfigs {
                 if (splitPathname.length) {
                     this.userId = splitPathname[splitPathname.length - 2];
                 }
-
             }
         }
 

@@ -12,7 +12,7 @@ import { NgUploaderModule }        from 'ngx-uploader';
 
 import  'hammerjs';
 
-import {objValuesPipe,orderByPipe}          from '../app/_pipes/key-value.pipe';
+import {objValuesPipe,orderByPipe}          from './_pipes/key-value.pipe';
 import {rtFileUploaderComponent} from './rtFormInputs/rt-file-uploader.component';
 
 import {rtInputComponent}       from './rtFormInputs/rt-input.component';
@@ -31,6 +31,8 @@ import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
 import { AppComponent} 			from './app.component';
+
+import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService }   from './translate';
 
 /*import {StartPageComponent} from './home/start-page.component';
 import { AppLoginComponent} 			from './appLogin.component';
@@ -74,7 +76,8 @@ import {LoginComponent} from './login/rt-login.component';
         rtGridBoxAddComponent,
         rtMSelectPrioGridComponent,
         objValuesPipe,
-        orderByPipe];
+        orderByPipe,
+        TranslatePipe];
         //getKeyValuePair];
 
     var providersList = [
@@ -86,6 +89,8 @@ import {LoginComponent} from './login/rt-login.component';
         RtFormService,
         DialogsService,
 
+        TRANSLATION_PROVIDERS,
+        TranslateService
         ];
 
         /********* Note that DialogComponent has been added to the entryComponents array. ********************************

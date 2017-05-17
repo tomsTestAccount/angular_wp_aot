@@ -56,7 +56,7 @@
 								<lmu_user_oi *ngIf="subFormEntry.key=='subFormGroup_oi'"  [setForm]="main_FormGroup.controls['subFormGroup_oi']" [setFormEntries]="subFormEntry.formObj.formEntries"></lmu_user_oi>
 -->
 
-								<label class="lbl-form_main">* = required</label>
+								<label class="lbl-form_main">* = {{'required' | translate}}</label>
 
 							</md-card-content>
 
@@ -85,13 +85,13 @@
 
 								<button *ngIf="!changeDetected"
 										md-button type="save" [disabled]="true">
-									Save
+									{{ 'save' | translate }}
 								</button>
 								<button *ngIf="changeDetected"
 										type="button"
 										class="btn bs_submit_button"
 										(click)="saveFormObj()"
-								>Save
+								>{{ 'save' | translate }}
 								</button>
 
 
@@ -106,7 +106,7 @@
 								<button *ngIf="!mainFormValid"
 										class="btn bs_submit_button"
 										type="button" (click)="showMissingInput()">
-									 Show Misentry
+									{{ 'misEntry' | translate }}
 								</button>
 
 								<!--<a *ngIf="mainFormValid && !changeDetected"-->
@@ -115,7 +115,7 @@
 								   id="blabla_notusedJsutTest"
 								   href="{{summaryPage_href}}"
 								   role="button">
-									Back to Summary
+									{{ 'goToSummary' | translate }}
 								</a>
 
 								<!--
