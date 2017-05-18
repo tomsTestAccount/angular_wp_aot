@@ -22,9 +22,12 @@
 	"build:dll:app": "cd config && npm run clean:dll && webpack --config webpack.config.ts",
 	"sass": "node-sass src -o src --include-path node_modules --output-style compressed -q",
 	
-	"build:aot:prod:appLogin": "npm run compile:aot:appLogin && npm run clean:dist && cd config && webpack",
+	"build:aot:prod:appLogin": "npm run compile:aot:appLogin && npm run build:dll:appLogin && npm run clean:dist && cd config && webpack",
+	"build:prod:appLogin": "npm run build:aot:prod:appLogin",
+	
 	"build:aot:prod:app": "npm run clean:dist && cd config && webpack",
 	"build:prod": "npm run compile:aot:app && npm run build:aot:prod:app",
+	
 	
 	"webdev:appLogin": "cd config && webpack-dev-server --config webpack.config.ts",
 	"webdev:app": "cd config && webpack-dev-server --config webpack.config.ts",

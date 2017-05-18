@@ -1,7 +1,7 @@
 import {Component, Input, DoCheck, OnInit,AfterViewInit} from '@angular/core';
 import { FormGroup,FormControl,FormBuilder }        from '@angular/forms';
 //import { TranslateService } from '../translate';
-import {formSettings} from '../_models/configFile';
+import {siteSettings} from '../_models/configFile';
 //----------------------------------------------------------------------------------------------------------------------
 
 const dbgPrint_lifecyclehooks = false;
@@ -122,14 +122,14 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
              if (dbgPrint_dateEntry) console.log("this.formEntry.options=", this.formEntry.options);
 
 
-            if (formSettings.lang == 'de') {
+            if (siteSettings.lang == 'de') {
                 this.calenderLanguage = {
                     firstDayOfWeek: 0,
                     dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Dienstag", "Freitag", "Samstag"],
-                    dayNamesShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
-                    dayNamesMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                    dayNamesShort: ["Son", "Mon", "Die", "Mit", "Don", "Fre", "Sam"],
+                    dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"],
                     monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"],
-                    monthNamesShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+                    monthNamesShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
                 };
             }
             else //default
@@ -259,9 +259,24 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
             let tmpErrArray = [];
 
 
+
             for (let errType in errRef) {
 
-                tmpErrArray.push(errType);
+                //tmpErrArray.push(errType);
+                if (errType == 'minlength')
+                {
+                    let errType_Obj = errRef[errType];
+                    for (let errType_prop in errType_Obj) {
+                        tmpErrArray.push(errType_prop.toString());
+                        tmpErrArray.push(':');
+                        tmpErrArray.push((errType_Obj[errType_prop]).toString());
+                        tmpErrArray.push(', ');
+                        //console.log("errRef=", errRef);
+                    }
+                    tmpErrArray = tmpErrArray.slice(tmpErrArray[0],tmpErrArray.length-1);
+                }
+                else tmpErrArray.push(errType);
+
                 break;
             }
 

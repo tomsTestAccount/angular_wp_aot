@@ -1,6 +1,6 @@
 import {Injectable, Inject, EventEmitter} from '@angular/core';
 import { TRANSLATIONS } from './translations'; // import our opaque token
-import { formSettings} from '../_models/configFile';
+import { siteSettings} from '../_models/configFile';
 
 const dbgPrint = false;
 
@@ -58,7 +58,7 @@ export class TranslateService {
 	public init(defaultLang?:string)
 	{
 		if (defaultLang in this._translations) this.use(defaultLang);
-		else if (formSettings.lang in this._translations) this.use(formSettings.lang);
+		else if (siteSettings.lang in this._translations) this.use(siteSettings.lang);
 
 		// set current language or fallback to defaultLanguage
 		else this.use('en');

@@ -3,7 +3,7 @@
 export const LANG_DE_NAME = 'de';
 
 export const LANG_DE_TRANS = {
-    'hello world': 'Hallo Welt',
+
 
     //validatoren
     'required' : 'Eingabe wird benötigt',
@@ -14,15 +14,33 @@ export const LANG_DE_TRANS = {
     'wrongUri' : 'Fehlerhafte URI Notation',
     'wrongDateFormat' : "Falsche Datumsangabe",
     'noFile' : 'Es wurde keine Datei hochgeladen',
+    'minlength' : 'minimum Länge',
+    'requiredLength' : 'benötigte Länge',
+    'actualLength' : 'aktuelle Länge',
 
-    //fileUpload-component //TODO: put locale settings here
+    //fileUpload-component
     'browse' : 'Datei',
     'fileName' : 'Dateiname',
     'size' : 'Größe',
 
+    //for select
+    'pleaseSelect': 'Bitte auswählen',
+
+        // for selecting gender
+        'male' : 'männlich',
+        'female' : 'weiblich',
+
     //main-form control-buttons
     'save' : 'Speichern',
     'misEntry' : 'Zeige Fehleingabe',
-    'goToSummary' : 'Zur Übersicht'
+    'goToSummary' : 'Zur Übersicht',
+
+//-------------- for formEntries -------------------------------------------------------------------
+    'hello world': 'Hallo Welt',
+    'LMU':'LMU',
+    'university': 'Universität',
+    'university_of_applied_sciences': 'Fachhochschule',
+    'other': 'anderes'
+
 
 };

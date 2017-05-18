@@ -11,8 +11,12 @@ opacity:1 !important}
 
 .mat-tab-body{overflow:hidden !important}
 
-div.mat-tab-labels{justify-content:space-between;
-background:white}
+div.mat-tab-labels{
+	justify-content:space-between;
+	background:white;
+	min-height: 2.5rem;
+	align-items: center;
+}
 
 .mat-list-text{display:flex;
 align-content:flex-start;
@@ -45,7 +49,9 @@ form textarea::-webkit-validation-bubble-message{display:none}
 
 input[type=number]{-moz-appearance:textfield}
 
-.ua-cardBg{background-color:#eceef !important}
+.ua-cardBg{
+	/*background-color:#eceef !important*/
+}
 
 .num{color:red;
 text-align:start;
@@ -80,10 +86,20 @@ h4{position:relative}
 
 .grid-pad{padding:10px 0}
 
-.lbl-form_main{font-size:small;
+.lbl-form_main{
+	font-size:small;
 font-weight:bold;
 color:#4b797c;
 margin-bottom:0.35rem}
+
+
+.form-input-chBox
+{
+	margin-top:0.35rem;
+	font-size:small;
+	font-weight:bold;
+	color:#4b797c;
+}
 
 .toolBar_lbl_flexible{font-size:medium;
 display:block;
@@ -287,10 +303,13 @@ color:#4b797c}
 margin-top:5%;
 margin-bottom:5%;
 line-height: initial;
+	display: inline-block;
 }
 
-.mat-tab-label{line-height:0 !important;
+.mat-tab-label{
+/*	line-height:0 !important;
  height:initial!important;
+ */
  padding:0 12px;
 font-size:14px;
 font-family:Roboto,

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../app/_services/rt-authentication.service';
 import { Subscription }   from 'rxjs/Subscription';
 import { Location} from '@angular/common';
-//import { TranslateService } from './translate';
+import { TranslateService } from './translate';
 //import { MOBILE } from './_services/constants_ts';
 
  @Component({
@@ -157,7 +157,18 @@ import { Location} from '@angular/common';
  <div class="footerItem">
  <a class="a_lmu" href="http://test-datascience.ifi.lmu.de/contact-info" title="Kontakt"> Kontakt </a>
  </div>
-
+     
+ <div class="footerItem">
+   <md-select [(ngModel)]="dbgVal_language">
+       <md-option  [value]="'en'" (click)="setLanguage('en')">English</md-option>
+       <md-option  [value]="'de'" (click)="setLanguage('de')">Deutsch</md-option>
+   </md-select>
+     
+ </div>
+     
+     
+     
+     
  </div>
  </footer>
  </div>
@@ -182,14 +193,19 @@ import { Location} from '@angular/common';
      displayname:string;
      subscription: Subscription;
 
+     dbgVal_language : string;
+
+
      constructor(private _router: Router,
          public _authenticationService: AuthenticationService,
-         private _location: Location
-         //,private _translate: TranslateService
+         private _location: Location,
+         private _translate: TranslateService  //only used for debug-select , see bottom of html-site (above)
      ){
      this.subscription = _authenticationService.userDisplayName$.subscribe(
      newDisplayName => {
      this.displayname = newDisplayName;
+
+
      });
 
      _authenticationService.getProgressValue().subscribe((value) => this.progressBar_value = value);
@@ -199,8 +215,15 @@ import { Location} from '@angular/common';
 
     ngOnInit()
     {
-
+         this.dbgVal_language = this._translate.currentLang;
     }
+
+    setLanguage(v:string)
+    {
+        console.log("In setLanguage: v = ",v);
+        this._translate.use(v);
+    }
+
 
      showLoginModal():void{
 

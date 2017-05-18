@@ -6,7 +6,7 @@ const dbgPrint = true;
 
  // Todo: put these settings with formConfigurator in one big config-file ... !?  hmm , think twice about it??
 
-export const formSettings = {
+export const siteSettings = {
   //lang : "de" //'en'
     lang : 'de'
 }

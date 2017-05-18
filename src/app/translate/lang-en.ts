@@ -3,7 +3,6 @@
 export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS = {
-    'hello world': 'hello world',
 
     //validators
     'required' : 'Your input is required',
@@ -14,15 +13,32 @@ export const LANG_EN_TRANS = {
     'wrongUri' : 'Wrong uri address notation',
     'wrongDateFormat': 'Wrong date format',
     'noFile' : 'No File was uploaded yet',
+    'minlength' : 'minimum length',
+    'requiredLength' : "required length",
+    'actualLength' : "actual length",
 
     //fileUpload-component //TODO: put locale settings here
     'browse' : 'Browse',
     'fileName' : 'File Name',
     'size' : 'Size',
 
+    //for select
+    'pleaseSelect': 'please Select',
+
+        // for selecting gender
+        'male' : 'male',
+        'female' : 'female',
+
     //main-form control-buttons
     'save' : 'Save',
     'misEntry' : 'Show MisEntry',
-    'goToSummary' : 'Back to Summary'
+    'goToSummary' : 'Back to Summary',
+
+    //-------------- for formEntries -------------------------------------------------------------------
+    'hello world': 'hello world',
+    'LMU':'LMU',
+    'university': 'university',
+    'university_of_applied_sciences': 'university of applied sciences',
+    'other': 'other'
 
 };

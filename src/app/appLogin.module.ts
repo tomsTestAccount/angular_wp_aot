@@ -33,6 +33,7 @@ import { MainFormComponent }     from './dynamicForm/mainform.component';
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService }   from './translate';
 
 
+
 //import { AppComponent} 			from './app.component';
 
 import {StartPageComponent} from './home/start-page.component';

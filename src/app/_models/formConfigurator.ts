@@ -1,7 +1,7 @@
 
 import { CountryList_de,CountryList}  from '../_models/countries';
 
-import { formSettings}  from '../_models/configFile';
+import { siteSettings}  from '../_models/configFile';
 
 /* definition
 {
@@ -17,7 +17,7 @@ import { formSettings}  from '../_models/configFile';
 */
 
 var countryList;
-if (formSettings.lang == 'de')  countryList = CountryList_de;
+if (siteSettings.lang == 'de')  countryList = CountryList_de;
 else countryList = CountryList;
 
 
@@ -64,7 +64,7 @@ const sel_master_formEntries = [
                           "Falls Sie für ein Masterstudium akzeptiert werden, erhalten Sie einen Zulassungsbescheid für den Studiengang, den Sie mit der höchsten Priotität gekennzeichnet haben und für den die Kommission Sie als geeignet begutachtet hat.",
                             "Die Reihenfolge der Prioritäten ergibt sich von oben nach unten bei den ausgewählten Studiengängen (d.h. der oberste hat die höchste Priorität). Priorisieren Sie die Einträge mit den Pfeiltasten rechts"],
 	   defaultValue: "False",
-	   required: "True",
+	   required: true,
      validators: ['required'],
 	   section: "Auswahl Masterprogramm"
 	 },
@@ -75,7 +75,7 @@ const sel_master_formEntries = [
 	   title: "Wiederbewerbung",
 	   secParagraphArray: ["Bitte anklicken, falls Sie sich schon einmal bei einem Eignungsfeststellungsverfahren für ein Masterstudium in Informatik/Medieninformatik an der LMU beworben haben"],
 	   defaultValue: "False",
-	   required: "False",
+	   required: false,
      validators: ['required'],
 	   section: "Auswahl Masterprogramm"
 	 }
@@ -89,7 +89,7 @@ const sel_master_formEntries = [
 	   title: "Name",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required'],
 	   section: "Stammdaten"
 	 },
@@ -100,7 +100,7 @@ const sel_master_formEntries = [
 	   title: "Vorname",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -111,7 +111,7 @@ const sel_master_formEntries = [
 	   title: "Nachname",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -129,7 +129,7 @@ const sel_master_formEntries = [
 	   title: "Geschlecht",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -145,7 +145,7 @@ const sel_master_formEntries = [
 			},
 	   title: "Geburtsdatum",
 	   secParagraphArray: ["Bitte geben Sie Ihr Geburtsdatum ein"],
-	   required: "True",
+	   required: true,
 	   section: "Stammdaten"
 	 },
 	 {
@@ -155,7 +155,7 @@ const sel_master_formEntries = [
 	   secParagraphArray: "",
      options: countryList,
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -166,7 +166,7 @@ const sel_master_formEntries = [
 	   title: "Straße und Hausnummer",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=6'],
 	   section: "Stammdaten"
 	 },
@@ -177,7 +177,7 @@ const sel_master_formEntries = [
 	   title: "Postleitzahl",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=4'],
 	   section: "Stammdaten"
 	 },
@@ -187,7 +187,7 @@ const sel_master_formEntries = [
 	   options: "",
 	   title: "Wohnort",
      defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -198,7 +198,7 @@ const sel_master_formEntries = [
      secParagraphArray: ["Bitte wählen Sie das Land aus, indem Sie aktuell Ihren Wohnsitz haben"],
      options: countryList,
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -209,7 +209,7 @@ const sel_master_formEntries = [
 	   title: "Telefon",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -220,7 +220,7 @@ const sel_master_formEntries = [
 	   title: "Telefon (alternativ)",
 	   secParagraphArray: ["Weitere Telefonnummer, z.B. Handy"],
 	   defaultValue: "",
-	   required: "False",
+	   required: false,
      validators: ['minLength=3'],
 	   section: "Stammdaten"
 	 },
@@ -242,7 +242,7 @@ const sel_master_formEntries = [
 	   title: "Email",
 	   secParagraphArray: "",
 	   defaultValue: "",
-	   required: "True",
+	   required: true,
      validators: ['required','validateEmail'],
 	   section: "Stammdaten"
 	 },
@@ -253,7 +253,7 @@ const sel_master_formEntries = [
 	   title: "Homepage",
 	   secParagraphArray: ["Ihre Homepage (falls verfügbar)"],
 	   defaultValue: "",
-	   required: "False",
+	   required: false,
      validators:  ['minLength=5','validateURI'],
 	   section: "Stammdaten"
 	 }
@@ -266,7 +266,7 @@ const sel_master_formEntries = [
    title: "Ausbildung",
    secParagraphArray: ["Bitte geben Sie alle besuchten Schulen bis zur Erlangung der Hochschulreife ein"],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','minLength=10'],
    section: "Bisheriger Bildungsgang"
  },
@@ -277,7 +277,7 @@ const sel_master_formEntries = [
    title: "Gegenwärtiges Studium",
    secParagraphArray: ["Bitte geben Sie Ihre bisherigen Studiengänge an"],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','minLength=5'],
    section: "Bisheriger Bildungsgang"
  },
@@ -289,7 +289,7 @@ const sel_master_formEntries = [
    secParagraphArray: ["Bitte geben Sie an, welchen Studienabschluss Sie bisher erworben haben, der Sie zum Masterstudium berechtigt (z.B. Bachelor)",
                           "Falls noch nicht vorhanden, bitte den im jetzigen Studium angestrebten Abschluss "],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','minLength=5'],
    section: "Bisheriger Bildungsgang"
  },
@@ -300,7 +300,7 @@ const sel_master_formEntries = [
    title: "Bezeichnung und Ort der Hochschule",
    secParagraphArray: ["Bitte geben Sie die genaue Bezeichnung der Hochschule ein"],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','minLength=5'],
    section: "Bisheriger Bildungsgang"
  },
@@ -317,7 +317,7 @@ const sel_master_formEntries = [
    secParagraphArray: "",
    defaultValue: "",
    validators: ['required','validateDate'],
-   required: "False",
+   required: false,
    section: "Bisheriger Bildungsgang"
  },
  {
@@ -331,7 +331,7 @@ const sel_master_formEntries = [
    title: "Kopie des Abschlusszeugnisses (z.B. Bachelor) ",
    secParagraphArray: ["Bitte hochladen: Kopie des Abschlusszeugnisses, z.B. Bachelor (PDF format)"],
    defaultValue: "",
-   required: "False",
+   required: false,
    section: "Bisheriger Bildungsgang"
  },
  {
@@ -341,7 +341,7 @@ const sel_master_formEntries = [
    title: "Abschlusszeugnis nicht verfügbar",
    secParagraphArray: ["Bitte anwählen, falls Sie das Abschlusszeugnis (z.B. Bachelor) nicht rechtzeitig innerhalb der Bewerbungsfrist einreichen können, weil es erst danach von Ihrer Hochschule ausgestellt wird"],
    defaultValue: "",
-   required: "False",
+   required: false,
    section: "Bisheriger Bildungsgang"
  },
  {
@@ -356,7 +356,7 @@ const sel_master_formEntries = [
    secParagraphArray: ["Bitte hochladen: Transcript of Records oder anderer Notennachweis (PDF format)"],
    defaultValue: "",
    validators: ['required','validateFileUpload_lmu'],
-   required: "True",
+   required: true,
    section: "Bisheriger Bildungsgang"
  },
  {
@@ -367,7 +367,7 @@ const sel_master_formEntries = [
    secParagraphArray: ["Bitte geben Sie hier die Durchschnittsnote Ihres Abschlusses oder des vorläufigen Notenspiegels ein"],
    defaultValue: "",
    validators: ['required','validateNumberNotZero'],
-   required: "True",
+   required: true,
    section: "Bisheriger Bildungsgang"
  },
  {
@@ -381,30 +381,35 @@ const sel_master_formEntries = [
    title: "Nachweis zu Auflagen aus vorausgegangenen Master-EFV ",
    secParagraphArray: ["Sollten Sie aus einem vorausgegangenen Master-EFV als Zulassungsvoraussetzung Auflagen erhalten haben, laden Sie bitte den Nachweis über deren Erfüllung hier hoch (als PDF)"],
    defaultValue: "",
-   required: "False",
+   required: false,
    section: "Bisheriger Bildungsgang"
  },
  {
    key: "src_bachelor",
    type: "select",
+   toTranslate:true,
    options: [
      {
+       showed: 'LMU',
        name: 'LMU'
      },
      {
-       name: 'other University'
+       showed: 'Universität',
+       name: 'university'
      },
      {
-       name: 'University of Applied Sciences'
+       showed: 'Fachhochschule',
+       name: 'university_of_applied_sciences'
      },
      {
-       name: 'Other kind of Institution'
+       showed: 'anderes',
+       name: 'other'
      }
    ],
    title: "Hochschulart, bei welcher der Bachelor erworben wurde",
    secParagraphArray: ["Bitte wählen Sie den Typ der Hochschule aus, bei der Sie den Bachelorgrad erworben haben"],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','minLength=3'],
    section: "Bisheriger Bildungsgang"
  },
@@ -420,7 +425,7 @@ const sel_master_formEntries = [
    secParagraphArray: ["Gilt nur für ausländische Bewerber, die sich für den Masterstudiengang \"Mensch-Computer-Interaktion\" bewerben:",
                         "Bitte uploaden Sie hier einen Nachweis über Deutschkenntnisse (mindestens Niveau C1 des Gemeinsamen Europäischen Referenzrahmens für Sprachen) und/oder einen Englisch-Test."],
    defaultValue: "",
-   required: "False",
+   required: false,
    section: "Bisheriger Bildungsgang"
  }
  ];
@@ -438,7 +443,7 @@ const sel_master_formEntries = [
    },
    secParagraphArray: ["Bitte uploaden Sie Ihren Lebenslauf (Dateiformat: MS-Word, PDF oder reiner Text)"],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','validateFileUpload_lmu'],
    section: "Neigungen und Interessen"
  },
@@ -454,7 +459,7 @@ const sel_master_formEntries = [
    secParagraphArray: ["Bitte laden Sie hier einen Aufsatz (von max. 1000-2000 Zeichen Länge) als PDF- oder WORD-Dokument oder auch als reine Textdatei hoch. ",
                         "In diesem Aufsatz sollten Sie das Interesse und die Fähigkeiten für ein Studium im Masterstudiengang unter ausführlicher Darstellung der bisherigen Leistungen im Erststudium erläutern."],
    defaultValue: "",
-   required: "True",
+   required: true,
    validators: ['required','validateFileUpload_lmu'],
    section: "Neigungen und Interessen"
  },
@@ -465,7 +470,8 @@ const sel_master_formEntries = [
    title: "Empfehlung kann von folgender Professorin oder folgendem Professor des Instituts für Informatik erfragt werden ",
    secParagraphArray: ["Referenzen (optional)"],
    defaultValue: "",
-   required: "False",
+   validators: ['minLength=5'],
+   required: false,
    section: "Neigungen und Interessen"
  },
  {
@@ -475,7 +481,8 @@ const sel_master_formEntries = [
    title: "Auslandsaufenthalte ",
    secParagraphArray: ["Falls zutreffend: Bitte machen Sie Angaben zu Auslandsaufenthalten"],
    defaultValue: "",
-   required: "False",
+   validators: ['minLength=5'],
+   required: false,
    section: "Neigungen und Interessen"
  },
  {
@@ -485,7 +492,8 @@ const sel_master_formEntries = [
    title: "Besondere Fähigkeiten ",
    secParagraphArray: ["Angabe besonderer Fachkenntnisse und Fertigkeiten"],
    defaultValue: "",
-   required: "False",
+   validators: ['minLength=5'],
+   required: false,
    section: "Neigungen und Interessen"
  },
  {
@@ -499,7 +507,7 @@ const sel_master_formEntries = [
    title: "Weitere Bescheinigungen",
    secParagraphArray: ["Falls vorhanden: Uploaden Sie bitte hier weitere Bescheinigungen über Praktika, Berufsausbildung, absolvierte Kurse aus dem IT-Bereich, Arbeitszeugnisse, etc. zusammengefasst in einer PDF-Datei."],
    defaultValue: "",
-   required: "False",
+   required: false,
    section: "Neigungen und Interessen"
  },
  {
@@ -509,7 +517,7 @@ const sel_master_formEntries = [
    title: " Bescheid per Email zustellen ",
    secParagraphArray: ["Die Bescheinigung des Eignungsfeststellungsverfahren werden standardmässig per Email verschickt. Wünschen Sie hingegen eine Zusendung per Briefpost, dann heben Sie die Auswahl dieses Feldes bitte auf."],
    defaultValue: "True",
-   required: "False",
+   required: false,
    section: "Neigungen und Interessen"
  }
 ];
@@ -524,7 +532,7 @@ const selfEval_programming_formEntries = [
     options: "",
     title: "In welchen Programmiersprachen haben Sie schon einmal programmiert?",
     secParagraphArray: "",
-    required: "False",
+    required: false,
     section: "Programmierung"
   },
   {
@@ -533,7 +541,7 @@ const selfEval_programming_formEntries = [
     options: "",
     title: "In welchen Programmiersprachen haben Sie schon mehr praktische Erfahrung, als in den ueblichen Grundlagenvorlesungen gelehrt wird?",
     secParagraphArray: "",
-    required: "False",
+    required: false,
     section: "Programmierung"
   },
   {
@@ -542,7 +550,7 @@ const selfEval_programming_formEntries = [
     options: "",
     title: "Welche Design Patterns haben Sie schon einmal praktisch eingesetzt?",
     secParagraphArray: "",
-    required: "False",
+    required: false,
     section: "Programmierung"
   },
   {
@@ -551,7 +559,7 @@ const selfEval_programming_formEntries = [
     options: "",
     title: "Welche Methoden zur Programmverifikation kennen Sie?",
     secParagraphArray: "",
-    required: "False",
+    required: false,
     section: "Programmierung"
   },
   {
@@ -560,7 +568,7 @@ const selfEval_programming_formEntries = [
     options: "",
     title: "Welche konkreten Erfahrungen haben Sie mit Client-Server Programmierung?",
     secParagraphArray: "",
-    required: "False",
+    required: false,
     section: "Programmierung"
   }
  ];
@@ -577,7 +585,7 @@ const selfEval_others_formEntries = [
       {name: "NP-Vollständigkeit"}
 	],
 	secParagraphArray: ["Zu welchen Themen der Theoretischen Informatik könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Theoretische Informatik"
   },
   {
@@ -590,7 +598,7 @@ const selfEval_others_formEntries = [
       {name:"Indexing in Datenbanken"}
 	],
     secParagraphArray: ["Zu welchen Themen aus dem Bereich Datenbanken könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Datenbanken"
   },
   {
@@ -602,7 +610,7 @@ const selfEval_others_formEntries = [
 		{name:"Prädikatenlogik"}
 	],
     secParagraphArray: ["Zu welchen mathematischen Strukturen und Logiken könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Logik"
   },
   {
@@ -615,7 +623,7 @@ const selfEval_others_formEntries = [
 		{name:"Algorithmen für Graphen, Hashing"}
 	],
     secParagraphArray: ["Zu welchem Thema aus dem Bereich Algorithmen könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Algorithmen"
   },
   {
@@ -630,7 +638,7 @@ const selfEval_others_formEntries = [
 		{name:"Maps"}
 	],
     secParagraphArray: ["Zu welchen Themen aus dem Bereich Datenstrukturen könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Datenstrukturen"
   },
   {
@@ -644,7 +652,7 @@ const selfEval_others_formEntries = [
 		{name:"Assemblerprogrammierung"}
 	],
     secParagraphArray: ["Zu welchen Themen aus dem Bereich Rechnerarchitektur könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Rechnerarchitektur"
   },
   {
@@ -658,7 +666,7 @@ const selfEval_others_formEntries = [
 		{name:"Virtualisierung"}
 	],
     secParagraphArray: ["Zu welchen Themen aus dem Bereich Betriebssysteme könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Betriebssysteme"
   },
   {
@@ -673,7 +681,7 @@ const selfEval_others_formEntries = [
 		{name:"Kommunikationsmiddleware"}
 	],
     secParagraphArray: ["Zu welchen Themen aus dem Bereich Rechnernetze könnten Sie Detailfragen beantworten?"],
-    required: "False",
+    required: false,
     title: "Rechnernetze"
   }
 ];
