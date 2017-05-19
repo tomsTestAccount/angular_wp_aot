@@ -387,22 +387,21 @@ const sel_master_formEntries = [
  {
    key: "src_bachelor",
    type: "select",
-   toTranslate:true,
    options: [
      {
-       showed: 'LMU',
+       //show: 'LMU',
        name: 'LMU'
      },
      {
-       showed: 'Universität',
+       //show: 'Universität',
        name: 'university'
      },
      {
-       showed: 'Fachhochschule',
+       //show: 'Fachhochschule',
        name: 'university_of_applied_sciences'
      },
      {
-       showed: 'anderes',
+       //show: 'anderes',
        name: 'other'
      }
    ],

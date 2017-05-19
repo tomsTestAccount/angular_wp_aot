@@ -365,10 +365,7 @@ export class RtFormService {
 
     //------------------------------------------------------------------------------------------------------------------
 
-    public updateFormData()
-    {
 
-    }
 
 
     //------------------------------------------------------------------------------------------------------------------
@@ -576,6 +573,11 @@ export class RtFormService {
                 //Validators.compose([Validators.required,Validators.minLength(3)])
                 let defaultValue = null;
                 if (entry.defaultValue !== undefined) defaultValue = entry.defaultValue;
+                /*if (entry.type == 'select')
+                {
+                    if (entry.toTranslate === undefined ) entry['toTranslate'] = false;
+                }
+                */
                 group[entry.key] = new FormControl(defaultValue, this.getFunctionCallFromString(entry.validators) );
 
         });

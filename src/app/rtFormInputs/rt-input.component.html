@@ -98,7 +98,7 @@
                         formControlName={{formEntry.key}}
                         >
                     <option selected="selected" disabled="disabled" value="">{{'pleaseSelect' | translate}}</option>
-                    <option *ngFor="let option of formEntry.options" [value]="option.name">{{(formEntry.toTranslate == true) ? (option.name | translate) : option.showed }}</option>
+                    <option *ngFor="let option of formEntry.options" [value]="option.name">{{(option.show === undefined ) ? (option.name | translate) : option.show }}</option>
                 </select>
             <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
