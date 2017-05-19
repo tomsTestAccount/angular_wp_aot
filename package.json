@@ -25,8 +25,8 @@
 	"build:aot:prod:appLogin": "npm run compile:aot:appLogin && npm run build:dll:appLogin && npm run clean:dist && cd config && webpack",
 	"build:prod:appLogin": "npm run build:aot:prod:appLogin",
 	
-	"build:aot:prod:app": "npm run clean:dist && cd config && webpack",
-	"build:prod": "npm run compile:aot:app && npm run build:aot:prod:app",
+	"build:aot:prod:app": "npm run compile:aot:app && npm run clean:dist && cd config && webpack",
+	"build:prod": "npm run build:aot:prod:app",
 	
 	
 	"webdev:appLogin": "cd config && webpack-dev-server --config webpack.config.ts",

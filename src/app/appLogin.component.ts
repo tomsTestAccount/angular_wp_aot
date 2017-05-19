@@ -172,10 +172,7 @@ import { SiteConfig_Service } from './_services/siteConf.service';
  //styles:[css]
  })
 
-
  //@Output() OnToggleLoginModal = new EventEmitter<boolean>();
-
-
 
  export class AppLoginComponent implements OnDestroy,OnInit
  {

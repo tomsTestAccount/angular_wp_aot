@@ -281,7 +281,7 @@ export class rtFileUploaderComponent implements AfterViewInit,OnInit
                 "size": 0
             };
 
-            delObj = null;  
+            delObj = null;
 
             (<FormControl>this.currentForm.controls[this.currentFormEntry.key]).patchValue(delObj);  //only one fileObject used at the moment
 

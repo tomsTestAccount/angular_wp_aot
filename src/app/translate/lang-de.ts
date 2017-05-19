@@ -6,7 +6,7 @@ export const LANG_DE_TRANS = {
 
 
     //general
-    'browserNotSupported' : 'Leider wird ihr Browser nicht unterstützt. Bitte benutzen sie einen neueren Browser.',
+    'browserNotSupported' : 'Leider wird ihr Browser nicht unterstützt. Bitte benutzen sie einen aktuelleren Browser.',
 
 
     //validatoren

@@ -1,10 +1,19 @@
-import { Component,OnDestroy,Input } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import {MainFormComponent} from './dynamicForm/mainform.component';
+import { SiteConfig_Service } from './_services/siteConf.service';
+
 
 @Component({
     selector: 'my-app',
     template: `
-		<div class="container">
+        <div *ngIf="browserSupported !== true" >
+            <md-card class="ua-cardBg">
+                <md-card-content class="uacard-content" >
+                    {{'browserNotSupported' | translate}}
+                </md-card-content>
+            </md-card>
+        </div>
+		<div *ngIf="browserSupported === true" class="container">
 		
           <rt-mainForm></rt-mainForm>
   
@@ -13,8 +22,15 @@ import {MainFormComponent} from './dynamicForm/mainform.component';
     providers: [MainFormComponent]
 })
 
-export class AppComponent{
+export class AppComponent implements OnInit{
 
-    constructor( public rtMainFormComp:MainFormComponent)
+    browserSupported: boolean = true;
+
+    constructor( public rtMainFormComp:MainFormComponent,
+                private _siteConfigs:SiteConfig_Service)
     {}
+
+    ngOnInit() {
+        this.browserSupported = this._siteConfigs.getBrowserSupport();
+    }
 }
