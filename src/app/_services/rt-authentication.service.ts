@@ -14,6 +14,7 @@ import { Subscription }   from 'rxjs/Subscription';
 import {RestService} from './rt-rest.service';
 
 import {RtFormService} from '../_services/rt-forms.service'
+//import { Promise } from 'es6-promise';
 
 
 //----------------------------------------------------------------------------------------------------------------------

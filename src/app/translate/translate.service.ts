@@ -1,6 +1,6 @@
 import {Injectable, Inject, EventEmitter} from '@angular/core';
 import { TRANSLATIONS } from './translations'; // import our opaque token
-import { siteSettings} from '../_models/configFile';
+import { siteSettings} from '../_services/siteConf.service';
 
 const dbgPrint = false;
 
@@ -20,12 +20,13 @@ export class TranslateService {
 
 
 	// add event
-	public onLangChanged: EventEmitter<string> = new EventEmitter<string>();
+	//public onLangChanged: EventEmitter<string> = new EventEmitter<string>();
 
 	//set language to use
 	public use(lang: string): void {
 		// set current language
 		this._currentLang = lang;
+
 	}
 
 

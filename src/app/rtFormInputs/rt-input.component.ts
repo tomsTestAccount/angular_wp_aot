@@ -1,7 +1,7 @@
 import {Component, Input, DoCheck, OnInit,AfterViewInit} from '@angular/core';
 import { FormGroup,FormControl,FormBuilder }        from '@angular/forms';
 //import { TranslateService } from '../translate';
-import {siteSettings} from '../_models/configFile';
+import {siteSettings} from '../_services/siteConf.service';
 //----------------------------------------------------------------------------------------------------------------------
 
 const dbgPrint_lifecyclehooks = false;

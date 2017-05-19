@@ -4,6 +4,9 @@ export const LANG_EN_NAME = 'en';
 
 export const LANG_EN_TRANS = {
 
+    //general
+    'browserNotSupported' : 'Sorry, but your current browser is not supported. Please use an newer one.',
+
     //validators
     'required' : 'Your input is required',
     'notValid' : 'Field is invalid : ',
@@ -17,7 +20,7 @@ export const LANG_EN_TRANS = {
     'requiredLength' : "required length",
     'actualLength' : "actual length",
 
-    //fileUpload-component //TODO: put locale settings here
+    //fileUpload-component
     'browse' : 'Browse',
     'fileName' : 'File Name',
     'size' : 'Size',

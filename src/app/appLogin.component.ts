@@ -5,6 +5,7 @@ import { AuthenticationService } from '../app/_services/rt-authentication.servic
 import { Subscription }   from 'rxjs/Subscription';
 import { Location} from '@angular/common';
 import { TranslateService } from './translate';
+import { SiteConfig_Service } from './_services/siteConf.service';
 //import { MOBILE } from './_services/constants_ts';
 
  @Component({
@@ -124,52 +125,44 @@ import { TranslateService } from './translate';
  -->
  </header>
 
-
-
- <div> <!--class="card" id="startPageCard">-->
-
- <!--
- <rt-login-form *ngIf="bShowModal" (showLoginModal)="OnToggleLoginModal"></rt-login-form>
-
- <rt-login-form #loginModalChild></rt-login-form>
-
- -->
-
- <md-progress-bar color="accent" mode="{{progressBar_mode}}" value="{{progressBar_value}}"></md-progress-bar>
-
- <div class="content-main">
- <router-outlet></router-outlet>
+     
+ <div *ngIf="browserSupported === true" >
+     <md-progress-bar color="accent" mode="{{progressBar_mode}}" value="{{progressBar_value}}"></md-progress-bar>
+    
+     <div class="content-main">
+        <router-outlet></router-outlet>
+     </div>
+ </div>
+ <div *ngIf="browserSupported !== true" >
+     <md-card class="ua-cardBg">
+         <md-card-content class="uacard-content" >
+             {{'browserNotSupported' | translate}}
+         </md-card-content>
+     </md-card>
  </div>
 
- </div>
-
+     
  <footer>
- <div id="lmuFooter">
-
- <div class="footerItem">
- <a class="a_lmu"  href="http://test-datascience.ifi.lmu.de/impressum" title="Impressum"> Impressum </a>
- </div>
-
- <div class="footerItem">
- <a class="a_lmu"  href="http://test-datascience.ifi.lmu.de/datenschutz" title="Datenschutz"> Datenschutz </a>
- </div>
-
- <div class="footerItem">
- <a class="a_lmu" href="http://test-datascience.ifi.lmu.de/contact-info" title="Kontakt"> Kontakt </a>
- </div>
-     
- <div class="footerItem">
-   <md-select [(ngModel)]="dbgVal_language">
-       <md-option  [value]="'en'" (click)="setLanguage('en')">English</md-option>
-       <md-option  [value]="'de'" (click)="setLanguage('de')">Deutsch</md-option>
-   </md-select>
-     
- </div>
-     
-     
-     
-     
- </div>
+     <div id="lmuFooter">
+         <div class="footerItem">
+            <a class="a_lmu"  href="http://test-datascience.ifi.lmu.de/impressum" title="Impressum"> Impressum </a>
+         </div>
+    
+         <div class="footerItem">
+            <a class="a_lmu"  href="http://test-datascience.ifi.lmu.de/datenschutz" title="Datenschutz"> Datenschutz </a>
+         </div>
+        
+         <div class="footerItem">
+            <a class="a_lmu" href="http://test-datascience.ifi.lmu.de/contact-info" title="Kontakt"> Kontakt </a>
+         </div>
+         
+        <div class="footerItem">
+            <md-select [(ngModel)]="dbgVal_language">
+                <md-option  [value]="'en'" (click)="setLanguage('en')">English</md-option>
+                <md-option  [value]="'de'" (click)="setLanguage('de')">Deutsch</md-option>
+            </md-select>
+        </div>
+     </div>
  </footer>
  </div>
 
@@ -195,27 +188,30 @@ import { TranslateService } from './translate';
 
      dbgVal_language : string;
 
+     browserSupported: boolean = true;
 
-     constructor(private _router: Router,
+     constructor(
+         private _router: Router,
          public _authenticationService: AuthenticationService,
          private _location: Location,
-         private _translate: TranslateService  //only used for debug-select , see bottom of html-site (above)
+         private _translate: TranslateService,  //only used for debug-select , see bottom of html-site (above)
+         private _siteConfigs:SiteConfig_Service
      ){
-     this.subscription = _authenticationService.userDisplayName$.subscribe(
-     newDisplayName => {
-     this.displayname = newDisplayName;
+         this.subscription = _authenticationService.userDisplayName$.subscribe(
+            newDisplayName => {
+                    this.displayname = newDisplayName;
+            });
 
+        _authenticationService.getProgressValue().subscribe((value) => this.progressBar_value = value);
+        _authenticationService.getProgressMode().subscribe((mode) => this.progressBar_mode = mode);
 
-     });
-
-     _authenticationService.getProgressValue().subscribe((value) => this.progressBar_value = value);
-     _authenticationService.getProgressMode().subscribe((mode) => this.progressBar_mode = mode);
      }
 
 
     ngOnInit()
     {
          this.dbgVal_language = this._translate.currentLang;
+         this.browserSupported = this._siteConfigs.getBrowserSupport();
     }
 
     setLanguage(v:string)

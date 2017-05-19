@@ -5,6 +5,10 @@ export const LANG_DE_NAME = 'de';
 export const LANG_DE_TRANS = {
 
 
+    //general
+    'browserNotSupported' : 'Leider wird ihr Browser nicht unterstützt. Bitte benutzen sie einen neueren Browser.',
+
+
     //validatoren
     'required' : 'Eingabe wird benötigt',
     'notValid' : 'Feld ist nicht gültig : ',

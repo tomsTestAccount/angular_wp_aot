@@ -37,6 +37,10 @@ function testDll() {
   }
 };
 
+
+
+
+
 console.log("in helper.js , root=",root());
 
 exports.checkNodeImport;

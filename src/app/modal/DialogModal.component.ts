@@ -40,6 +40,12 @@ const dbg_print = true;
                     (click)="dialogRef.close()">Cancel</button>
                  -->
             </div>
+
+            <div *ngIf="ds.dialogSelection == 'warning'"  id="warnDialog">
+                <p>{{ ds.title }}</p>
+                <p>{{ ds.message }}</p>
+                
+            </div>
     `,
 })
 export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
@@ -63,7 +69,7 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
 
          this.dialogSel$.subscribe(
          selStruct => {
-            if (selStruct.dialogSelection == 'info'  || selStruct.dialogSelection == 'confirm' || selStruct.dialogSelection == 'loading'  )
+            if (selStruct.dialogSelection == 'info'  || selStruct.dialogSelection == 'confirm' || selStruct.dialogSelection == 'loading' || selStruct.dialogSelection == 'warning' )
             {
                 this.ds = selStruct;
                 //this.ds.dialogSelection == selStruct.dialogSelection;

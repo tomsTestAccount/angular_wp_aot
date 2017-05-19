@@ -9,7 +9,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/observable/throw';
 
-import {ServerConfigs} from '../_models/configFile';
+import {SiteConfig_Service} from './siteConf.service';
 
 const dbgPrint_getUser = false;
 const dbgPrint = false;
@@ -24,9 +24,9 @@ export class RestService {
     public onDevEnv:boolean = false;
     private runningConfs:any;
 
-    constructor(private http: Http, serverConfs: ServerConfigs)
+    constructor(private http: Http, private _siteConfs: SiteConfig_Service)
     {
-        this.runningConfs = serverConfs;
+        this.runningConfs = _siteConfs;
         let serverConfigs = this.runningConfs.get_serverConfigs();
         //this._currentUserId = 'mueller';
         this.serverURL = serverConfigs.serverURL; // + '/' + serverConfigs.applicationEntryPath;
@@ -53,7 +53,7 @@ export class RestService {
 	/*********************************** PLONE-RESTAPI **************************************************************/
 
 
-    //var serverURL = ServerConfigs.restServer;
+    //var serverURL = SiteConfig_Service.restServer;
 
     //create user
     restPost_create(newUser: User4Create) {

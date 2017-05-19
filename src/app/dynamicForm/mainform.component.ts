@@ -8,8 +8,8 @@ import {FormGroup,FormControl} from '@angular/forms';
 import { RtFormService ,cWholeFormObject} from '../_services/rt-forms.service';
 
 import {AuthenticationService} from  '../_services/rt-authentication.service';
-import {ServerConfigs} from '../_models/configFile';
-import {DialogsService} from '../_services/dialogs.services'
+import {SiteConfig_Service} from '../_services/siteConf.service';
+import {DialogsService} from '../_services/dialogs.service'
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -63,7 +63,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 				private _authService:AuthenticationService,
 				private _elementRef : ElementRef,
 				private _rtFormSrv : RtFormService,
-				private serverConfs: ServerConfigs,
+				private serverConfs: SiteConfig_Service,
 				//private lmu_ua_form: lmu_ua_formList,
 				private dialogsService: DialogsService
 				)
@@ -71,7 +71,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 		let serverURL = serverConfs.get_serverConfigs().host;
 		let userId = serverConfs.get_serverConfigs().userId;
-		this.summaryPage_href = serverURL + '/' +  serverConfs.get_serverConfigs().applicationEntryPath +'/' + userId + '/' + userId ;
+		this.summaryPage_href = serverURL + '/' +  serverConfs.get_serverConfigs().applicationEntryPath +'/' + userId + '/' + userId ; //TODO: put these in site-configuration
 
 		//this.formStruct = this.lmu_ua_form.get_formInfos();
 
@@ -83,11 +83,11 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 		this._rtFormSrv.subFormsAreUpdated$.subscribe(
 			isUpdated => {
-				setTimeout(()=> {		//not needed , but let the modal-dialog displayed at least for 1sec
+				setTimeout(()=> {		//not necessary here , but let the modal-dialog displayed at least for 1sec
 
 					if (dbgPrint_updateData) console.log("In subFormsAreAllUpdated$ ", this.main_FormGroup);
 
-					// subscribe to form changes, so we can detect the formEntries that were changed --> and send only these ones
+					// subscribe to form changes, so we can detect the formEntries that were have changed --> and send only these ones
 					this.subscribeToFormEntriesChanges();
 
 					//close loading dialog

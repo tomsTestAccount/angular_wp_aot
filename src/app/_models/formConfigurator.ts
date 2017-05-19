@@ -1,7 +1,7 @@
 
 import { CountryList_de,CountryList}  from '../_models/countries';
 
-import { siteSettings}  from '../_models/configFile';
+import { siteSettings}  from '../_services/siteConf.service';
 
 /* definition
 {

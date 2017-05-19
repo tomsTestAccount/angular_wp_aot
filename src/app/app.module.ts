@@ -24,9 +24,9 @@ import {DynamicSubFormComponent} from'./dynamicForm/dynamic-subform.component'
 import { RestService } from './_services/rt-rest.service';
 import {AuthenticationService} from './_services/rt-authentication.service';
 import {RtFormService} from './_services/rt-forms.service'
-import {ServerConfigs} from './_models/configFile';
+import {SiteConfig_Service} from './_services/siteConf.service';
 
-import {DialogsService}                 from './_services/dialogs.services'
+import {DialogsService}                 from './_services/dialogs.service'
 import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
@@ -84,7 +84,7 @@ import {LoginComponent} from './login/rt-login.component';
         //UserDataService,
         RestService,
         AuthenticationService,
-        ServerConfigs,
+        SiteConfig_Service,
 
         RtFormService,
         DialogsService,

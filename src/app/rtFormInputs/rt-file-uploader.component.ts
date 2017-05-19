@@ -76,7 +76,7 @@ export class rtFileUploaderComponent implements AfterViewInit,OnInit
     //----------------------------------------------------
 
     //constructor(compId:string,t:string,secP:string,fCN:string) {
-    constructor( //srvCfg:ServerConfigs,
+    constructor( //srvCfg:SiteConfig_Service,
                 authSrvInst:AuthenticationService,
                 @Inject(NgZone) private zone: NgZone) {
 
@@ -281,7 +281,7 @@ export class rtFileUploaderComponent implements AfterViewInit,OnInit
                 "size": 0
             };
 
-            //delObj = null;  //TODO: ask Max, because set formObject-value = null from type 'file' isn't accepted by plone-server at the moment ??
+            delObj = null;  
 
             (<FormControl>this.currentForm.controls[this.currentFormEntry.key]).patchValue(delObj);  //only one fileObject used at the moment
 
