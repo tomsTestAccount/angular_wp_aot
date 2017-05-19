@@ -6,7 +6,7 @@ import {setTimeout} from "timers";
 
 
 const dbgPrint = false;
-const dbgPrint_grid_prio_list = true;
+const dbgPrint_grid_prio_list = false;
 
 
 

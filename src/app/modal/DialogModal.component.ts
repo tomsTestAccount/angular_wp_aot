@@ -9,7 +9,7 @@ export interface IDialogStruct {
 }
 
 
-const dbg_print = true;
+const dbg_print = false;
 
 @Component({
     selector: 'my-uaFormDialog',
@@ -18,7 +18,7 @@ const dbg_print = true;
                 <div  id="spinnerDiv" [style.display]="'flex'" [style.justify-content]="'center'" >
                     <md-spinner></md-spinner>
                 </div>
-                <p>{{ ds.title }}</p>
+                <p>{{ ds.title | translate }}</p>
                 <p>{{ ds.message }}</p>
             </div>    
             

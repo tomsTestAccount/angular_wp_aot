@@ -12,9 +12,9 @@ import { Subject }    from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription }   from 'rxjs/Subscription';
 import {RestService} from './rt-rest.service';
-
+import { DialogsService } from './dialogs.service';
 import {RtFormService} from '../_services/rt-forms.service'
-//import { Promise } from 'es6-promise';
+//import { Promise } from 'es6-promise';  <-- very evil , but TODO: we have to determine which promise is used (and replace it with subjects/observables)
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -47,9 +47,9 @@ export class AuthenticationService {
     // Observable string streams
     userDisplayName$ = this.userDisplayNameSrc.asObservable();
 
-    constructor(private _rtRestService : RestService
-               //,private _lmuForms : lmu_ua_formList
-                ,private _rtFormSrv: RtFormService
+    constructor(private _rtRestService : RestService,
+                private _dialog:DialogsService,
+                private _rtFormSrv: RtFormService
     ){
 
         if (dbgPrint_lifecyclehooks) console.log("In authService constructor");
@@ -355,7 +355,7 @@ export class AuthenticationService {
     //------------------------------------------------------------------------------------------------------------
 
 
-    //TODO: put formObject getter/setter in special file
+    //TODO: put formObject getter/setter in other file (kind of get_set-data.service ?? ... at least not here in authentication
 
     auth_setFormObj(uaObjLocal:any,sendToServer:boolean=false):any {
         if (dbgPrint_setFormObj) console.log("In authService, auth_setFormObj 1:given uaObj=",uaObjLocal);
@@ -393,14 +393,16 @@ export class AuthenticationService {
                 reject("Nothing is sent because no changes were detected for obj to sent !");
             }
             else {
-
+                this._dialog.loading('dataIsSaving');
                 this._rtRestService.restPatch_formObject(this._currentUserId, this._currentToken, obj2Server)
                     .subscribe(
                         (data) => {
+                            this._dialog.closeDialog();
                             console.log("set UaObj to server successfull with data=", data);
                             resolve(data);
                         }, //this.data = data, // Reach here if res.status >= 200 && <= 299
                         (err) => {
+                            this._dialog.closeDialog();
                             console.log("set UaObj to server failure , err=", err);
                             reject(err);
                         }); // Reach here if fails;

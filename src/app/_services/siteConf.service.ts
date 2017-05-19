@@ -3,7 +3,7 @@ import { Subject }    from 'rxjs/Subject';
 import { DialogsService } from './dialogs.service';
 import { Promise } from 'es6-promise';
 
-const dbgPrint = true;
+const dbgPrint = false;
 
 
  // Todo: put these settings with formConfigurator in one big config-file ... !?  hmm , think twice about it?? one site-config (entryUrl, language, etc... ) and one formConfigurator
@@ -33,7 +33,8 @@ export class SiteConfig_Service{
     private browserVersion:string;
     private isBrowserSupported: boolean;
 
-    constructor(private _dialog:DialogsService)
+    constructor(//private _dialog:DialogsService
+        )
     {
         let locUrl = {
 						host:"",
@@ -65,6 +66,7 @@ export class SiteConfig_Service{
                 //we're on node-server
                 if (dbgPrint) console.log(".. on node-server");
                 this.serverURL = 'http://192.168.159.130:8080/Plone'; //for vmWare with PLone-instance running
+
                 //locUrl.serverURL = this.host  + applicationPath ;
                 this.userId = '';
 

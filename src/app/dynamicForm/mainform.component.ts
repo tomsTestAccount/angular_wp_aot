@@ -105,7 +105,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 		if (dbgPrint_lifecyclehooks) console.log("In ngOnInit for user-application-component");
 
-		this.dialogsService.loading('Your data is loading ... '); //TODO: put this or a similar message at the beginning -> i.e. in app.component.ts
+		this.dialogsService.loading('dataIsLoading');
 
 		this._authService.auth_getFormObject()
             .then(response => {

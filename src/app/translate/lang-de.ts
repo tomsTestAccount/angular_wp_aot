@@ -39,6 +39,11 @@ export const LANG_DE_TRANS = {
     'misEntry' : 'Zeige Fehleingabe',
     'goToSummary' : 'Zur Übersicht',
 
+
+    //dialogModal
+    'dataIsSaving' : 'Daten werden gespeichert',
+    'dataIsLoading' : 'Daten werden geladen',
+
 //-------------- for formEntries -------------------------------------------------------------------
     'hello world': 'Hallo Welt',
     'LMU':'LMU',
