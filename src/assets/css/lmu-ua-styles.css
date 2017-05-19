@@ -299,10 +299,11 @@ font-size:medium;
 font-weight:bold;
 color:#4b797c}
 
-.my_md_tab_title{word-wrap:break-word;
-margin-top:5%;
-margin-bottom:5%;
-line-height: initial;
+.my_md_tab_title{
+	/*word-wrap:break-word;*/
+	margin-top:5%;
+	margin-bottom:5%;
+	line-height: 100%;
 	display: inline-block;
 }
 
