@@ -43,10 +43,12 @@ export const LANG_EN_TRANS = {
     'dataIsLoading' : 'Data is loaded',
 
     //-------------- for formEntries -------------------------------------------------------------------
-    'hello world': 'hello world',
-    'LMU':'LMU',
-    'university': 'university',
+
+    'LMU_other':'LMU (other)',
+    'LMU_Informatics':'LMU (Bachelor informatics / media informatics)',
+    'coop_edu':'dual university',
+    'other_university': 'other university',
     'university_of_applied_sciences': 'university of applied sciences',
-    'other': 'other'
+    'other': 'other institution'
 
 };

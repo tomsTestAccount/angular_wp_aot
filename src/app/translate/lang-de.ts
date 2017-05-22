@@ -45,11 +45,12 @@ export const LANG_DE_TRANS = {
     'dataIsLoading' : 'Daten werden geladen',
 
 //-------------- for formEntries -------------------------------------------------------------------
-    'hello world': 'Hallo Welt',
-    'LMU':'LMU',
-    'university': 'Universität',
-    'university_of_applied_sciences': 'Fachhochschule',
-    'other': 'anderes'
+    'LMU_other':'LMU (anderer Abschluss)',
+    'LMU_Informatics':'LMU (Bachelor Informatik / Medieninformatik)',
+    'coop_edu':'Duale Hochschule',
+    'other_university': 'Andere Universität',
+    'university_of_applied_sciences': 'Hochschule für angewandte Wissenschaften (Fachhochschule)',
+    'other': 'Andere Institution'
 
 
 };
