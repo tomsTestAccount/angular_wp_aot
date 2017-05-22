@@ -388,13 +388,21 @@ const sel_master_formEntries = [
    key: "src_bachelor",
    type: "select",
    options: [
-     {
+    {
        //show: 'LMU',
-       name: 'LMU'
+       name: 'LMU_Informatics'
+    },
+    {
+       //show: 'LMU',
+       name: 'LMU_other'
      },
      {
        //show: 'Universität',
-       name: 'university'
+       name: 'other_university'
+     },
+     {
+       //show: 'Universität',
+       name: 'coop_edu'
      },
      {
        //show: 'Fachhochschule',
@@ -404,7 +412,7 @@ const sel_master_formEntries = [
        //show: 'anderes',
        name: 'other'
      }
-   ],
+  ],
    title: "Hochschulart, bei welcher der Bachelor erworben wurde",
    secParagraphArray: ["Bitte wählen Sie den Typ der Hochschule aus, bei der Sie den Bachelorgrad erworben haben"],
    defaultValue: "",
