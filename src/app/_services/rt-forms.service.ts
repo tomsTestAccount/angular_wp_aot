@@ -552,6 +552,11 @@ export class RtFormService {
            {
              validatorArray.push(this.rtValidators.validateDate);
            }
+           else if (stringArray[i].indexOf('validatePhoneNumber')!=-1)
+           {
+               validatorArray.push(this.rtValidators.validatePhoneNumber);
+           }
+
 
 
 

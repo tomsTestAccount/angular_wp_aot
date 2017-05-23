@@ -167,7 +167,7 @@ const sel_master_formEntries = [
 	   secParagraphArray: "",
 	   defaultValue: "",
 	   required: true,
-     validators: ['required','minLength=6'],
+     validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
 	 {
@@ -178,7 +178,7 @@ const sel_master_formEntries = [
 	   secParagraphArray: "",
 	   defaultValue: "",
 	   required: true,
-     validators: ['required','minLength=4'],
+     validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
 	 {
@@ -199,40 +199,40 @@ const sel_master_formEntries = [
      options: countryList,
 	   defaultValue: "",
 	   required: true,
-     validators: ['required','minLength=3'],
+       validators: ['required','minLength=3'],
 	   section: "Stammdaten"
 	 },
 	 {
 	   key: "phone",
-	   type: "number",
+	   type: "text",
 	   options: "",
 	   title: "Telefon",
 	   secParagraphArray: "",
 	   defaultValue: "",
 	   required: true,
-     validators: ['required','minLength=3'],
+     validators: ['required','minLength=4'],
 	   section: "Stammdaten"
 	 },
 	 {
 	   key: "phone2",
-	   type: "number",
+	   type: "text",
 	   options: "",
 	   title: "Telefon (alternativ)",
 	   secParagraphArray: ["Weitere Telefonnummer, z.B. Handy"],
 	   defaultValue: "",
 	   required: false,
-     validators: ['minLength=3'],
+       validators: ['minLength=4'],
 	   section: "Stammdaten"
 	 },
 	 {
 	   key: "fax",
-	   type: "number",
+	   type: "text",
 	   options: "",
 	   title: "Faxnummer",
 	   secParagraphArray: ["Ihre Faxnummer (falls Verfügbar)"],
 	   defaultValue: "",
 	   required: "",
-     validators: ['minLength=3'],
+       validators: ['minLength=4'],
 	   section: "Stammdaten"
 	 },
 	 {
@@ -251,7 +251,7 @@ const sel_master_formEntries = [
 	   type: "text",
 	   options: "",
 	   title: "Homepage",
-	   secParagraphArray: ["Ihre Homepage (falls verfügbar)"],
+	   secParagraphArray: ["Ihre Homepage (falls verfügbar). Die URI muss mit http(s):// beginnen. "],
 	   defaultValue: "",
 	   required: false,
      validators:  ['minLength=5','validateURI'],
@@ -330,6 +330,7 @@ const sel_master_formEntries = [
    },
    title: "Kopie des Abschlusszeugnisses (z.B. Bachelor) ",
    secParagraphArray: ["Bitte hochladen: Kopie des Abschlusszeugnisses, z.B. Bachelor (PDF format)"],
+   //collapsible_info_text:' Bitte beachten: Die Datei wird erst durch Drücken des Speichern-Buttons auf dem Server gespeichert',
    defaultValue: "",
    required: false,
    section: "Bisheriger Bildungsgang"

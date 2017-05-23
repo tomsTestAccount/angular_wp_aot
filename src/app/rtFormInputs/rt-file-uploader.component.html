@@ -163,6 +163,9 @@
                                 <a href="{{file.download + '/' + file.filename}}"> Download </a>
                                 <!--<a (click)="downloadFile_envDev(file)"> Download</a>-->
                             </p>
+                            <p  *ngIf="(file.download == undefined) || (file.size == 0)"  md-line class="form_gridList_mdList_secParagraph_sm_info" [style.margin-bottom]="'0'">
+                                {{ 'fileNotSavedYet' | translate }}
+                            </p>
                             <!-- {{file.created | date:'yyyy-MM-dd HH:mm:ss'}} , -->
                         </md-list-item>
                     </md-list>

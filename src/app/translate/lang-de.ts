@@ -26,9 +26,10 @@ export const LANG_DE_TRANS = {
     'browse' : 'Datei',
     'fileName' : 'Dateiname',
     'size' : 'Größe',
+    'fileNotSavedYet' : 'Die Datei wird erst beim Speichern hochgeladen. Sie sollten jetzt speichern.',
 
     //for select
-    'pleaseSelect': 'Bitte auswählen',
+    'pleaseSelect': 'Bitte auswählen ...',
 
         // for selecting gender
         'male' : 'männlich',

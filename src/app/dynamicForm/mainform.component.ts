@@ -107,21 +107,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 		this.dialogsService.loading('dataIsLoading');
 
-		this._authService.auth_getFormObject()
-            .then(response => {
-
-				if (dbgPrint_lifecyclehooks)console.log("In ngOnInit for user-application , after get data from server, data=!",response);
-
-				this.formStruct = this._rtFormSrv.get_formInfos();
-				this.main_FormGroup = this.formStruct.mainForm.formGroup;
-
-				//set event the view is waiting for --> so the childViews (for each subForm) will be initialized
-				this.isFormDataLoaded = true;
-
-            })
-			.catch(err => {
-				this.dialogsService.info('Error for retrieving data from server, err= ',err);
-			});
+		this.getDataFromServer();
 
 
 	}
@@ -142,6 +128,29 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 		}
 
 	}
+
+	private getDataFromServer()
+	{
+		this.isFormDataLoaded = false;
+
+		this._authService.auth_getFormObject()
+            .then(response => {
+
+				//if (dbgPrint_lifecyclehooks)
+					console.log("In ngOnInit for user-application , after get data from server, data=!",response);
+
+				this.formStruct = this._rtFormSrv.get_formInfos();
+				this.main_FormGroup = this.formStruct.mainForm.formGroup;
+
+				//set event the view is waiting for --> so the childViews (for each subForm) will be initialized
+				this.isFormDataLoaded = true;
+
+			})
+            .catch(err => {
+				this.dialogsService.info('Error for retrieving data from server, err= ',err);
+			});
+	}
+
 
 	private setChangeDetected(value:boolean,fControl?:any) {
 
@@ -281,16 +290,24 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 
         this._authService.auth_setFormObj(this._rtFormSrv.formEntries_changed_ObjList,true)
-			.then(response => {console.log("Save Data Successful",response)})
+			.then(
+				response => {
+					console.log("Save Data Successful",response)
+					this.setChangeDetected(false);
+					//this.reset_formChangedEntries();
+					this._rtFormSrv.reset_formEntries_changed_ObjList();
+
+					//load formObject from server
+					this.getDataFromServer();
+
+				})
 			.catch(err => {
 				if (err.statusText) this.dialogsService.info('Save Data Error:' + err.statusText ,err._body);
 				else this.dialogsService.info('Save Data Error:',err);
 				//console.log("In saveFormObj err=",err)
 			}) ;
 
-		this.setChangeDetected(false);
-		//this.reset_formChangedEntries();
-		this._rtFormSrv.reset_formEntries_changed_ObjList();
+
 	}
 
 

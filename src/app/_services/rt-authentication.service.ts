@@ -274,10 +274,11 @@ export class AuthenticationService {
 
             if (dbgPrint_getFormObj) console.log("In authService 1,auth_getFormObject,this._currentFormObj=", this._currentFormObj);
 
-            if ( (!this._currentFormObj)
+            /*if ( (!this._currentFormObj)
                 || (this._currentFormObj === null)
                 || (typeof this._currentFormObj !== 'object')
-                || (Object.keys(this._currentFormObj).length === 0)) {
+                || (Object.keys(this._currentFormObj).length === 0)) */
+            {
 
                     //return new Promise((resolve, reject) => {
                         this._auth_getFormObject_Server(this._currentUserId)
@@ -309,7 +310,7 @@ export class AuthenticationService {
                 }
                 */
             }
-            else resolve(this._currentFormObj);
+            //else resolve(this._currentFormObj);
         });
 
     }

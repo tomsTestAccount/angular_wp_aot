@@ -47,6 +47,10 @@ form input::-webkit-validation-bubble-message,
 form select::-webkit-validation-bubble-message,
 form textarea::-webkit-validation-bubble-message{display:none}
 
+form select.ng-invalid{
+	color:lightgrey;
+}
+
 input[type=number]{-moz-appearance:textfield}
 
 .ua-cardBg{
@@ -211,6 +215,12 @@ color:grey}
 
 .form_gridList_mdList_secParagraph_sm{font-size:x-small !important;
 color:grey}
+
+.form_gridList_mdList_secParagraph_sm_info{
+	font-size:x-small !important;
+	color:orangered;
+}
+
 
 .form_gridListRow{border-top:thin solid lightgrey}
 

@@ -97,12 +97,14 @@
                         [id]="formEntry.key"
                         formControlName={{formEntry.key}}
                         >
-                    <option selected="selected" disabled="disabled" value="">{{'pleaseSelect' | translate}}</option>
+                    <option selected="selected" disabled="disabled" value="null" hidden [style.color]="'lightgrey'">{{'pleaseSelect' | translate}}</option>
                     <option *ngFor="let option of formEntry.options" [value]="option.name">{{(option.show === undefined ) ? (option.name | translate) : option.show }}</option>
                 </select>
             <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>
+                 <option value="null" disabled selected hidden>{{'pleaseSelect' | translate}}</option>
+                <option selected="selected" disabled="disabled" value="" hidden>{{'pleaseSelect' | translate}}</option>
                 -->
         </div>
 
@@ -250,6 +252,7 @@
                     <label class="lbl-form_main"> {{formEntry.collapsible_box_title}} {{(formEntry.required == true) ? '*' : ''}} </label>
                 </md-checkbox>
 
+
                 <i class="mdi mdi-information-outline mdi-24px" *ngIf="formEntry.collapsible_info_text !== undefined"
                    [ngClass]="{'isInfoActive' : showTooltip1}"
                    (click)="toggleInfo($event)"
@@ -279,6 +282,9 @@
                                                 [formgroup]=formgroup
                                                 [formEntry] = formEntry>
                 </rt-file-uploader>
+
+
+
             <!--<div class="invalidInfo" *ngIf="entryErrorString">
                     {{entryErrorString}}
                 </div>

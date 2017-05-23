@@ -96,6 +96,27 @@ export class rtFormValidators {
 
     }
 
+    validatePhoneNumber(c: FormControl) {
+
+        let retValue = null; //= {notValid: true};
+        let required = c.parent; //validator;
+
+        if ((c.value != null) && (c.value != '')) {
+
+            //var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+            var re = /^((\\+)|(00)|(\\+\\+)|())[0-9 | ()]{3,14}((\\#)|())$/;
+
+            retValue = re.test(c.value) ? null : {'wrongPhoneNumber': ''};
+
+        }
+
+        if (dbgPrint_Validation) console.log("In validatePhoneNumber, c=", c, ', retValue=', retValue);
+
+        return retValue
+
+    }
+
+
     validatePasswordConfirm(cConfirm: FormControl) {
         let retValue = {equal: false};
 
@@ -128,7 +149,9 @@ export class rtFormValidators {
 
         if ((c.value != null) && (c.value != '')) {
 
-            var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+            //var re = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)/;
+            var re = /^(https?:\/\/)([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+
             retValue = re.test(c.value) ? null : {'wrongUri': ''};
 
         }

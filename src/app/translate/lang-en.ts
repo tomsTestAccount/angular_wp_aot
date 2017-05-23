@@ -24,9 +24,10 @@ export const LANG_EN_TRANS = {
     'browse' : 'Browse',
     'fileName' : 'File Name',
     'size' : 'Size',
+    'fileNotSavedYet' : 'The file will be really uploaded not before you press save below. To press save now is highly recommended ',
 
     //for select
-    'pleaseSelect': 'please Select',
+    'pleaseSelect': 'please Select ...',
 
         // for selecting gender
         'male' : 'male',
