@@ -7,7 +7,7 @@ export const LANG_DE_TRANS = {
 
     //general
     'browserNotSupported' : 'Leider wird ihr Browser nicht unterstützt. Bitte benutzen sie einen aktuelleren Browser.',
-
+    'attentionSaveInfo' : 'Bitte beachten Sie, dass ihre Eingaben erst durch Ausführen des "Speichern"-Buttons übernommen werden.',
 
     //validatoren
     'required' : 'Eingabe wird benötigt',

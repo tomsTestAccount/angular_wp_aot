@@ -6,6 +6,7 @@ export const LANG_EN_TRANS = {
 
     //general
     'browserNotSupported' : 'Sorry, but your current browser is not supported. Please use an newer one.',
+    'attentionSaveInfo' : 'Please note that your inputs are not stored correctly until you press the "Save"-button (below)',
 
     //validators
     'required' : 'Your input is required',

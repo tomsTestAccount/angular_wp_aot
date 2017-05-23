@@ -92,9 +92,16 @@ h4{position:relative}
 
 .lbl-form_main{
 	font-size:small;
-font-weight:bold;
-color:#4b797c;
-margin-bottom:0.35rem}
+	font-weight:bold;
+	color:#4b797c;
+	margin-bottom:0.35rem}
+
+.lbl-form_main_attention{
+	font-size:small;
+	font-weight:normal;
+	font-style:italic;
+	color: darkgray;
+	margin-bottom:0.35rem}
 
 
 .form-input-chBox

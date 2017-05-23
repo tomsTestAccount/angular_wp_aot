@@ -56,8 +56,8 @@
 								<lmu_user_oi *ngIf="subFormEntry.key=='subFormGroup_oi'"  [setForm]="main_FormGroup.controls['subFormGroup_oi']" [setFormEntries]="subFormEntry.formObj.formEntries"></lmu_user_oi>
 -->
 
-								<label class="lbl-form_main">* = {{'required' | translate}}</label>
-
+								<label class="lbl-form_main_attention">* = {{'required' | translate}}</label>
+								<p class="lbl-form_main_attention"> {{'attentionSaveInfo' | translate}}</p>
 							</md-card-content>
 
 							<!--
