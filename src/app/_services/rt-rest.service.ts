@@ -166,12 +166,18 @@ export class RestService {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
+
+        // Trial to solve ie chache problem
         //headers.append('X-Custom-Header', (new Date().getTime()).toString());
         headers.append('Cache-Control', 'no-cache');
+        headers.append('Pragma', 'no-cache');
+        headers.append('Expires', '0');
+        var date4_notCacheRequest =  (new Date().getTime()).toString();
+
         if (token) headers.append('Authorization','Bearer ' + token); //'Authorization':'Bearer '
 
         if (dbgPrint_getUser) console.log("in restService,restGet_formObject: userId=",userId);
-        //var date4_notCacheRequest =  (new Date().getTime()).toString();
+
         return this.http.get(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId           //url req-main
                                                                             //url req-sub
             ,{headers:headers}                                     //header
