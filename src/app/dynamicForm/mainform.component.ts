@@ -136,8 +136,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 		this._authService.auth_getFormObject()
             .then(response => {
 
-				//if (dbgPrint_lifecyclehooks)
-					console.log("In ngOnInit for user-application , after get data from server, data=!",response);
+				if (dbgPrint_lifecyclehooks) console.log("In ngOnInit for user-application , after get data from server, data=!",response);
 
 				this.formStruct = this._rtFormSrv.get_formInfos();
 				this.main_FormGroup = this.formStruct.mainForm.formGroup;

@@ -287,9 +287,7 @@ export class AuthenticationService {
                                     //this.auth_setFormObj(this._currentFormObj);
                                     this._currentFormObj = responseConvert4Local;
 
-                                    if (dbgPrint_getFormObj) {
-                                        console.log("In auth_getFormObject,after auth_getFormObject_Server response,this._currentFormObj=", this._currentFormObj);
-                                    }
+                                    if (dbgPrint_getFormObj) console.log("In auth_getFormObject,after auth_getFormObject_Server response,this._currentFormObj=", this._currentFormObj);
 
                                     resolve(responseConvert4Local);
                             })
@@ -328,7 +326,8 @@ export class AuthenticationService {
                 .subscribe(
                     (response) => {
 
-                        if (dbgPrint_getFormObj)console.log("In auth_getFormObject_Server after rest-call, response=",response);
+                        //if (dbgPrint_getFormObj)
+                        console.log("In auth_getFormObject_Server after rest-call, response=",response);
 
                         //var convertedUaObject = this._lmuForms.handleServerFormObject4localWorking(response);
 

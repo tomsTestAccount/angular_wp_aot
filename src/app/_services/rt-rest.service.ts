@@ -166,6 +166,8 @@ export class RestService {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
+        headers.append('X-Custom-Header', (new Date().getTime()).toString());
+
         if (token) headers.append('Authorization','Bearer ' + token); //'Authorization':'Bearer '
 
         if (dbgPrint_getUser) console.log("in restService,restGet_formObject: userId=",userId);
@@ -173,6 +175,7 @@ export class RestService {
         return this.http.get(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId              //url req-main
                                                                             //url req-sub
             ,{headers:headers}                                     //header
+
         )   .map((response: Response) => response.json())
             //.catch((error:any) =>  Observable.throw(error.json().error || 'Unknown Server error at "restGet_getUserData"! See Debug-Console for more Information '))
             ;
