@@ -166,13 +166,13 @@ export class RestService {
 
         let headers = new Headers();
         headers.append('Accept', 'application/json');
-        headers.append('X-Custom-Header', (new Date().getTime()).toString());
-
+        //headers.append('X-Custom-Header', (new Date().getTime()).toString());
+        headers.append('Cache-Control', 'no-cache');
         if (token) headers.append('Authorization','Bearer ' + token); //'Authorization':'Bearer '
 
         if (dbgPrint_getUser) console.log("in restService,restGet_formObject: userId=",userId);
-
-        return this.http.get(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId              //url req-main
+        //var date4_notCacheRequest =  (new Date().getTime()).toString();
+        return this.http.get(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId           //url req-main
                                                                             //url req-sub
             ,{headers:headers}                                     //header
 
