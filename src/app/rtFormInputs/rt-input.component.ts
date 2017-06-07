@@ -7,6 +7,7 @@ import {siteSettings} from '../_services/siteConf.service';
 const dbgPrint_lifecyclehooks = false;
 const dbgPrint_dateEntry = false;
 const dbgPrint_fileEntry = false;
+const dbgPrint_validateString = false;
 //----------------------------------------------------------------------------------------------------------------------
 
 
@@ -199,7 +200,7 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
     }
 
     //used in html-template to show info for user for invalid input
-    entryErrorString_OLD() {
+    /*entryErrorString_OLD() {
 
         let retValue =  "Not an valid input : ";
         let errorInfos = "";
@@ -228,6 +229,7 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
         retValue = retValue + errorInfos;
         return retValue;
     }
+    */
 
     checkIfRequired():boolean
     {
@@ -262,8 +264,8 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
             for (let errType in errRef) {
 
-                //tmpErrArray.push(errType);
-                if (errType == 'minlength')
+                //handle angular-own validation-struct
+                if (errType == 'minlength' || errType == 'maxlength')
                 {
                     let errType_Obj = errRef[errType];
                     for (let errType_prop in errType_Obj) {
@@ -284,6 +286,8 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
             retValue = retValue.concat(tmpErrArray);
 
+
+            if (dbgPrint_validateString) console.log("retValue = ",retValue);
 
             this.entryErrorString = retValue;
 

@@ -25,7 +25,7 @@ export class cFormInfo {
 
 export class cWholeFormObject {
     mainForm:cFormInfo;
-    subForms:[cFormInfo]
+    subForms:Array<cFormInfo>;
 }
 
 //----------------------------------------------------------------------------------------------------------------------

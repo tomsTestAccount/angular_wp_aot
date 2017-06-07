@@ -8,16 +8,19 @@ export const LANG_DE_TRANS = {
     //general
     'browserNotSupported' : 'Leider wird ihr Browser nicht unterstützt. Bitte benutzen sie einen aktuelleren Browser.',
     'attentionSaveInfo' : 'Bitte beachten Sie, dass ihre Eingaben erst durch Ausführen des "Speichern"-Buttons übernommen werden.',
+    'cancel' : 'Abbruch',
+
+
 
     //validatoren
     'required' : 'Eingabe wird benötigt',
-    'notValid' : 'Feld ist nicht gültig : ',
-    'emailNotValid' : "Mailadresse ist nicht gültig",
+    'notValid' : 'Feld ist nicht gültig:',
+    'emailNotValid' : "Mailadresse ist nicht gültig.",
     'notANumber': "Eingabe ist keine Zahl",
     'numZero': 'Wert ist kleiner/gleich 0',
     'wrongUri' : 'Fehlerhafte URI Notation',
     'wrongDateFormat' : "Falsche Datumsangabe",
-    'noFile' : 'Es wurde keine Datei hochgeladen',
+    'noFile' : 'Es wurde keine Datei hochgeladen.',
     'minlength' : 'minimum Länge',
     'requiredLength' : 'benötigte Länge',
     'actualLength' : 'aktuelle Länge',
@@ -39,11 +42,17 @@ export const LANG_DE_TRANS = {
     'save' : 'Speichern',
     'misEntry' : 'Zeige Fehleingabe',
     'goToSummary' : 'Zur Übersicht',
+    'nextTab': 'nächster Tab',
+    'previousTab': 'vorheriger Tab',
 
 
     //dialogModal
-    'dataIsSaving' : 'Daten werden gespeichert',
-    'dataIsLoading' : 'Daten werden geladen',
+    'dataIsSaving' : 'Daten werden gespeichert.',
+    'dataIsLoading' : 'Daten werden geladen.',
+    'dataNotSavedYet': 'Ihre neuen Daten wurden noch nicht übernommen !',
+    'youLeaveForm' : 'Sie verlassen das Formular !',
+    'areYouSure' : 'Sind Sie sicher ?',
+    'iAmSure' : 'Ja, ich bin sicher',
 
 //-------------- for formEntries -------------------------------------------------------------------
     'LMU_other':'LMU (anderer Abschluss)',

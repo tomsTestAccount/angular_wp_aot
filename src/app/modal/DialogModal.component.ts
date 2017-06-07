@@ -4,9 +4,11 @@ import { Subject }    from 'rxjs/Subject';
 
 export interface IDialogStruct {
     title?: string;
-    message?: string;
+    message?: Array<string>;
     dialogSelection: string;
+    href?:string;
 }
+
 
 
 const dbg_print = false;
@@ -23,13 +25,25 @@ const dbg_print = false;
             </div>    
             
             <div *ngIf="ds.dialogSelection == 'confirm'"  id="confirmDialog">
-                <p>{{ ds.title }}</p>
+                <p>{{ ds.title | translate}}</p>
                 <p>{{ ds.message }}</p>
                 <button type="button" md-raised-button 
                     (click)="dialogRef.close(true)">OK</button>
                 <button type="button" md-button 
                     (click)="dialogRef.close()">Cancel</button>
             </div>
+
+            <div *ngIf="ds.dialogSelection == 'href_confirm'"  id="confirmDialog">
+                <p class="subTitle">{{ ds.title | translate}}</p>
+                <p *ngFor="let str of ds.message">{{ str | translate }}</p>
+                <a class="btn bs_submit_button"
+                        href="{{summaryPage_href}}">{{ 'iAmSure' | translate}} </a>
+                <button class="btn bs_submit_button"
+                        (click)="dialogRef.close('save')">{{ 'save' | translate}}</button>
+                <button class="btn bs_submit_button"
+                        (click)="dialogRef.close()">{{ 'cancel' | translate}}</button>
+            </div>
+            
             
             <div *ngIf="ds.dialogSelection == 'info'"  id="infoDialog">
                 <p>{{ ds.title }}</p>
@@ -69,7 +83,7 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
 
          this.dialogSel$.subscribe(
          selStruct => {
-            if (selStruct.dialogSelection == 'info'  || selStruct.dialogSelection == 'confirm' || selStruct.dialogSelection == 'loading' || selStruct.dialogSelection == 'warning' )
+            if (selStruct.dialogSelection == 'info'  || selStruct.dialogSelection == 'confirm' || selStruct.dialogSelection == 'href_confirm' || selStruct.dialogSelection == 'loading' || selStruct.dialogSelection == 'warning' )
             {
                 this.ds = selStruct;
                 //this.ds.dialogSelection == selStruct.dialogSelection;
@@ -82,7 +96,7 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
 
     ngOnInit()
     {
-        console.log("In ngOnInit for DialogComponent");
+        if (dbg_print) console.log("In ngOnInit for DialogComponent");
     }
 
     ngDoCheck()
@@ -92,8 +106,9 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
 
     ngAfterViewInit()
     {
-        console.log("In ngAfterViewInit for DialogComponent");
+        if (dbg_print) console.log("In ngAfterViewInit for DialogComponent");
     }
+
 
 
 }

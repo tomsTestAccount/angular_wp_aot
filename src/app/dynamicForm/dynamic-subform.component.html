@@ -19,9 +19,10 @@
 
         </form>
 
-        <hr/>
 
         <div  *ngFor="let childFormObj of subFormChildren"  [ngClass]="{'formFrame_optional' : true}">
+
+            <hr/>
 
           <div *ngIf="childFormObj.isCollapsible">
             <md-checkbox  align="start" [(ngModel)]="childFormObj.isShown" [ngModelOptions]="{standalone: true}" [checked]="childFormObj.isShown" (click)="toogle_subForm_isOpened(childFormObj.isShown)">

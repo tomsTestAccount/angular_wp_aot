@@ -7,10 +7,13 @@ export const LANG_EN_TRANS = {
     //general
     'browserNotSupported' : 'Sorry, but your current browser is not supported. Please use an newer one.',
     'attentionSaveInfo' : 'Please note that your inputs are not stored correctly until you press the "Save"-button (below)',
+    'cancel' : 'cancel',
+
+
 
     //validators
     'required' : 'Your input is required',
-    'notValid' : 'Field is invalid : ',
+    'notValid' : 'Field is invalid:',
     'emailNotValid' : "Wrong email address notification",
     'notANumber': "Input is not a number",
     'numZero': 'Input is less than/equals zero',
@@ -25,7 +28,7 @@ export const LANG_EN_TRANS = {
     'browse' : 'Browse',
     'fileName' : 'File Name',
     'size' : 'Size',
-    'fileNotSavedYet' : 'The file will be really uploaded not before you press save below. To press save now is highly recommended ',
+    'fileNotSavedYet' : 'The file will be really uploaded not before you press save below. To press save now is highly recommended. ',
 
     //for select
     'pleaseSelect': 'please Select ...',
@@ -38,11 +41,16 @@ export const LANG_EN_TRANS = {
     'save' : 'Save',
     'misEntry' : 'Show MisEntry',
     'goToSummary' : 'Back to Summary',
-
+    'nextTab': 'next Tab',
+    'previousTab': 'previous Tab',
 
     //dialogModal
     'dataIsSaving' : 'Data is stored',
     'dataIsLoading' : 'Data is loaded',
+    'dataNotSavedYet': 'Your Data was not saved yet.',
+    'youLeaveForm' : 'You leave this form !',
+    'areYouSure' : 'Are you sure ?',
+    'iAmSure' : 'Yes, I am sure',
 
     //-------------- for formEntries -------------------------------------------------------------------
 

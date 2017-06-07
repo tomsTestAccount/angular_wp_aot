@@ -101,7 +101,16 @@ h4{position:relative}
 	font-weight:normal;
 	font-style:italic;
 	color: darkgray;
-	margin-bottom:0.35rem}
+	margin-bottom:0.35rem
+}
+
+.lbl-form_main_attention:enabled{
+	font-size:small;
+	font-weight:bold;
+	font-style:italic;
+	color: #4b797c;
+	margin-bottom:0.35rem
+}
 
 
 .form-input-chBox
@@ -166,8 +175,9 @@ border-style:solid;
 border-width:1px
 }
 
-.bs_submit_button{
-	border:white !important;
+.bs_submit_button,
+.bs_submit_button:focus{
+	border:#4b797c 1px solid !important;
 	color:#4b797c !important;
 	background:white !important;
 	border-radius:0.15em !important;
@@ -184,11 +194,15 @@ border-width:1px
 	border-radius:0.15em !important;
 }
 
-.bs_submit_button:disabled{border:lightgrey 1px solid;
-color:darkgrey;
-background:lightgrey;
-box-shadow:none;
-border-radius:0.15em}
+.bs_submit_button:disabled,
+.bs_submit_button:disabled:hover{
+	border:none !important;
+	color:darkgrey !important;
+	background:lightgrey !important;
+	box-shadow:none !important;
+
+
+}
 
 .formSubmitButton{border:#019ba5 1px solid;
 color:#019ba5;
@@ -341,4 +355,9 @@ min-width:160px;
 text-align:center;
 position:relative}
 
+
+#md-tab-group-bottom md-tab-header>.mat-tab-label-container>.mat-tab-list md-ink-bar {
+	bottom: none !important;
+	top: 0 !important;
+}
 

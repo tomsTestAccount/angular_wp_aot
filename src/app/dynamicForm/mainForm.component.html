@@ -11,9 +11,9 @@
                 (click)="select_subFormTab(subFormEntry.key)"
                 id="uaTab_+{{subFormEntry.key}}">
 					<ng-template md-tab-label class="my-mat-tab-label">
-            <p class="my_md_tab_title">{{subFormEntry.title}}</p>
+            			<p class="my_md_tab_title">{{subFormEntry.title}}</p>
 
-            <!--{{subFormEntry.title}}-->
+            			<!--{{subFormEntry.title}}-->
 					</ng-template>
 
 					<form *ngIf="isFormDataLoaded==true" [formGroup]="main_FormGroup" >
@@ -22,119 +22,103 @@
 
 							<md-card-content class="uacard-content" >
 
-<!--
-								<lmu_user_apd *ngIf="subFormEntry.key=='subFormGroup_apd'"  [setForm]="main_FormGroup.controls['subFormGroup_apd']" [setFormEntries]="subFormEntry.formObj.formEntries"></lmu_user_apd>
--->
-
-								<!--
-								<lmu_user_pe *ngIf="ua_sec.key=='subFormGroup_ac'"
-                             		[setForm]="main_FormGroup.controls['subFormGroup_ac']"
-                             		[setFormEntries]="ac_formObj.formEntries"
-									[setForm2]="main_FormGroup.controls['subFormGroup_ac2']"
-                              		[setFormEntries2]="ac2_formObj.formEntries">
-                				</lmu_user_pe>
-
-                				[setSubForms]="{form:main_FormGroup.controls['subFormGroup_ac2'].controls[0],formEntries:ac2_formObj.formEntries}">
-                				 [setSubForms]="{form:main_FormGroup.controls['subFormGroup_ac2'],formEntries:subFormEntry.formObj.formEntries}">
-
-                				-->
-
-								<!--
-								<dynamicSubForm *ngIf="subFormEntry.key=='subFormGroup_ac'"
-											 [setForm]="main_FormGroup.controls['subFormGroup_ac']"
-											 [setFormEntries]="subFormEntry.formObj.formEntries"
-												[setChildSubForms]="subFormEntry.childrenFormsArray">
-								</dynamicSubForm>
-								-->
 
 								<dynamicSubForm
 												[input_mainForm]="main_FormGroup"
 												[input_subFormInfo]="subFormEntry"
 												>
 								</dynamicSubForm>
-<!--
-								<lmu_user_oi *ngIf="subFormEntry.key=='subFormGroup_oi'"  [setForm]="main_FormGroup.controls['subFormGroup_oi']" [setFormEntries]="subFormEntry.formObj.formEntries"></lmu_user_oi>
--->
 
 								<label class="lbl-form_main_attention">* = {{'required' | translate}}</label>
 								<p class="lbl-form_main_attention"> {{'attentionSaveInfo' | translate}}</p>
+
 							</md-card-content>
 
-							<!--
-							<md-card-footer class="uacard-footer">
-								<div class="form-group" >
-									<label class="lbl-form_main">* = required</label>
-								</div>
-							</md-card-footer>
-							-->
-
-
 						</md-card>
-
-					<!--</template>-->
-
-						<!-- <hr/> -->
-
-						<div [style.background]="'white'">
-							<div>
-								<hr [style.background]="'white'"/>
-							</div>
-
-							<div align="center" class="uacard-footer">
-
-
-								<button *ngIf="!changeDetected"
-										md-button type="save" [disabled]="true">
-									{{ 'save' | translate }}
-								</button>
-								<button *ngIf="changeDetected"
-										type="button"
-										class="btn bs_submit_button"
-										(click)="saveFormObj()"
-								>{{ 'save' | translate }}
-								</button>
-
-
-								<!--
-								<button type="button"
-										class="btn bs_submit_button"
-										(click)="saveFormObj()"
-								>Save
-								</button>
-								-->
-
-								<button *ngIf="!mainFormValid"
-										class="btn bs_submit_button"
-										type="button" (click)="showMissingInput()">
-									{{ 'misEntry' | translate }}
-								</button>
-
-								<!--<a *ngIf="mainFormValid && !changeDetected"-->
-								<a
-									class="btn bs_submit_button"
-								   id="blabla_notusedJsutTest"
-								   href="{{summaryPage_href}}"
-								   role="button">
-									{{ 'goToSummary' | translate }}
-								</a>
-
-								<!--
-								<button md-button type="button" (click)="showDbg()">Submit_dbg</button>
-								-->
-							</div>
-							<div>
-								<hr [style.background]="'white'"/>
-							</div>
-							<div></div>
-						</div>
-
 					</form>
-
 				</md-tab>
 
 			</div>
 
 		</md-tab-group>
+
+		<!--
+		<md-tab-group mat-center-tabs="true"  id="md-tab-group-bottom" [(selectedIndex)]="selectedIndex">
+
+			<div  *ngFor="let subFormEntry of formStruct.subForms">
+				<md-tab *ngIf="!subFormEntry.noneOwnTab"
+						(click)="select_subFormTab(subFormEntry.key)">
+					<ng-template md-tab-label class="my-mat-tab-label">
+						<p class="my_md_tab_title">{{subFormEntry.title}}</p>
+
+
+					</ng-template>
+				</md-tab>
+			</div>
+		</md-tab-group>
+		-->
+
+		<md-card [style.background]="'white'">
+
+			<!--
+			<div [style.padding-left]="'24px'">
+				<label class="lbl-form_main_attention">* = {{'required' | translate}}</label>
+				<p class="lbl-form_main_attention"> {{'attentionSaveInfo' | translate}}</p>
+
+			</div>
+
+			-->
+
+				<hr/>
+
+
+			<div align="center">
+
+				<button [disabled]="!(selectedIndex>0)" class="btn bs_submit_button" (click)="previousTab()">
+					<!--<i class="material-icons">arrow_drop_up</i>-->
+
+					<i class="mdi mdi-chevron-left mdi-20px"></i>
+					<!--{{ 'previousTab' | translate }}-->
+				</button>
+
+
+				<button [disabled]="!changeDetected"
+						type="button"
+						class="btn bs_submit_button"
+						(click)="saveFormObj()"
+				>{{ 'save' | translate }}
+				</button>
+
+				<button *ngIf="!mainFormValid"
+						class="btn bs_submit_button"
+						type="button" (click)="showMissingInput()">
+					{{ 'misEntry' | translate }}
+				</button>
+
+				<!--<a *ngIf="mainFormValid && !changeDetected"-->
+
+				<a *ngIf="changeDetected"
+					class="btn bs_submit_button"
+					(click)="goToParent(summaryPage_href)"
+				   role="button">
+					{{ 'goToSummary' | translate }}
+				</a>
+				<a *ngIf="!changeDetected"
+				   class="btn bs_submit_button"
+				   href="{{summaryPage_href}}"
+				   role="button">
+					{{ 'goToSummary' | translate }}
+				</a>
+
+				<button [disabled]="!(selectedIndex<formStruct.subForms.length-1)" class="btn bs_submit_button" (click)="nextTab()">
+					<!--{{ 'nextTab' | translate }}-->
+					<i class="mdi mdi-chevron-right mdi-20px"></i>
+				</button>
+			</div>
+
+
+		</md-card>
+
 
 
 	</div>

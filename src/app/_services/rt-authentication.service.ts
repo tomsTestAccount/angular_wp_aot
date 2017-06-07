@@ -14,6 +14,7 @@ import { Subscription }   from 'rxjs/Subscription';
 import {RestService} from './rt-rest.service';
 import { DialogsService } from './dialogs.service';
 import {RtFormService} from '../_services/rt-forms.service'
+import "rxjs/add/operator/toPromise";
 //import { Promise } from 'es6-promise';  <-- very evil , but TODO: we have to determine which promise is used (and replace it with subjects/observables)
 
 
@@ -97,7 +98,6 @@ export class AuthenticationService {
 
         return new Promise((resolve, reject) =>
         {
-
             this._rtRestService.restPost_login(userId,password)
                 .subscribe(response => {
 
@@ -317,23 +317,14 @@ export class AuthenticationService {
 
         if (dbgPrint_getFormObj)  console.log("1 In  rt-auth-service: auth_getFormObject_Server ,this._currentUserId=",this._currentUserId);
 
-        let retValue=false;
-
-        //this._currentUserId = 'mueller'; //Todo
-
         return new Promise((resolve, reject) => {
             this._rtRestService.restGet_formObject(this._currentUserId, this._currentToken)
                 .subscribe(
                     (response) => {
 
-                        //if (dbgPrint_getFormObj)
-                        console.log("In auth_getFormObject_Server after rest-call, response=",response);
-
-                        //var convertedUaObject = this._lmuForms.handleServerFormObject4localWorking(response);
+                        if (dbgPrint_getFormObj) console.log("In auth_getFormObject_Server after rest-call, response=",response);
 
                         var convertedUaObject = this._rtFormSrv.handleServerFormObject4localWorking(response);
-
-                        //this._rtFormSrv.subFormsUpdated(true);
 
                         resolve(convertedUaObject);
                     },
@@ -362,22 +353,11 @@ export class AuthenticationService {
 
         this._currentFormObj = uaObjLocal;
 
-        //Important --> localStorage use json-format (-->stringify)  !!!!We can't do that anymore , cause of user qouta --> fileUpload in uaFormObject !!!
-        /*
-            let tmpLocalObjString: string = JSON.stringify(uaObjLocal);
-
-            if (dbgPrint_setFormObj) console.log("In auth_setFormObj, tmpLocalObjString",tmpLocalObjString);
-
-            localStorage.setItem('currentUaObject', tmpLocalObjString );
-        */
-
-        //let uaObj4Server = this._lmuForms.handleFormObject2SendToServer(uaObjLocal);
 
         let uaObj4Server = this._rtFormSrv.handleFormObject2SendToServer(uaObjLocal);
 
 
-        //if (dbgPrint_setFormObj)
-            console.log("In authService, auth_setFormObj 2 ,uaObj4Server=",uaObj4Server);
+        if (dbgPrint_setFormObj) console.log("In authService, auth_setFormObj 2 ,uaObj4Server=",uaObj4Server);
 
         if (sendToServer) return this.auth_setFormObj_Server(uaObj4Server);
 
@@ -398,7 +378,7 @@ export class AuthenticationService {
                     .subscribe(
                         (data) => {
                             this._dialog.closeDialog();
-                            console.log("set UaObj to server successfull with data=", data);
+                            if (dbgPrint_setFormObj) console.log("set UaObj to server successfull with data=", data);
                             resolve(data);
                         }, //this.data = data, // Reach here if res.status >= 200 && <= 299
                         (err) => {

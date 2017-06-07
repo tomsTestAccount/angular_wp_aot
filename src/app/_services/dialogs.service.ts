@@ -30,7 +30,28 @@ export class DialogsService {
         this.isDialog_open = false;
     }
 
-    public confirm(title: string, message: string): Observable<boolean> {
+    public goToHref_Confirm(title: string, message: Array<string>, hrefString?:string): Observable<string> {
+
+        if (this.isDialog_open === true) this.closeDialog();
+
+        if (dbgDialog_Print) console.log("In DialogService,confirm,title",title,",message=",message);
+
+        this.dialogRef = this.dialog.open(DialogComponent);
+        this.isDialog_open = true;
+
+        this.dialogRef.componentInstance.set_dialogSel(
+            {
+                title: title,
+                message:message,
+                dialogSelection: 'href_confirm',
+                href: hrefString
+            }
+        );
+
+        return this.dialogRef.afterClosed();
+    }
+
+    public confirm(title: string, message?: Array<string>): Observable<boolean> {
 
         if (this.isDialog_open === true) this.closeDialog();
 
@@ -50,7 +71,7 @@ export class DialogsService {
         return this.dialogRef.afterClosed();
     }
 
-    public loading(title?: string, message?: string) {
+    public loading(title?: string, message?: Array<string>) {
 
         if (this.isDialog_open == true) this.closeDialog();
 
@@ -76,7 +97,7 @@ export class DialogsService {
         //return dialogRef.afterClosed();
     }
 
-    public info(title: string, message: string) {
+    public info(title: string, message?: Array<string>) {
 
         if (this.isDialog_open == true) this.closeDialog();
 
@@ -101,7 +122,7 @@ export class DialogsService {
         //return dialogRef.afterClosed();
     }
 
-    public warning(title: string, message: string) {
+    public warning(title: string,message?: Array<string>) {
 
         if (this.isDialog_open == true) this.closeDialog();
 
@@ -126,6 +147,7 @@ export class DialogsService {
         //return dialogRef.afterClosed();
     }
 }
+
 
 
 //------------- example

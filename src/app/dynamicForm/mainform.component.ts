@@ -20,6 +20,7 @@ const dbgPrint_formChanged = false;
 const dbgPrint_formEntryChanged = false;
 const dbgPrint_setChildSubForms = false;
 const dbgPrint_updateData = false;
+const dbgPrint_selectTab = false;
 
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -109,6 +110,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 
 		this.getDataFromServer();
 
+		this.selectedIndex = 0;
 
 	}
 
@@ -291,7 +293,7 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
         this._authService.auth_setFormObj(this._rtFormSrv.formEntries_changed_ObjList,true)
 			.then(
 				response => {
-					console.log("Save Data Successful",response)
+					if (dbgPrint_save) console.log("Save Data Successful",response);
 					this.setChangeDetected(false);
 					//this.reset_formChangedEntries();
 					this._rtFormSrv.reset_formEntries_changed_ObjList();
@@ -310,9 +312,11 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 	}
 
 
+	//----------------------------------------------------------------------------------------------------------------------------------------------
+
 	select_subFormTab(wantedSubForm: string) {
-		//if (dbgPrint)
-		console.log("In select_comp4User, wantedSubForm=",wantedSubForm);
+
+		if (dbgPrint_selectTab) console.log("In select_comp4User, wantedSubForm=",wantedSubForm);
 
 		let foundTab = false;
 
@@ -354,6 +358,27 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 		}
 	}
 
+	nextTab()
+	{
+
+		if (this.selectedIndex<this.formStruct.subForms.length-1)
+		{
+			this.selectedIndex = this.selectedIndex +1;
+			if (dbgPrint_selectTab) console.log("tabIdx=",this.selectedIndex);
+		}
+	}
+
+	previousTab()
+	{
+		if (this.selectedIndex>0)
+		{
+			this.selectedIndex = this.selectedIndex -1;
+			if (dbgPrint_selectTab) console.log("tabIdx=",this.selectedIndex);
+		}
+	}
+
+
+	//----------------------------------------------------------------------------------------------------------------------------------------------
 
 	showMissingInput() {
 		if (this.main_FormGroup)
@@ -401,6 +426,20 @@ export class MainFormComponent implements OnInit,AfterViewInit,DoCheck{
 			}
 		}
 	}
+
+
+	goToParent(href_string:string)
+	{
+		this.dialogsService.goToHref_Confirm('youLeaveForm',['areYouSure',"dataNotSavedYet"],href_string)
+			.subscribe(res => {
+				var dialogResult = res;
+				if (dialogResult == 'save') this.saveFormObj();
+
+			}
+			);
+	}
+
+
 
 	submitForm()
 	{
