@@ -1,18 +1,33 @@
 import { Injectable, Inject } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import {
+    Http, Headers, RequestOptions, Response, BrowserXhr, XHRBackend,
+    RequestOptionsArgs
+} from '@angular/http';
 
 import { User4Create } from '../_models/user';
-import {Observable} from "rxjs/Observable";
+import {Observable} from "rxjs/Rx";
+import {TimerObservable} from "rxjs/observable/TimerObservable";
+import { Subscription } from 'rxjs/Subscription';
+
+import { ProgressHttp } from "angular-progress-http";
 
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/timeout';
+
 import 'rxjs/add/observable/throw';
 
 import {SiteConfig_Service} from './siteConf.service';
+import { Subject } from 'rxjs/Subject';
+
 
 const dbgPrint_getUser = false;
 const dbgPrint = false;
+
+//---------------------------------------------------------------------------------------------------
+
+
+//---------------------------------------------------------------------------------------------------
 
 @Injectable()
 export class RestService {
@@ -24,7 +39,12 @@ export class RestService {
     public onDevEnv:boolean = false;
     private runningConfs:any;
 
-    constructor(private http: Http, private _siteConfs: SiteConfig_Service)
+    constructor(private http: ProgressHttp,
+
+                private _siteConfs: SiteConfig_Service,
+               // private x : CustomBrowserXhr,
+               // private p : ProgressService
+                )
     {
         this.runningConfs = _siteConfs;
         let serverConfigs = this.runningConfs.get_serverConfigs();
@@ -36,19 +56,27 @@ export class RestService {
         this.onDevEnv = this.runningConfs.onDevelopmentEnv;
 
         if (dbgPrint) console.log("serverURL=",this.serverURL);
+
+        /*
+        this.x.build();
+        var d: Subscription,u: Subscription;
+        d = this.p.downloadProgress.asObservable().subscribe( e => console.log(e));
+        u = this.p.uploadProgress.asObservable().subscribe( e => console.log(e));
+        */
     }
 
-    /********************************************************************************************************************/
+    /********************************************Progress Event *******************************************************/
 
-    /*
-    private onDevelopment = new Subject<boolean>();
-    onDevelopment$ = this.onDevelopment.asObservable();
+    ///observable sources
+    private httpProgressEvent = new Subject<number>();
 
-    // Service command
-    set_onDevelopment(val: boolean) {
-        this.onDevelopment.next(val);
+    //announcements
+    public dialogSel$ = this.httpProgressEvent.asObservable();
+
+    // Service commands
+    private set_progressValue(progressValue: number) {
+        this.httpProgressEvent.next(progressValue);
     }
-    */
 
 	/*********************************** PLONE-RESTAPI **************************************************************/
 
@@ -187,6 +215,8 @@ export class RestService {
             ;
     }
 
+    //---------------------------- SEND FORM OBJECT
+
     //patch user application form entries
     restPatch_formObject(userId: string,token:string,form:any):Observable<any> {
 
@@ -201,18 +231,44 @@ export class RestService {
         //TODO: check if valid JSON
         let body = form;
 
+
+        var obs : Observable<any>;
+
+        /*
+        var subscription : Subscription;
+
+
+        let timer = TimerObservable.create(10, 20);
+        subscription = timer.subscribe(x => console.log(x));
+        */
+
+
         //console.log("in restService,auth_getFormObject: user=",user);
-        return this.http.patch(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId                                        //url req-main
+        obs = this.http
+            .withUploadProgressListener(progress => { this.set_progressValue(progress.percentage); console.log(`Uploading ${progress.percentage}%`); })
+            .withDownloadProgressListener(progress => { this.set_progressValue(progress.percentage); console.log(`Downloading ${progress.percentage}%`); })
+            .patch(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId                                        //url req-main
             ,body                                                                            //(userData)                                                                        //body
             ,{headers:headers} //,({headers: new Headers({'Authorization':token}) })                               //({'Authorization':'Bearer ' + token})                 //header
             //.retry(1)
-        )
-            .map((response: Response) => response.json())
+        ).map((response: Response) => response.json())
+            //.finally( () => { subscription.unsubscribe() ; } )
             //.catch((error:any) => Observable.throw(error.json().error || 'Unknown Server error at "restGet_getUserData" '))
             //.catch((error:any) => Observable.throw(error.json().error || 'Unknown Server error at "restGet_getUserData" '))
             ;
 
+        //subscription.unsubscribe();
+
+
+
+        return obs;
+
     }
+
+
+
+
+    //----------------------------------------------------------------------------------------------------------------
 
     //thta file-rest-api is not used for plone in the moment
     restDelete_File(userId: string,token:string,fileId:string)
@@ -249,23 +305,85 @@ export class RestService {
     //--------------------------------------------------------------------------------
 
 
-    /*
-
-
-        var headers = new Headers();
-        headers.append('Accept', '*');
-        //headers.append('Content-Type', 'application/x-www-form-urlencoded');
-        //headers.append('Access-Control-Request-Headers', 'content-type');
-        //headers.append('Access-Control-Request-Method', 'POST');
-        headers.append('withCredentials','true');
-,
-    */
+};
+//_______________________________________________________________________________________________________________________________
 
 
 
+//_______________________________________________________________________________________________________________________________-
 
+@Injectable()
+export class FileUploadService {
+    /**
+     * @param Observable<number>
+     */
+    private progress$: Observable<number>;
 
+    /**
+     * @type {number}
+     */
+    private progress: number = 0;
 
+    private progressObserver: any;
 
+    constructor () {
+        this.progress$ = new Observable(observer => {
+            this.progressObserver = observer
+        });
+    }
 
+    /**
+     * @returns {Observable<number>}
+     */
+    public getObserver (): Observable<number> {
+        return this.progress$;
+    }
+
+    /**
+     * Upload files through XMLHttpRequest
+     *
+     * @param url
+     * @param files
+     * @returns {Promise<T>}
+     */
+    public upload (url: string, files: File[]): Promise<any> {
+        return new Promise((resolve, reject) => {
+            let formData: FormData = new FormData(),
+                xhr: XMLHttpRequest = new XMLHttpRequest();
+
+            for (let i = 0; i < files.length; i++) {
+                formData.append("uploads[]", files[i], files[i].name);
+            }
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response));
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
+            };
+
+            FileUploadService.setUploadUpdateInterval(500);
+
+            xhr.upload.onprogress = (event) => {
+                this.progress = Math.round(event.loaded / event.total * 100);
+
+                this.progressObserver.next(this.progress);
+            };
+
+            xhr.open('PATCH', url, true);
+            xhr.send(formData);
+        });
+    }
+
+    /**
+     * Set interval for frequency with which Observable inside Promise will share data with subscribers.
+     *
+     * @param interval
+     */
+    private static setUploadUpdateInterval (interval: number): void {
+        setInterval(() => {}, interval);
+    }
 }

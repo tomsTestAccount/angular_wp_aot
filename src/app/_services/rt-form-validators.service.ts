@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 
 import {FormControl, Validators, AbstractControl,FormGroup}  from '@angular/forms';
+import { ValidateFn } from 'codelyzer/walkerFactory/walkerFn';
 
 
 const dbgPrint_Validation = false;
@@ -166,6 +167,8 @@ export class rtFormValidators {
 
         let required = c.parent; //validator;
 
+        //console.log("c=",c,this);
+
         if ((c.value != null) && (c.value != '')) {
 
             //yyyy-mm-dd, but 0000-00-00
@@ -178,11 +181,42 @@ export class rtFormValidators {
                 retValue = (d.toISOString().slice(0, 10) == c.value ? null : {'wrongDateFormat': ''});
             }
             else retValue = {'wrongDateFormat': ''};
-
         }
         if (dbgPrint_Validation) console.log("In validateDate, c=", c, ', retValue=', retValue, required);
 
         return retValue
+    }
+
+    validateDate2(maxDate:string,minDate:string):ValidateFn<any> {
+        return (c: FormControl): any => {
+            let retValue = null;
+
+            let required = c.parent; //validator;
+
+            if ((c.value != null) && (c.value != '')) {
+
+                var d = new Date(c.value);
+                if (d) {
+                    //return false; // Invalid date (or this could be epoch)
+                    retValue = (d.toISOString().slice(0, 10) == c.value ? null : {'wrongDateFormat': ''});
+
+                    let maxD =  new Date(maxDate);
+                    let minD =  new Date(minDate);
+
+                    //console.log("maxDate=", maxD);
+                    //console.log("minDate=", minD);
+
+                    if (retValue === null) retValue = (d<=maxD)? null : {'wrongDate2young': maxDate};
+                    if (retValue === null) retValue = (d>=minD)? null : {'wrongDate2old': minDate};
+
+                }
+                else retValue = {'wrongDateFormat': ''};
+
+            }
+            if (dbgPrint_Validation) console.log("In validateDate, c=", c, ', retValue=', retValue, required);
+
+            return retValue;
+        };
     }
 
     validateFileUpload(c: FormControl) {

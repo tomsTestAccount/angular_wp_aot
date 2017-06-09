@@ -71,7 +71,7 @@ export class DialogsService {
         return this.dialogRef.afterClosed();
     }
 
-    public loading(title?: string, message?: Array<string>) {
+    public loading(title?: string, message?: Array<string>,progressBarMode?:string) {
 
         if (this.isDialog_open == true) this.closeDialog();
 
@@ -84,11 +84,15 @@ export class DialogsService {
         this.dialogRef = this.dialog.open(DialogComponent,this.config);
         this.isDialog_open = true;
 
+        var prgrBarMode:string;
+        if (progressBarMode !== undefined ) prgrBarMode = progressBarMode;
+
         this.dialogRef.componentInstance.set_dialogSel(
             {
                 title: title || "Wait while Loading Data",
                 message:message,
                 dialogSelection: 'loading',
+                progressBarMode:prgrBarMode
             }
         );
 

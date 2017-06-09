@@ -6,6 +6,28 @@ import { Subject }    from 'rxjs/Subject';
 import {formList} from '../_models/formConfigurator';
 
 
+
+export interface IFormEntryObject {
+    key: string;
+    type: string;
+    validators: [string];
+    options: any;/*{
+        name?:string;
+        dateFormat?: string;
+        dataType?: string;
+        yearRange?: string;
+        placeholder?: string;
+    };*/
+    title: string;
+    secParagraphArray?: [string];
+    required: boolean;
+    defaultValue?: "";
+
+    section: string;
+
+}
+
+
 export class cFormObject {
     constructor(
         public formgroup : FormGroup,
@@ -488,7 +510,7 @@ export class RtFormService {
     */
 
     // Get function from string for Validator-Function. With or without scopes (by Nicolas Gauthier)
-    private getFunctionCallFromString = function(stringArray) {
+    private getFunctionCallFromString = function(stringArray,entry:IFormEntryObject) {
         if (stringArray == undefined) return null;
         if (!Array.isArray(stringArray)) return null;
         if (stringArray.length == 0 ) return null;
@@ -550,15 +572,38 @@ export class RtFormService {
            }
            else if (stringArray[i].indexOf('validateDate')!=-1)
            {
-             validatorArray.push(this.rtValidators.validateDate);
+               let maxDate:string="";
+               let minDate:string="";
+
+               if (entry.options !== undefined) {
+
+                   if (entry.options.yearRange !== undefined) {
+
+                       var splitString = entry.options.yearRange.split(':');
+                       if (splitString.length <= 1) splitString = entry.options.yearRange.split('-');
+                       minDate = splitString[splitString.length - 2] + '-01-01';
+                       maxDate = splitString[splitString.length - 1] + '-12-31';
+                   }
+                   if (entry.options.maxDate !== undefined)
+                   {
+                       maxDate = entry.options.maxDate;
+                   }
+
+                   if (entry.options.minDate !== undefined)
+                   {
+                       minDate = entry.options.minDate;
+                   }
+               }
+
+               //console.log("maxDate=", maxDate,"minDate=", minDate);
+
+
+             validatorArray.push(this.rtValidators.validateDate2(maxDate,minDate));
            }
            else if (stringArray[i].indexOf('validatePhoneNumber')!=-1)
            {
                validatorArray.push(this.rtValidators.validatePhoneNumber);
            }
-
-
-
 
        }
 
@@ -583,7 +628,7 @@ export class RtFormService {
                     if (entry.toTranslate === undefined ) entry['toTranslate'] = false;
                 }
                 */
-                group[entry.key] = new FormControl(defaultValue, this.getFunctionCallFromString(entry.validators) );
+                group[entry.key] = new FormControl(defaultValue, this.getFunctionCallFromString(entry.validators,entry) );
 
         });
 

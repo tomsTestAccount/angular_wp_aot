@@ -163,26 +163,6 @@
 
         </div>
 
-          <!--
-          <div  *ngSwitchCase="'bool'">
-            <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}}</label>
-            <br />
-            <label class="secParagraph" *ngFor="let text of formEntry.secParagraphArray" > {{text}}
-            </label>
-            <select autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"
-                    class="form-control"
-                    [id]="formEntry.key"
-                    formControlName={{formEntry.key}}
-            >
-              <option selected="selected" disabled="disabled" value="">Please Select</option>
-              <option *ngFor="let option of formEntry.options" [value]="option.name">{{option.name}}</option>
-            </select>
-            <div class="invalidInfo" *ngIf="entryErrorString">
-              {{entryErrorString}}
-            </div>
-          </div>
-
-        -->
         <div    *ngSwitchCase="'number'">
              <label class="lbl-form_main" [attr.for]="formEntry.key" >{{formEntry.title}} {{(formEntry.required == true) ? '*' : ''}}</label>
                 <br />
@@ -266,30 +246,10 @@
                     </div>
                 </div>
 
-                <!--
-                <input  *ngIf="checkIfRequired()" class="notvisibleInput"
-                        type="text"
-                        formControlName={{formEntry.key}}
-                        required
-                />
-                <input  *ngIf="!checkIfRequired()" class="notvisibleInput"
-                        type="text"
-                        formControlName={{formEntry.key}}
-                />
-                -->
-
                 <rt-file-uploader *ngIf='isOpened==true'
                                                 [formgroup]=formgroup
                                                 [formEntry] = formEntry>
                 </rt-file-uploader>
-
-
-
-            <!--<div class="invalidInfo" *ngIf="entryErrorString">
-                    {{entryErrorString}}
-                </div>
-                -->
-
 
         </div>
         <div *ngSwitchCase="'checkBox'">
@@ -303,22 +263,7 @@
                         <label [attr.for]="formEntry.key"> {{formEntry.title}} {{(formEntry.required == true) ? '*' : ''}} </label>
                         </md-checkbox>
                     </div>
-                    <!--<div class="invalidInfo" *ngIf="entryErrorString">
-                        {{entryErrorString}}
-                    </div>
-                    -->
-                        <!--
 
-                        <md-icon *ngIf="formEntry.infoText != invalid"
-                                 class="infoIcon"
-                                 [ngClass]="{'isInfoActive' : showTooltip}"
-                                 (click)="toggleInfo($event)"
-                                 (mouseover)="showTooltip=true"
-                                 (mouseleave)="showTooltip=false" >
-                            info_outline
-                        </md-icon>
-
-                        -->
                         <i *ngIf="formEntry.infoText != invalid"
                            class="mdi mdi-information-outline mdi-24px"
                        [ngClass]="{'isInfoActive' : showTooltip}"
@@ -337,7 +282,7 @@
         </div>
             <div class="invalidInfo" *ngIf="entryErrorString.length">
                 <label *ngFor="let errorEntry of entryErrorString">
-                    {{errorEntry | translate}}
+                   <pre [style.color]="'red'" [style.margin]="'0'"> {{(errorEntry | translate) }} </pre>
                 </label>
             </div>
         </div>

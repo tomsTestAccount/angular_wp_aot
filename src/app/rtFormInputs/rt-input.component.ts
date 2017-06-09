@@ -41,6 +41,7 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
 
     calenderLanguage : any;
 
+
     constructor()
     {
 
@@ -89,12 +90,13 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
                 //setTimeout(() => {this.isOpened = true},1);
             }
         }
+        //TODO own component
         else if (this.formEntry.type == 'date') {
 
 
              if (dbgPrint_dateEntry) console.log("Input-entry: DATE, this.formEntry=", this.formEntry);
 
-
+            /*
              if (this.formEntry.options.minDate !== undefined && this.formEntry.options.maxDate !== undefined) {
                 this.formEntry.options.minDate = new Date(this.formEntry.options.minDate);
                 this.formEntry.options.maxDate = new Date(this.formEntry.options.maxDate);
@@ -109,6 +111,7 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
                 this.formEntry.options.minDate = new Date("1975-01-01");
                 this.formEntry.options.maxDate = new Date();
              }
+            */
 
              //defaultDate (minDate) or loadedDate
              if (this.formEntry.defaultValue) {
@@ -260,7 +263,7 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
             let errRef = this.formgroup.controls[this.formEntry.key].errors;
             let tmpErrArray = [];
 
-
+            //console.log("errRef=",errRef);
 
             for (let errType in errRef) {
 
@@ -277,10 +280,20 @@ export class rtInputComponent implements OnInit,DoCheck,AfterViewInit {
                     }
                     tmpErrArray = tmpErrArray.slice(tmpErrArray[0],tmpErrArray.length-1);
                 }
-                else tmpErrArray.push(errType);
+                else {
+                    tmpErrArray.push(errType);
 
+                    if (typeof errRef[errType] === 'string' && errRef[errType].length !== 0) {
+                        tmpErrArray.push(':');
+                        //console.log("errRef=",errRef);
+                        //console.log("errRef[errType]=",errRef[errType]);
+                        tmpErrArray.push(errRef[errType]);
+                    }
+                }
                 break;
             }
+
+
 
             if (tmpErrArray.length == 0) tmpErrArray.push('required');
 

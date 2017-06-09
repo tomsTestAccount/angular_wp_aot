@@ -21,7 +21,10 @@ import {rtMSelectPrioGridComponent} from './rtFormInputs/rt-mselect-prio-grid.co
 
 import {DynamicSubFormComponent} from'./dynamicForm/dynamic-subform.component'
 
-import { RestService } from './_services/rt-rest.service';
+
+import { ProgressHttpModule } from "angular-progress-http";
+
+import { RestService} from './_services/rt-rest.service';
 import {AuthenticationService} from './_services/rt-authentication.service';
 import {RtFormService} from './_services/rt-forms.service'
 import {SiteConfig_Service} from './_services/siteConf.service';
@@ -48,8 +51,11 @@ import {LoginComponent} from './login/rt-login.component';
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
+
         HttpModule,
-		BrowserAnimationsModule,
+        ProgressHttpModule,
+
+        BrowserAnimationsModule,
 		
 		AppRoutingModule,
 
@@ -85,6 +91,8 @@ import {LoginComponent} from './login/rt-login.component';
     var providersList = [
         //UserDataService,
         RestService,
+
+        
         AuthenticationService,
         SiteConfig_Service,
 

@@ -11,7 +11,6 @@ export const LANG_DE_TRANS = {
     'cancel' : 'Abbruch',
 
 
-
     //validatoren
     'required' : 'Eingabe wird benötigt',
     'notValid' : 'Feld ist nicht gültig:',
@@ -20,6 +19,8 @@ export const LANG_DE_TRANS = {
     'numZero': 'Wert ist kleiner/gleich 0',
     'wrongUri' : 'Fehlerhafte URI Notation',
     'wrongDateFormat' : "Falsche Datumsangabe",
+    'wrongDate2old': "Datum darf nicht älter sein als",
+    'wrongDate2young': "Datum darf nicht jünger sein als",
     'noFile' : 'Es wurde keine Datei hochgeladen.',
     'minlength' : 'minimum Länge',
     'requiredLength' : 'benötigte Länge',

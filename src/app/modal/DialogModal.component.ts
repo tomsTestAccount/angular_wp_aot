@@ -2,24 +2,33 @@ import {Component,OnInit,DoCheck,AfterViewInit } from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 import { Subject }    from 'rxjs/Subject';
 
+import {RestService} from '../_services/rt-rest.service';
+
+
 export interface IDialogStruct {
     title?: string;
     message?: Array<string>;
     dialogSelection: string;
     href?:string;
+    progressBarMode?:string;
 }
 
-
-
-const dbg_print = false;
+const dbg_print = true;
 
 @Component({
     selector: 'my-uaFormDialog',
     template: `
             <div *ngIf="ds.dialogSelection == 'loading'"  id="loadingDialog">
-                <div  id="spinnerDiv" [style.display]="'flex'" [style.justify-content]="'center'" >
+                
+                <div  *ngIf="ds.progressBarMode === undefined" id="spinnerDiv" [style.display]="'flex'" [style.justify-content]="'center'" >
                     <md-spinner></md-spinner>
                 </div>
+                
+                <div  *ngIf="ds.progressBarMode !== undefined" id="prgressBarDiv" [style.display]="'flex'" [style.justify-content]="'center'" >
+                    <md-progress-bar color="accent" mode="{{ds.progressBar_mode}}" value="{{evt_progressBar_value}}"></md-progress-bar>
+                </div>
+                
+                
                 <p>{{ ds.title | translate }}</p>
                 <p>{{ ds.message }}</p>
             </div>    
@@ -77,7 +86,10 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
         this.dialog_selection.next(dialogStruct);
     }
 
-    constructor(public dialogRef: MdDialogRef<DialogComponent>) {
+    evt_progressBar_value:number=46;
+
+    constructor(public dialogRef: MdDialogRef<DialogComponent>,
+                private _restService:RestService) {
 
         if (dbg_print) console.log('In constructor DialogComponent');
 
@@ -85,6 +97,8 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
          selStruct => {
             if (selStruct.dialogSelection == 'info'  || selStruct.dialogSelection == 'confirm' || selStruct.dialogSelection == 'href_confirm' || selStruct.dialogSelection == 'loading' || selStruct.dialogSelection == 'warning' )
             {
+                if (dbg_print) console.log('selStruct=',selStruct);
+
                 this.ds = selStruct;
                 //this.ds.dialogSelection == selStruct.dialogSelection;
                 //this.ds.title
@@ -92,6 +106,8 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
             else console.log("Error : In uaFormModal, selStruct.dialogSelection = ",selStruct.dialogSelection );
 
          });
+
+        _restService.dialogSel$.subscribe(val => this.evt_progressBar_value = val);
     }
 
     ngOnInit()

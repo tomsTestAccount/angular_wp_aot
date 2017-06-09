@@ -372,14 +372,17 @@ export class AuthenticationService {
                 console.log("ERROR in auth_setFormObj_Server, localObj is empty !!!!");
                 reject("Nothing is sent because no changes were detected for obj to sent !");
             }
-            else {
-                this._dialog.loading('dataIsSaving');
+            else
+            {
+                this._dialog.loading('dataIsSaving',[],'determinate');
                 this._rtRestService.restPatch_formObject(this._currentUserId, this._currentToken, obj2Server)
                     .subscribe(
                         (data) => {
-                            this._dialog.closeDialog();
+                            console.log("in subscribe for dataIsSaving, data=",data);
+                            //this._dialog.closeDialog();
                             if (dbgPrint_setFormObj) console.log("set UaObj to server successfull with data=", data);
                             resolve(data);
+
                         }, //this.data = data, // Reach here if res.status >= 200 && <= 299
                         (err) => {
                             this._dialog.closeDialog();

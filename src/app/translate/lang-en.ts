@@ -19,6 +19,8 @@ export const LANG_EN_TRANS = {
     'numZero': 'Input is less than/equals zero',
     'wrongUri' : 'Wrong uri address notation',
     'wrongDateFormat': 'Wrong date format',
+    'wrongDate2old': "Date must not be older than ",
+    'wrongDate2young': "Date must not be younger than ",
     'noFile' : 'No File was uploaded yet',
     'minlength' : 'minimum length',
     'requiredLength' : "required length",
