@@ -287,7 +287,7 @@ export class rtFileUploaderComponent implements AfterViewInit,OnInit
 
         }
 
-        console.log("this.localFileArray=",this.localFileArray);
+        //console.log("this.localFileArray=",this.localFileArray);
         if (dbgPrint) console.log("formgroup.controls[",this.currentFormEntry.key,"]=", this.currentForm.controls[this.currentFormEntry.key]);
 
 

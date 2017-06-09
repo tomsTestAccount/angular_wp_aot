@@ -378,8 +378,9 @@ export class AuthenticationService {
                 this._rtRestService.restPatch_formObject(this._currentUserId, this._currentToken, obj2Server)
                     .subscribe(
                         (data) => {
-                            console.log("in subscribe for dataIsSaving, data=",data);
-                            //this._dialog.closeDialog();
+                            //console.log("in subscribe for dataIsSaving, data=",data);
+
+                            this._dialog.closeDialog();
                             if (dbgPrint_setFormObj) console.log("set UaObj to server successfull with data=", data);
                             resolve(data);
 

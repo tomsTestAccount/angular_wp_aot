@@ -31,6 +31,8 @@ import {DialogComponent}         from './modal/DialogModal.component';
 import { MainFormComponent }     from './dynamicForm/mainform.component';
 
 import { AppComponent} 			from './app.component';
+import { ProgressHttpModule } from "angular-progress-http";
+
 
 import { TRANSLATION_PROVIDERS, TranslatePipe, TranslateService }   from './translate';
 
@@ -47,6 +49,8 @@ import {LoginComponent} from './login/rt-login.component';
         ReactiveFormsModule,
         MaterialModule,
         HttpModule,
+        ProgressHttpModule,
+
 		BrowserAnimationsModule,
 		
 		//AppRoutingModule,

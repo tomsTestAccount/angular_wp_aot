@@ -2,6 +2,7 @@ import {Component,OnInit,DoCheck,AfterViewInit } from '@angular/core';
 import {MdDialogRef} from '@angular/material';
 import { Subject }    from 'rxjs/Subject';
 
+//TODO: think aboout , if it's really neccessary to import the whole REST-Service
 import {RestService} from '../_services/rt-rest.service';
 
 
@@ -13,7 +14,7 @@ export interface IDialogStruct {
     progressBarMode?:string;
 }
 
-const dbg_print = true;
+const dbg_print = false;
 
 @Component({
     selector: 'my-uaFormDialog',
@@ -27,7 +28,7 @@ const dbg_print = true;
                 <div  *ngIf="ds.progressBarMode !== undefined" id="prgressBarDiv" [style.display]="'flex'" [style.justify-content]="'center'" >
                     <md-progress-bar color="accent" mode="{{ds.progressBar_mode}}" value="{{evt_progressBar_value}}"></md-progress-bar>
                 </div>
-                
+                <p *ngIf="ds.progressBarMode !== undefined" class="loadingProgress_value">{{evt_progressBar_value}}%</p>
                 
                 <p>{{ ds.title | translate }}</p>
                 <p>{{ ds.message }}</p>
@@ -86,10 +87,11 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
         this.dialog_selection.next(dialogStruct);
     }
 
-    evt_progressBar_value:number=46;
+    evt_progressBar_value:number=0;
 
-    constructor(public dialogRef: MdDialogRef<DialogComponent>,
-                private _restService:RestService) {
+    constructor(public dialogRef: MdDialogRef<DialogComponent>
+                ,private _restService:RestService
+            ) {
 
         if (dbg_print) console.log('In constructor DialogComponent');
 
@@ -107,7 +109,7 @@ export class DialogComponent implements OnInit,DoCheck,AfterViewInit {
 
          });
 
-        _restService.dialogSel$.subscribe(val => this.evt_progressBar_value = val);
+       _restService.dialogSel$.subscribe(val => this.evt_progressBar_value = val);
     }
 
     ngOnInit()

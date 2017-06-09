@@ -228,25 +228,16 @@ export class RestService {
         if (token) headers.append('Authorization','Bearer ' + token); //'Authorization':'Bearer '
 
         //let body = JSON.stringify(form);
-        //TODO: check if valid JSON
+        //TODO: validate JSON
         let body = form;
 
-
         var obs : Observable<any>;
-
-        /*
-        var subscription : Subscription;
-
-
-        let timer = TimerObservable.create(10, 20);
-        subscription = timer.subscribe(x => console.log(x));
-        */
 
 
         //console.log("in restService,auth_getFormObject: user=",user);
         obs = this.http
-            .withUploadProgressListener(progress => { this.set_progressValue(progress.percentage); console.log(`Uploading ${progress.percentage}%`); })
-            .withDownloadProgressListener(progress => { this.set_progressValue(progress.percentage); console.log(`Downloading ${progress.percentage}%`); })
+            .withUploadProgressListener(progress => { this.set_progressValue(progress.percentage); }) //console.log(`Uploading ${progress.percentage}%`); })
+            .withDownloadProgressListener(progress => { this.set_progressValue(progress.percentage); }) // console.log(`Downloading ${progress.percentage}%`); })
             .patch(this.serverURL + '/' + this.applicationEntryPath + '/' + userId +'/'+userId                                        //url req-main
             ,body                                                                            //(userData)                                                                        //body
             ,{headers:headers} //,({headers: new Headers({'Authorization':token}) })                               //({'Authorization':'Bearer ' + token})                 //header
